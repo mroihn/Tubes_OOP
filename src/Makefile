@@ -1,7 +1,7 @@
 CC = g++
 CFLAGS = -Wall -g
 
-SRC =  main.cpp
+SRC =  main.cpp ./GameManager/GameManager.cpp
 
 TARGET = ../bin/main.exe
 

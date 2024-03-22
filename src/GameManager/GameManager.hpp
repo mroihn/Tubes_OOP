@@ -16,4 +16,5 @@ class GameManager{
         void bacaConfigTanaman(string filename);
         void bacaConfigProduk(string filename);
         void bacaConfigRecipe(string filename);
+        void printLogo();
 };
