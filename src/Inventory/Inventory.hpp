@@ -1,7 +1,9 @@
 #include <vector>
 #include <iostream>
+#include <iomanip>
+#include <sstream>
 
-using std::vector, std::cin, std::cout, std::endl;
+using namespace std;
 
 template<class T>
 class Inventory{
@@ -56,17 +58,31 @@ class Inventory{
         // }
 
         void print() const {
-            //label
-            cout << "    ";
+            // label
+            cout << "        ";
             for(int i=0; i<cols; i++){
-                cout << "  " << 'A'+i << "   ";
+                cout << char('A'+i) << "     ";
             }
             cout << endl;
             for (int i = 0; i < rows; ++i) {
+                cout << "     ";
                 for (int j = 0; j < cols; ++j) {
-                    cout << contents[i][j] << " ";
+                    cout << "+-----";
                 }
-                cout << endl;
+                cout << "+" << endl;
+                cout << "  " << setw(2) << setfill('0') << i+1;
+                for (int j = 0; j < cols; ++j) {
+                    cout << " | ";
+                    cout << setw(3) << setfill('0') << contents[i][j];
+                    // cout << " ";
+                }
+                cout << " |" << endl;
             }
+            cout << "     ";
+            for (int j = 0; j < cols; ++j) {
+                cout << "+-----";
+            }
+            cout << "+" << endl;
         }
+
 };
