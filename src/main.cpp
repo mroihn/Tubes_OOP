@@ -20,6 +20,4 @@ int main(){
         game.bacaConfigHewan("../config/animal.txt");
         game.bacaConfigTanaman("../config/plant.txt");
     }
-                                                           
-
 }
