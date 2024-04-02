@@ -1,3 +1,5 @@
+// ini adalah Inventory.hpp
+
 #include <vector>
 #include <iostream>
 #include <iomanip>
@@ -31,33 +33,7 @@ class Inventory{
             return contents[i][j];
         }
 
-        // Inventory<T> operator+(const Inventory<T>& other) const {
-        //     Inventory<T> result(rows, cols);
-        //     for (int i = 0; i < rows; ++i) {
-        //         for (int j = 0; j < cols; ++j) {
-        //             result(i, j) = contents[i][j] + other(i, j);
-        //         }
-        //     }
-        //     return result;
-        // }
-
-        // Inventory<T> operator*(const Inventory<T>& other) const {
-        //     if (cols != other.rows) {
-        //         throw std::invalid_argument("Number of columns in first Inventory must match number of rows in second Inventory");
-        //     }
-
-        //     Inventory<T> result(rows, other.cols);
-        //     for (int i = 0; i < rows; ++i) {
-        //         for (int j = 0; j < other.cols; ++j) {
-        //             for (int k = 0; k < cols; ++k) {
-        //                 result(i, j) += contents[i][k] * other(k, j);
-        //             }
-        //         }
-        //     }
-        //     return result;
-        // }
-
-        void print() const {
+        void print() {
             // label
             cout << "        ";
             for(int i=0; i<cols; i++){
@@ -74,7 +50,6 @@ class Inventory{
                 for (int j = 0; j < cols; ++j) {
                     cout << " | ";
                     cout << setw(3) << setfill('0') << contents[i][j];
-                    // cout << " ";
                 }
                 cout << " |" << endl;
             }
@@ -85,4 +60,42 @@ class Inventory{
             cout << "+" << endl;
         }
 
+        void push(T item, int i, int j){
+            if(contents[i][j].getKode()==""){
+                contents[i][j] = item;
+                cout << "Berhasil mem-push " << contents[i][j] << " ke Inventory" <<endl;
+                return;
+            }
+            else{
+                cout << "blok ini sudah terisi" << endl;
+            }
+
+        }
+
+        template<typename U>
+        void pop(int i, int j){
+            if(i >= 0 && i < rows && j >= 0 && j < cols){
+                if(typeid(contents[i][j]) == typeid(U)){ // Memeriksa apakah jenis objek cocok dengan U
+                    if(contents[i][j].getKode() != ""){
+                        cout << "Menghapus " << contents[i][j] << " dari Inventory" << endl;
+                        contents[i][j] = T();
+                        cout << "Penyimpanan Terkini, sbb: " << endl;
+                        print();
+                    }
+                    else{
+                        cout << "Tidak ada item di posisi (" << i << ", " << j << ") dalam Inventory" << endl;
+                    }
+                }
+                else{
+                    cout << "Tidak dapat menghapus objek yang tidak sesuai dengan jenis yang diinginkan" << endl;
+                }
+            }
+            else{
+                cout << "Posisi (" << i << ", " << j << ") tidak valid" << endl;
+            }
+        }
+
+        int getPrice(int i, int j){
+            return contents[i][j].getPriceItem();
+        }
 };

@@ -10,11 +10,11 @@ void GameManager::bacaConfigHewan(string filename){
     string line;
     while (getline(file, line)) {
         istringstream iss(line);
-        int id, harvest_price, price;
+        int id, weight_to_harvest, price;
         string kode_huruf, nama, type;
 
-        if (iss >> id >> kode_huruf >> nama >> type >> harvest_price >> price) {
-            Hewan hewan(id, kode_huruf, nama, type, harvest_price, price);
+        if (iss >> id >> kode_huruf >> nama >> type >> weight_to_harvest >> price) {
+            Hewan hewan(id, kode_huruf, nama, type, weight_to_harvest, price);
             animals.push_back(hewan);
         }
     }
@@ -35,11 +35,11 @@ void GameManager::bacaConfigTanaman(string filename){
     string line;
     while (getline(file, line)) {
         istringstream iss(line);
-        int id, harvest_price, price;
+        int id, duration_to_harvest, price;
         string kode_huruf, nama, type;
 
-        if (iss >> id >> kode_huruf >> nama >> type >> harvest_price >> price) {
-            Tanaman tanaman(id, kode_huruf, nama, type, harvest_price, price);
+        if (iss >> id >> kode_huruf >> nama >> type >> duration_to_harvest >> price) {
+            Tanaman tanaman(id, kode_huruf, nama, type, duration_to_harvest, price);
             ListTanaman.push_back(tanaman);
         }
     }
