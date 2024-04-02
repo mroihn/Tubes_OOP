@@ -13,10 +13,7 @@ class User{
         int uang;
         //Inventory penyimpanan;
     public:
-        User(){
-            berat_badan = 40;
-            uang = 50;
-        };
+        User();
         void next();
         void cetak_penyimpanan();
         void makan();
@@ -27,6 +24,7 @@ class User{
 class Walikota: public User{
     private:
         static int jumlah_walikota;
+        //inventory
     public:
         void tagihPajak();
         void tambahBangunan();
@@ -35,8 +33,11 @@ class Walikota: public User{
 
 class Petani: public User{
     private:
-        //Inventory ladang;
+        static int jumlah_petani;
+        //inventory
     public:
+        Petani(string username);
+        ~Petani();
         void tanamTanaman();
         void panenTanaman();
         void cetakLadang();
@@ -44,11 +45,14 @@ class Petani: public User{
 
 class Peternak: public User{
     private:
-        //Inventory peternakan;
+        static int jumlah_peternak;
     public:
+        Peternak(string username);
+        ~Peternak();
         void cetakPeternakan();
         void ternak();
-        void panen();
+        void panenTernak();
+    
 };
 
 
