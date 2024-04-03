@@ -2,6 +2,7 @@
 #define USER_H
 
 #include <string>
+#include "Inventory/Inventory.hpp"
 
 using namespace std;
 
@@ -24,8 +25,10 @@ class User{
 class Walikota: public User{
     private:
         static int jumlah_walikota;
-        //inventory
+        Inventory<Bangunan> bangunan;
     public:
+        Walikota(string username);
+        ~Walikota();
         void tagihPajak();
         void tambahBangunan();
         void tambahPemain();
@@ -34,7 +37,7 @@ class Walikota: public User{
 class Petani: public User{
     private:
         static int jumlah_petani;
-        //inventory
+        Inventory<Tumbuhan> ladang;
     public:
         Petani(string username);
         ~Petani();
@@ -46,6 +49,7 @@ class Petani: public User{
 class Peternak: public User{
     private:
         static int jumlah_peternak;
+        Inventory<Hewan> peternakan;
     public:
         Peternak(string username);
         ~Peternak();
