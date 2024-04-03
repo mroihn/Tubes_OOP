@@ -17,7 +17,13 @@ int main(){
     t.print();
     h.print();
 
+    cout << t.getKode() << endl;
+
     //cek harga Tanaman t
     cout << t.getPriceItem() << endl;
+
+    //cek lama supaya bisa panen
+    cout << t.getDurationToHarvestItem() << endl;
+
     return 0;
 }

@@ -16,6 +16,8 @@ class InvItems{
 
         InvItems(int id, string kode_huruf, string nama, string type, int price)
         : id(id), kode_huruf(kode_huruf), nama(nama), price(price) {}
+
+        // getter kode
         string getKode(){
             return kode_huruf;
         }
@@ -25,9 +27,17 @@ class InvItems{
             return price;
         }
 
+        virtual int getDurationToHarvestItem(){
+            return 0;
+        }
+
         friend ostream& operator<<(ostream& os, InvItems& b){
             os << b.kode_huruf;
             return os;
+        }
+
+        virtual void print(){
+            cout << id << " " << kode_huruf << " " << nama << " " << price << endl;
         }
 };
 
@@ -59,6 +69,10 @@ class Tanaman: public InvItems{
         InvItems(id,kode_huruf,nama, type, price){
             this->duration_to_harvest = duration_to_harvest;
             this->type = type;
+        }
+
+        int getDurationToHarvestItem(){
+            return duration_to_harvest;
         }
 
         void print(){
@@ -96,7 +110,7 @@ class Product: public InvItems{
             this->type = type;
         }
         void print(){
-            cout << id << " " << kode_huruf << " " << nama << " " << type << " " << origin << " " << added_weight << " " << price << endl;
+            cout << "Tumbuhan" << id << " " << kode_huruf << " " << nama << " " << type << " " << origin << " " << added_weight << " " << price << endl;
         }
 };
 
