@@ -2,6 +2,8 @@
 #define USER_H
 
 #include <string>
+#include "./Inventory/Inventory.hpp"
+#include "./InvItems/InvItems.hpp"
 
 using namespace std;
 
@@ -11,9 +13,9 @@ class User{
         string username;
         int berat_badan;
         int uang;
-        //Inventory penyimpanan;
+        Inventory<InvItems*> penyimpanan;
     public:
-        User(){
+        User(): penyimpanan(0,0){
             berat_badan = 40;
             uang = 50;
         };
@@ -35,7 +37,7 @@ class Walikota: public User{
 
 class Petani: public User{
     private:
-        //Inventory ladang;
+        Inventory<TanamanLadang> ladang;
     public:
         void tanamTanaman();
         void panenTanaman();
@@ -44,7 +46,7 @@ class Petani: public User{
 
 class Peternak: public User{
     private:
-        //Inventory peternakan;
+        Inventory<Hewan> peternakan;
     public:
         void cetakPeternakan();
         void ternak();
