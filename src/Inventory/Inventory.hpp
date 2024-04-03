@@ -1,101 +1,44 @@
-// ini adalah Inventory.hpp
-
 #include <vector>
 #include <iostream>
 #include <iomanip>
 #include <sstream>
-
+#include <string>
+#include <functional>
 using namespace std;
 
 template<class T>
 class Inventory{
     private:
-        vector<vector<T>> contents;
+        vector<vector<T>> contents; // Menggunakan T sebagai tipe langsung di dalam vektor
         int rows, cols;
+
     public:
-        Inventory(int rows, int cols) : rows(rows), cols(cols){
-            contents.resize(rows, vector<T>(cols));
+        Inventory(int rows, int cols) : rows(rows), cols(cols) {
+            contents.resize(rows, vector<T>(cols)); // Menggunakan T sebagai tipe langsung di dalam vektor
         }
 
-        int getRows() const {
-            return rows;
-        }
-
-        int getCols() const {
-            return cols;
-        }
-
-        T& operator()(int i, int j) {
-            return contents[i][j];
-        }
-
-        const T& operator()(int i, int j) const {
-            return contents[i][j];
-        }
-
-        void print() {
-            // label
-            cout << "        ";
-            for(int i=0; i<cols; i++){
-                cout << char('A'+i) << "     ";
+        void addItem(T item, int row, int col) {
+            if (row >= 0 && row < rows && col >= 0 && col < cols) {
+                contents[row][col] = item; // Menyimpan referensi yang sudah ada
+            } else {
+                cerr << "Posisi tidak valid." << endl;
             }
-            cout << endl;
-            for (int i = 0; i < rows; ++i) {
-                cout << "     ";
-                for (int j = 0; j < cols; ++j) {
-                    cout << "+-----";
-                }
-                cout << "+" << endl;
-                cout << "  " << setw(2) << setfill('0') << i+1;
-                for (int j = 0; j < cols; ++j) {
-                    cout << " | ";
-                    cout << setw(3) << setfill('0') << contents[i][j];
-                }
-                cout << " |" << endl;
-            }
-            cout << "     ";
-            for (int j = 0; j < cols; ++j) {
-                cout << "+-----";
-            }
-            cout << "+" << endl;
-        }
-
-        void push(T item, int i, int j){
-            if(contents[i][j].getKode()==""){
-                contents[i][j] = item;
-                cout << "Berhasil mem-push " << contents[i][j] << " ke Inventory" <<endl;
-                return;
-            }
-            else{
-                cout << "blok ini sudah terisi" << endl;
-            }
-
         }
 
         template<typename U>
-        void pop(int i, int j){
-            if(i >= 0 && i < rows && j >= 0 && j < cols){
-                if(typeid(contents[i][j]) == typeid(U)){ // Memeriksa apakah jenis objek cocok dengan U
-                    if(contents[i][j].getKode() != ""){
-                        cout << "Menghapus " << contents[i][j] << " dari Inventory" << endl;
-                        contents[i][j] = T();
-                        cout << "Penyimpanan Terkini, sbb: " << endl;
-                        print();
-                    }
-                    else{
-                        cout << "Tidak ada item di posisi (" << i << ", " << j << ") dalam Inventory" << endl;
-                    }
+        U* getItem(int row, int col) {
+            if (row >= 0 && row < rows && col >= 0 && col < cols) {
+                // Pastikan bahwa tipe U adalah subclass dari InvItems
+                U* item = dynamic_cast<U*>(contents[row][col]);
+                if (item) {
+                    return item;
+                } else {
+                    std::cerr << "Tipe tidak valid atau tidak cocok." << endl;
+                    return nullptr;
                 }
-                else{
-                    cout << "Tidak dapat menghapus objek yang tidak sesuai dengan jenis yang diinginkan" << endl;
-                }
+            } else {
+                cerr << "Posisi tidak valid." << endl;
+                return nullptr;
             }
-            else{
-                cout << "Posisi (" << i << ", " << j << ") tidak valid" << endl;
-            }
-        }
-
-        int getPrice(int i, int j){
-            return contents[i][j].getPriceItem();
         }
 };
