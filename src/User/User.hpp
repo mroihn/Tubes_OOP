@@ -3,7 +3,7 @@
 
 #include <string>
 #include "../Inventory/Inventory.hpp"  
-#include "../BahanBaku/BahanBaku.hpp"
+#include "../InvItems/InvItems.hpp"
 #include "../pcolor/pcolor.h"
 
 using namespace std;
@@ -14,7 +14,7 @@ class User{
         string username;
         int berat_badan;
         int uang;
-        Inventory<BahanBaku*> penyimpanan;
+        Inventory<InvItems*> penyimpanan;
     public:
         User() : penyimpanan(5,5){
             berat_badan = 40;
@@ -71,12 +71,12 @@ class User{
             }
             cout << "+" << endl;
         }
-        void setPenyimpanan(int i, int j, BahanBaku* b){
+        void setPenyimpanan(int i, int j, InvItems* item){
             if (i>=penyimpanan.getRows() || j>penyimpanan.getCols() || i<0 || j<0){
                 // Throw Exception
             }
             delete penyimpanan(i,j);
-            penyimpanan(i,j) = b;
+            penyimpanan(i,j) = item;
         }
         void makan();
         void beli();

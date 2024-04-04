@@ -41,4 +41,16 @@ class Inventory{
                 return nullptr;
             }
         }
+
+        int getRows() const {
+            return rows;
+        }
+
+        int getCols() const {
+            return cols;
+        }
+
+        T& operator()(int i, int j) const {
+            return contents[i][j];
+        }
 };
