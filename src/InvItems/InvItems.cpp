@@ -38,6 +38,14 @@ Hewan::Hewan(int id, string kode_huruf, string nama, string type, int weight_to_
 InvItems(id,kode_huruf,nama, price){
     this->weight_to_harvest = weight_to_harvest;
     this->type = type;
+    this ->weight = 0;
+}
+
+Hewan::Hewan(int id, string kode_huruf, string nama, string type, int weight_to_harvest, int price, int weight): 
+InvItems(id,kode_huruf,nama, price){
+    this->weight_to_harvest = weight_to_harvest;
+    this->type = type;
+    this ->weight = weight;
 }
 
 void Hewan::print(){
@@ -50,6 +58,7 @@ Tanaman::Tanaman(int id, string kode_huruf, string nama, string type, int durati
 InvItems(id,kode_huruf,nama, price){
     this->duration_to_harvest = duration_to_harvest;
     this->type = type;
+    this->umur_tanaman = 0;
 }
 
 int Tanaman::getDurationToHarvestItem(){
@@ -57,20 +66,11 @@ int Tanaman::getDurationToHarvestItem(){
 }
 
 void Tanaman::print(){
-    cout << id << " " << kode_huruf << " " << nama << " " << type << " " << duration_to_harvest << " " << price << endl;
+    cout << id << " " << kode_huruf << " " << nama << " " << type << " " << duration_to_harvest << " " << price << " " << umur_tanaman << endl;
 }
 
-TanamanLadang::TanamanLadang(){}
-TanamanLadang::TanamanLadang(int id, string kode_huruf, string nama, string type, int duration_to_harvest, int price): 
-Tanaman(id,kode_huruf,nama, type, duration_to_harvest, price){
-    this->umur_tanaman = 0;
-}
 
-void TanamanLadang::print(){
-    cout << id << " " << kode_huruf << " " << nama << " " << type << " " << duration_to_harvest << " " << price << endl;
-}
-
-bool TanamanLadang::siapPanen(){
+bool Tanaman::siapPanen(){
     return umur_tanaman>=duration_to_harvest;
 }
 

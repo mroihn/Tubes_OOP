@@ -1,4 +1,6 @@
 // ini adalah InvItems.hpp
+#ifndef INVITEMS_H
+#define INVITEMS_H
 
 #include <string>
 #include <iostream>
@@ -26,45 +28,39 @@ class InvItems{
         virtual void print();
 };
 
-//<ID> <KODE_HURUF> <NAME> <TYPE> <WEIGHT_TO_HARVEST> <PRICE>
+//<ID> <KODE_HURUF> <NAME> <TYPE> <WEIGHT_TO_HARVEST> <PRICE> <BERAT>
 class Hewan: public InvItems{
     protected:
         int weight_to_harvest;
         string type;
+        int weight;
     public:
         Hewan();
+        //user defined constructor, dengan berat awal 0
         Hewan(int id, string kode_huruf, string nama, string type, int weight_to_harvest, int price);
+        //user defined constructor, dengan berat awal diset oleh user
+        Hewan(int id, string kode_huruf, string nama, string type, int weight_to_harvest, int price, int weight);
 
         void print();
 };
 
-//<ID> <KODE_HURUF> <NAME> <TYPE> <DURATION_TO_HARVEST> <PRICE>
+//<ID> <KODE_HURUF> <NAME> <TYPE> <DURATION_TO_HARVEST> <PRICE> <UMUR>
 class Tanaman: public InvItems{
     protected:
         int duration_to_harvest;
         string type;
+        int umur_tanaman;
     public:
         Tanaman();
+        //user defined constructor, umur di awal selalu 0
         Tanaman(int id, string kode_huruf, string nama, string type, int duration_to_harvest, int price);
 
         int getDurationToHarvestItem();
 
         void print();
-        virtual bool siapPanen() = 0;
-};
-
-//<ID> <KODE_HURUF> <NAME> <TYPE> <DURATION_TO_HARVEST> <PRICE> <UMUR_TANAMAN>
-class TanamanLadang: public Tanaman{
-    private:
-        int umur_tanaman;
-    public:
-        TanamanLadang(){}
-        TanamanLadang(int id, string kode_huruf, string nama, string type, int duration_to_harvest, int price);
-
-        void print();
-        //Cek apakah tanaman siap untuk dipanen
         bool siapPanen();
 };
+
 
 //<ID> <KODE_HURUF> <NAME> <TYPE> <ORIGIN> <ADDED_WEIGHT> <PRICE>
 class Product: public InvItems{
@@ -83,10 +79,9 @@ class Product: public InvItems{
 //Building tidak perlu Material dan quantity, karena tdk digunakan dalam Inventory
 class Building: public InvItems{
     public:
-        Building(){}
-        Building(int id, string kode_huruf, string nama, int price):
-        InvItems(id, kode_huruf, nama,price){}
-        void print(){
-            cout << id << " " << kode_huruf << " " << nama << price << endl;
-        }
+        Building();
+        Building(int id, string kode_huruf, string nama, int price);
+        void print();
 };
+
+#endif

@@ -11,7 +11,7 @@ class Inventory{
     private:
         vector<vector<T>> contents; // Menggunakan T sebagai tipe langsung di dalam vektor
         int rows, cols;
-        int neff
+        int neff;
     public:
         Inventory(int rows, int cols) : rows(rows), cols(cols) {
             contents.resize(rows, vector<T>(cols)); // Menggunakan T sebagai tipe langsung di dalam vektor
@@ -74,7 +74,4 @@ class Inventory{
             return contents[i][j];
         }
 
-        const T& operator()(int i, int j) const {
-            return contents[i][j];
-        }
 };

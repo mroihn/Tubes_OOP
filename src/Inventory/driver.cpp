@@ -1,6 +1,7 @@
 // ini adalah Inventory.cpp
 #include "Inventory.hpp"
 #include "../InvItems/InvItems.hpp"
+#include "../InvItems/InvItems.cpp"
 
 int main(){
     Inventory<InvItems*> inv(5,8);
