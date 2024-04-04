@@ -11,10 +11,18 @@ class Inventory{
     private:
         vector<vector<T>> contents; // Menggunakan T sebagai tipe langsung di dalam vektor
         int rows, cols;
-
+        int neff
     public:
         Inventory(int rows, int cols) : rows(rows), cols(cols) {
             contents.resize(rows, vector<T>(cols)); // Menggunakan T sebagai tipe langsung di dalam vektor
+        }
+
+        ~Inventory(){
+                for (int i = 0; i < rows; i++) {
+                    for (int j = 0; j < cols; j++) {
+                        delete contents[i][j];
+                }
+            }
         }
 
         void addItem(T item, int row, int col) {
@@ -50,6 +58,18 @@ class Inventory{
             return cols;
         }
 
+        int getNeff() const {
+            return neff;
+        }
+
+        bool isEmpty(){
+            return(neff==0);
+        }
+
+        bool isFull(){
+            return(neff==rows*cols);
+        }
+        
         T& operator()(int i, int j) const {
             return contents[i][j];
         }
