@@ -69,8 +69,12 @@ class Inventory{
         bool isFull(){
             return(neff==rows*cols);
         }
-        
+
         T& operator()(int i, int j) const {
+            return contents[i][j];
+        }
+
+        const T& operator()(int i, int j) const {
             return contents[i][j];
         }
 };
