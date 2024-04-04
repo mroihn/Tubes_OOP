@@ -82,12 +82,20 @@ InvItems(id,kode_huruf,nama, price){
     this->type = type;
 }
 void Product::print(){
-    cout << "Tumbuhan" << id << " " << kode_huruf << " " << nama << " " << type << " " << origin << " " << added_weight << " " << price << endl;
+    cout << id << " " << kode_huruf << " " << nama << " " << type << " " << origin << " " << added_weight << " " << price << endl;
 }
 
 Building::Building(){}
-Building::Building(int id, string kode_huruf, string nama, int price):
-InvItems(id, kode_huruf, nama,price){}
+Building::Building(int id, string kode_huruf, string nama, int price, map<string,int> recipe):
+InvItems(id, kode_huruf, nama,price){
+    this->recipe = recipe;
+}
 void Building::print(){
-    cout << id << " " << kode_huruf << " " << nama << price << endl;
+    cout << id << " " << kode_huruf << " " << nama << " " << price << " ";
+    for(auto it = recipe.begin(); it != recipe.end(); ++it){
+        const std::string& material = it->first;
+        int quantity = it->second;
+        cout << material << " " << quantity << " ";
+    }
+    cout << endl;
 }

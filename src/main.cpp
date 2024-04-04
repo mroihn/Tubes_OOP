@@ -17,7 +17,9 @@ int main(){
     cin>>pilihan;
 
     if(pilihan == 1){
-        game.bacaConfigHewan("../config/animal.txt");
-        game.bacaConfigTanaman("../config/plant.txt");
+        game.bacaConfigHewan("./config/animal.txt");
+        game.bacaConfigTanaman("./config/plant.txt");
+        game.bacaConfigProduk("./config/product.txt");
+        game.bacaConfigRecipe("./config/recipe.txt");
     }
 }

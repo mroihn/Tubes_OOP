@@ -5,6 +5,7 @@
 #include <string>
 #include <iostream>
 #include <vector>
+#include <map>
 using namespace std;
 
 class InvItems{
@@ -78,9 +79,11 @@ class Product: public InvItems{
 //<ID> <KODE_HURUF> <NAME> <PRICE> <MATERIAL_1> <MATERIAL_1_QUANTITY> <MATERIAL_2> <MATERIAL_2_QUANTITY> ... <MATERIAL_N> <MATERIAL_N_QUANTITY>
 //Building tidak perlu Material dan quantity, karena tdk digunakan dalam Inventory
 class Building: public InvItems{
+    private:
+        map<string, int> recipe;
     public:
         Building();
-        Building(int id, string kode_huruf, string nama, int price);
+        Building(int id, string kode_huruf, string nama, int price, map<string, int> recipe);
         void print();
 };
 

@@ -11,6 +11,8 @@ class GameManager{
     private:
         vector<Hewan> animals;
         vector<Tanaman> ListTanaman;
+        vector<Product> ListProduk;
+        vector<Building> ListBuilding;
     public:
         void bacaConfigHewan(string filename);
         void bacaConfigTanaman(string filename);
