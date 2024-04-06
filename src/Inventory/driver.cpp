@@ -6,9 +6,9 @@
 int main(){
     Inventory<InvItems*> inv(5,8);
 
-    Tanaman t(1,"TEK","TEAK_TREE","MATERIAL_PLANT", 15, 5);
+    Tanaman t(1,"TEK","TEAK_TREE", 15, 5);
 
-    Hewan h(1,"COW","COW","HERBIVORE", 20, 6);
+    Hewan h(1,"COW","COW", 20, 6);
 
     inv.addItem(&t, 0, 0);
 

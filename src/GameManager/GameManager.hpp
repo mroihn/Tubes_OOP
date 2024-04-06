@@ -9,9 +9,9 @@ using namespace std;
 
 class GameManager{
     private:
-        vector<Hewan> animals;
-        vector<Tanaman> ListTanaman;
-        vector<Product> ListProduk;
+        vector<Hewan*> animals;
+        vector<Tanaman*> ListTanaman;
+        vector<Product*> ListProduk;
         vector<Building> ListBuilding;
     public:
         void bacaConfigHewan(string filename);

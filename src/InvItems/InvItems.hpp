@@ -6,6 +6,7 @@
 #include <iostream>
 #include <vector>
 #include <map>
+#include "InvItemsException.hpp"
 using namespace std;
 
 class InvItems{
@@ -29,51 +30,119 @@ class InvItems{
         virtual void print();
 };
 
+//<ID> <KODE_HURUF> <NAME> <TYPE> <ORIGIN> <ADDED_WEIGHT> <PRICE>
+//Turunan: Material, Fruit, Meat
+//Types: PRODUCT_MATERIAL_PLANT, PRODUCT_FRUIT_PLANT, PRODUCT_ANIMAL
+class Product: public InvItems{
+    protected:
+        string origin;
+        int added_weight;
+    public:
+        Product();
+        Product(int id, string kode_huruf, string nama, string origin, int added_weight, int price);
+        void print();
+        int getAddedWeight();
+};
+
+//Type : PRODUCT_MATERIAL_PLANT
+class Material: public Product{
+    public:
+        Material();
+        Material(int id, string kode_huruf, string nama, string origin, int added_weight, int price);
+        void print();
+};
+
+//Type : PRODUCT_FRUIT_PLANT
+class Fruit: public Product{
+    public:
+        Fruit();
+        Fruit(int id, string kode_huruf, string nama, string origin, int added_weight, int price);
+        void print();
+};
+
+//Type : PRODUCT_ANIMAL
+class Meat: public Product{
+    public:
+        Meat();
+        Meat(int id, string kode_huruf, string nama, string origin, int added_weight, int price);
+        void print();
+};
+
 //<ID> <KODE_HURUF> <NAME> <TYPE> <WEIGHT_TO_HARVEST> <PRICE> <BERAT>
+//Turunan: Herbivora, Carnivore, Omnivore
 class Hewan: public InvItems{
     protected:
         int weight_to_harvest;
-        string type;
         int weight;
     public:
         Hewan();
         //user defined constructor, dengan berat awal 0
-        Hewan(int id, string kode_huruf, string nama, string type, int weight_to_harvest, int price);
+        Hewan(int id, string kode_huruf, string nama, int weight_to_harvest, int price);
         //user defined constructor, dengan berat awal diset oleh user
-        Hewan(int id, string kode_huruf, string nama, string type, int weight_to_harvest, int price, int weight);
+        Hewan(int id, string kode_huruf, string nama, int weight_to_harvest, int price, int weight);
 
         void print();
 };
 
+class Herbivore: public Hewan{
+    public:
+        Herbivore();
+        Herbivore(int id, string kode_huruf, string nama, int weight_to_harvest, int price);
+
+        void print();
+        void makan(Product* Food);
+};
+
+class Carnivore: public Hewan{
+    public:
+        Carnivore();
+        Carnivore(int id, string kode_huruf, string nama, int weight_to_harvest, int price);
+
+        void print();
+        void makan(Product* Food);
+};
+
+class Omnivore: public Hewan{
+    public:
+        Omnivore();
+        Omnivore(int id, string kode_huruf, string nama, int weight_to_harvest, int price);
+
+        void print();
+        void makan(Product* Food);
+};
+
 //<ID> <KODE_HURUF> <NAME> <TYPE> <DURATION_TO_HARVEST> <PRICE> <UMUR>
+//Turunan: Material_Plant, Fruit_Plant
 class Tanaman: public InvItems{
     protected:
         int duration_to_harvest;
-        string type;
         int umur_tanaman;
     public:
         Tanaman();
         //user defined constructor, umur di awal selalu 0
-        Tanaman(int id, string kode_huruf, string nama, string type, int duration_to_harvest, int price);
+        Tanaman(int id, string kode_huruf, string nama, int duration_to_harvest, int price);
 
         int getDurationToHarvestItem();
-
         void print();
         bool siapPanen();
 };
 
-
-//<ID> <KODE_HURUF> <NAME> <TYPE> <ORIGIN> <ADDED_WEIGHT> <PRICE>
-class Product: public InvItems{
-    private:
-        string origin;
-        int added_weight;
-        string type;
+class Material_Plant: public Tanaman{
     public:
-        Product();
-        Product(int id, string kode_huruf, string nama, string type, string origin, int added_weight, int price);
+        Material_Plant();
+        Material_Plant(int id, string kode_huruf, string nama, int duration_to_harvest, int price);
+
         void print();
 };
+
+class Fruit_Plant: public Tanaman{
+    public:
+        Fruit_Plant();
+        Fruit_Plant(int id, string kode_huruf, string nama, int duration_to_harvest, int price);
+
+        void print();
+};
+
 
 
 //<ID> <KODE_HURUF> <NAME> <PRICE> <MATERIAL_1> <MATERIAL_1_QUANTITY> <MATERIAL_2> <MATERIAL_2_QUANTITY> ... <MATERIAL_N> <MATERIAL_N_QUANTITY>
