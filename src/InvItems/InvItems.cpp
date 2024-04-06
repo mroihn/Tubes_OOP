@@ -20,9 +20,6 @@ int InvItems::getPriceItem(){
     return price;
 }
 
-int InvItems::getDurationToHarvestItem(){
-    return 0;
-}
 
 ostream& operator<<(ostream& os, InvItems& b){
     os << b.kode_huruf;
@@ -73,14 +70,20 @@ InvItems(id,kode_huruf,nama, price){
     this ->weight = 0;
 }
 
-Hewan::Hewan(int id, string kode_huruf, string nama, int weight_to_harvest, int price, int weight): 
-InvItems(id,kode_huruf,nama, price){
-    this->weight_to_harvest = weight_to_harvest;
-    this ->weight = weight;
+void Hewan::tambahBerat(int berat){
+    weight+=berat;
+}
+
+int Hewan::getWeightToHarvestItem(){
+    return weight_to_harvest;
 }
 
 void Hewan::print(){
     cout << id << " " << kode_huruf << " " << nama << " " << weight_to_harvest << " " << price << " " << weight << endl;
+}
+
+bool Hewan::siapPanen(){
+    return weight>=weight_to_harvest;
 }
 
 Herbivore::Herbivore(){}
@@ -131,6 +134,10 @@ Tanaman::Tanaman(int id, string kode_huruf, string nama, int duration_to_harvest
 InvItems(id,kode_huruf,nama, price){
     this->duration_to_harvest = duration_to_harvest;
     this->umur_tanaman = 0;
+}
+
+void Tanaman::tambahUmurTanaman(){
+    umur_tanaman++;
 }
 
 int Tanaman::getDurationToHarvestItem(){

@@ -18,11 +18,9 @@ class InvItems{
     public:
         InvItems();
         InvItems(int id, string kode_huruf, string nama, int price);
-
         string getKode();
         string getNama();
         int getPriceItem();
-        virtual int getDurationToHarvestItem();
 
         //Operator overloading (akan memprint nama item)
         friend ostream& operator<<(ostream& os, InvItems& b);
@@ -78,10 +76,11 @@ class Hewan: public InvItems{
         Hewan();
         //user defined constructor, dengan berat awal 0
         Hewan(int id, string kode_huruf, string nama, int weight_to_harvest, int price);
-        //user defined constructor, dengan berat awal diset oleh user
-        Hewan(int id, string kode_huruf, string nama, int weight_to_harvest, int price, int weight);
 
-        void print();
+        void tambahBerat(int berat);
+        int getWeightToHarvestItem();
+        virtual void print();
+        bool siapPanen();
 };
 
 class Herbivore: public Hewan{
@@ -121,9 +120,10 @@ class Tanaman: public InvItems{
         Tanaman();
         //user defined constructor, umur di awal selalu 0
         Tanaman(int id, string kode_huruf, string nama, int duration_to_harvest, int price);
-
+        
+        void tambahUmurTanaman();
         int getDurationToHarvestItem();
-        void print();
+        virtual void print();
         bool siapPanen();
 };
 
