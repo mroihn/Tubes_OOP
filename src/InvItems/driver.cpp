@@ -4,7 +4,6 @@
 #include <vector>
 #include <string>
 #include "InvItems.hpp"
-#include "InvItems.cpp"
 
 
 int main(){
