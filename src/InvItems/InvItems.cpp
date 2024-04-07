@@ -95,6 +95,7 @@ void Herbivore::print(){
 void Herbivore::makan(Product* Food){
     if(Fruit* buah = dynamic_cast<Fruit*>(Food)){
         weight+=Food->getAddedWeight();
+        cout << "herbivore makan buah " << buah->getNama() << endl;
     }else{
         throw MakananTidakCocokException();
     }
@@ -109,6 +110,7 @@ void Carnivore::print(){
 void Carnivore::makan(Product* Food){
     if(Meat* daging = dynamic_cast<Meat*>(Food)){
         weight+=Food->getAddedWeight();
+        cout << "carnivore makan daging " << daging->getNama() << endl; 
     }else{
         throw MakananTidakCocokException();
     }
@@ -121,11 +123,7 @@ void Omnivore::print(){
     cout << id << " " << kode_huruf << " " << nama << " OMNIVORE " << weight_to_harvest << " " << price << " " << weight << endl;
 }
 void Omnivore::makan(Product* Food){
-    if(Material* daging = dynamic_cast<Material*>(Food)){
-        throw MakananTidakCocokException();
-    }else{
-        weight+=Food->getAddedWeight();
-    }
+    weight+=Food->getAddedWeight();
 }
 
 
