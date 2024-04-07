@@ -1,3 +1,5 @@
+// Inventory.hpp
+
 #include <vector>
 #include <iostream>
 #include <iomanip>
@@ -13,21 +15,16 @@ class Inventory{
         int rows, cols;
         int neff;
     public:
-        Inventory(int rows, int cols) : rows(rows), cols(cols) {
+        Inventory(int rows, int cols) : rows(rows), cols(cols), neff(0) {
             contents.resize(rows, vector<T>(cols)); // Menggunakan T sebagai tipe langsung di dalam vektor
         }
 
-        ~Inventory(){
-                for (int i = 0; i < rows; i++) {
-                    for (int j = 0; j < cols; j++) {
-                        delete contents[i][j];
-                }
-            }
-        }
+        ~Inventory(){}
 
         void addItem(T item, int row, int col) {
             if (row >= 0 && row < rows && col >= 0 && col < cols) {
                 contents[row][col] = item; // Menyimpan referensi yang sudah ada
+                neff++;
             } else {
                 cerr << "Posisi tidak valid." << endl;
             }
