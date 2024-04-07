@@ -5,6 +5,9 @@
 #include "../Inventory/Inventory.hpp"  
 #include "../InvItems/InvItems.hpp"
 #include "../pcolor/pcolor.h"
+#include "../Inventory/Inventory.cpp"  
+#include "../InvItems/InvItems.cpp"
+#include "../pcolor/pcolor.c"
 
 using namespace std;
 

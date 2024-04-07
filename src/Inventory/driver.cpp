@@ -1,5 +1,6 @@
 // ini adalah driver.cpp
 #include "Inventory.hpp"
+#include "Inventory.cpp"
 #include "../InvItems/InvItems.hpp"
 #include "../InvItems/InvItems.cpp"
 

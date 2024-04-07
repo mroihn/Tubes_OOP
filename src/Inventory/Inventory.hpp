@@ -1,5 +1,8 @@
 // Inventory.hpp
 
+#ifndef INVENTORY_HPP
+#define INVENTORY_HPP
+
 #include <vector>
 #include <iostream>
 #include <iomanip>
@@ -9,66 +12,33 @@
 using namespace std;
 
 template<class T>
-class Inventory{
-    private:
-        vector<vector<T>> contents; // Menggunakan T sebagai tipe langsung di dalam vektor
-        int rows, cols;
-        int neff;
-    public:
-        Inventory(int rows, int cols) : rows(rows), cols(cols), neff(0) {
-            contents.resize(rows, vector<T>(cols)); // Menggunakan T sebagai tipe langsung di dalam vektor
-        }
+class Inventory {
+private:
+    vector<vector<T>> contents;
+    int rows, cols;
+    int neff;
 
-        ~Inventory(){}
+public:
+    Inventory(int rows, int cols);
 
-        void addItem(T item, int row, int col) {
-            if (row >= 0 && row < rows && col >= 0 && col < cols) {
-                contents[row][col] = item; // Menyimpan referensi yang sudah ada
-                neff++;
-            } else {
-                cerr << "Posisi tidak valid." << endl;
-            }
-        }
+    ~Inventory();
 
-        template<typename U>
-        U* getItem(int row, int col) {
-            if (row >= 0 && row < rows && col >= 0 && col < cols) {
-                // Pastikan bahwa tipe U adalah subclass dari InvItems
-                U* item = dynamic_cast<U*>(contents[row][col]);
-                if (item) {
-                    return item;
-                } else {
-                    std::cerr << "Tipe tidak valid atau tidak cocok." << endl;
-                    return nullptr;
-                }
-            } else {
-                cerr << "Posisi tidak valid." << endl;
-                return nullptr;
-            }
-        }
+    void addItem(T item, int row, int col);
 
-        int getRows() const {
-            return rows;
-        }
+    template<typename U>
+    U* getItem(int row, int col);
 
-        int getCols() const {
-            return cols;
-        }
+    int getRows() const;
 
-        int getNeff() const {
-            return neff;
-        }
+    int getCols() const;
 
-        bool isEmpty(){
-            return(neff==0);
-        }
+    int getNeff() const;
 
-        bool isFull(){
-            return(neff==rows*cols);
-        }
+    bool isEmpty();
 
-        T& operator()(int i, int j) const {
-            return contents[i][j];
-        }
+    bool isFull();
 
+    T& operator()(int i, int j);
 };
+
+#endif
