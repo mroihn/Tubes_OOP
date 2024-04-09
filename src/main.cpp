@@ -20,6 +20,7 @@ int main(){
     game.bacaConfigTanaman("./config/plant.txt");
     game.bacaConfigProduk("./config/product.txt");
     game.bacaConfigRecipe("./config/recipe.txt");
+    game.bacaConfigMisc("./config/misc.txt");
     if(pilihan == 1){
         cout << "Masukkan lokasi berkas state: ";
         string fileloc;
