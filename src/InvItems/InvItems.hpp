@@ -1,6 +1,6 @@
 // ini adalah InvItems.hpp
-#ifndef INVITEMS_H
-#define INVITEMS_H
+#ifndef INVITEMS_HPP
+#define INVITEMS_HPP
 
 #include <string>
 #include <iostream>
@@ -38,6 +38,7 @@ class Product: public InvItems{
     public:
         Product();
         Product(int id, string kode_huruf, string nama, string origin, int added_weight, int price);
+        Product* clone();
         void print();
         int getAddedWeight();
 };
@@ -76,7 +77,8 @@ class Hewan: public InvItems{
         Hewan();
         //user defined constructor, dengan berat awal 0
         Hewan(int id, string kode_huruf, string nama, int weight_to_harvest, int price);
-
+        Hewan* clone();
+        void setBerat(int berat);
         void tambahBerat(int berat);
         int getWeightToHarvestItem();
         virtual void print();
@@ -120,7 +122,8 @@ class Tanaman: public InvItems{
         Tanaman();
         //user defined constructor, umur di awal selalu 0
         Tanaman(int id, string kode_huruf, string nama, int duration_to_harvest, int price);
-        
+        void setUmur(int umur);
+        Tanaman* clone();
         void tambahUmurTanaman();
         int getDurationToHarvestItem();
         virtual void print();

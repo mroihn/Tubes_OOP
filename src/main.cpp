@@ -16,10 +16,14 @@ int main(){
     int pilihan;
     cin>>pilihan;
 
+    game.bacaConfigHewan("./config/animal.txt");
+    game.bacaConfigTanaman("./config/plant.txt");
+    game.bacaConfigProduk("./config/product.txt");
+    game.bacaConfigRecipe("./config/recipe.txt");
     if(pilihan == 1){
-        game.bacaConfigHewan("./config/animal.txt");
-        game.bacaConfigTanaman("./config/plant.txt");
-        game.bacaConfigProduk("./config/product.txt");
-        game.bacaConfigRecipe("./config/recipe.txt");
+        cout << "Masukkan lokasi berkas state: ";
+        string fileloc;
+        cin >> fileloc;
+        game.bacaState(fileloc);
     }
 }

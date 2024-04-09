@@ -15,11 +15,30 @@ Inventory<T>::~Inventory() {
 template<class T>
 void Inventory<T>::addItem(T item, int row, int col) {
     if (row >= 0 && row < rows && col >= 0 && col < cols) {
+        if(contents[row][col]!= nullptr){
+            cout << "Posisi sudah diisi!\n";
+            //throw exception?
+        }
         contents[row][col] = item;
         neff++;
     } else {
         cerr << "Posisi tidak valid." << endl;
     }
+}
+
+template<class T>
+void Inventory<T>::addItem(T item) {
+    cout << rows << " " << cols << endl;
+    for(int i=0; i<rows; i++){
+        for(int j=0; j<cols; j++){
+            if(contents[i][j]==nullptr){
+                contents[i][j]=item;
+                printf("Item ditambahkan di %d, %d\n", i,j);
+                return;
+            }
+        }
+    }
+    cout << "Penyimpanan penuh\n";
 }
 
 template<class T>

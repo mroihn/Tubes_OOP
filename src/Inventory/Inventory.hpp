@@ -24,6 +24,7 @@ public:
     ~Inventory();
 
     void addItem(T item, int row, int col);
+    void addItem(T item);
 
     template<typename U>
     U* getItem(int row, int col);

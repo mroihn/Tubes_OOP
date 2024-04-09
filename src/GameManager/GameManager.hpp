@@ -1,22 +1,40 @@
+#ifndef GAMEMANAGER_HPP
+#define GAMEMANAGER_HPP
+
 #include <iostream>
 #include <fstream>
 #include <sstream>
 #include <string>
 #include <vector>
-#include "../InvItems/InvItems.hpp"
+#include <map>
+#include "../InvItems/InvItems.cpp"
+#include "../Inventory/Inventory.cpp"
+#include "../User/User.hpp"
+#include "../pcolor/pcolor.c"
+#include "../User/User.cpp"
 
 using namespace std;
 
 class GameManager{
     private:
-        vector<Hewan*> animals;
-        vector<Tanaman*> ListTanaman;
-        vector<Product*> ListProduk;
-        vector<Building> ListBuilding;
+        map<string,Hewan*> animals;
+        map<string,Tanaman*> ListTanaman;
+        map<string,Product*> ListProduk;
+        map<string,Building> ListBuilding;
+        map<string,User*> ListUser;
+        int max_uang;
+        int max_berat;
+        pair<int,int> inventorySize;
+        pair<int,int> fieldSize;
+        pair<int,int> farmSize;
     public:
         void bacaConfigHewan(string filename);
         void bacaConfigTanaman(string filename);
         void bacaConfigProduk(string filename);
         void bacaConfigRecipe(string filename);
+        void bacaConfigMisc(string filename);
+        void bacaState(string filename);
         void printLogo();
 };
+
+#endif

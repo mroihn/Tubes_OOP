@@ -37,6 +37,10 @@ InvItems(id,kode_huruf,nama, price){
     this->origin = origin;
     this->added_weight = added_weight;
 }
+Product* Product::clone(){
+    return new Product(*this);
+}
+
 void Product::print(){
     cout << id << " " << kode_huruf << " " << nama << " " << origin << " " << added_weight << " " << price << endl;
 }
@@ -68,6 +72,13 @@ Hewan::Hewan(int id, string kode_huruf, string nama, int weight_to_harvest, int 
 InvItems(id,kode_huruf,nama, price){
     this->weight_to_harvest = weight_to_harvest;
     this ->weight = 0;
+}
+// Hewan::Hewan(const Hewan& other): id(other.id), kode_huruf(other.kode_huruf)
+Hewan* Hewan::clone(){
+    return new Hewan(*this);
+}
+void Hewan::setBerat(int berat){
+    this->weight = berat;
 }
 
 void Hewan::tambahBerat(int berat){
@@ -134,6 +145,13 @@ InvItems(id,kode_huruf,nama, price){
     this->umur_tanaman = 0;
 }
 
+Tanaman* Tanaman::clone(){
+    return new Tanaman(*this);
+}
+
+void Tanaman::setUmur(int umur){
+    this->umur_tanaman = umur;
+}
 void Tanaman::tambahUmurTanaman(){
     umur_tanaman++;
 }
