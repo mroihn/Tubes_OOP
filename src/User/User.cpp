@@ -19,7 +19,8 @@ Inventory<InvItems*> *User::getInv(){
 }
 int User::getUang(){
     return uang;
-}
+} 
+
 void User::next(){}
 void User::cetak_penyimpanan(){
     int length1 = (7 + (penyimpanan.getCols()-1)*6)/2 - 7;
@@ -28,7 +29,7 @@ void User::cetak_penyimpanan(){
     for (i=0;i<length1;i++){
         cout << '=';
     }
-    cout << "[ penyimpanan ]";
+    cout << "[ Penyimpanan ]";
     if (penyimpanan.getCols()%2==0){
         length1++;
     }
@@ -66,26 +67,23 @@ void User::cetak_penyimpanan(){
     cout << "+" << endl;
 }
 void User::setPenyimpanan(int i, int j, InvItems* item){
-    penyimpanan.addItem(item,i,j);
-}
-
-void User::setPenyimpanan( InvItems* item){
-    penyimpanan.addItem(item);
-}
-void User::cetakPeternakan(){
-    cout << "implement user\n";
+    if (i>=penyimpanan.getRows() || j>penyimpanan.getCols() || i<0 || j<0){
+        // Throw Exception
+    }
+    delete penyimpanan(i,j);
+    penyimpanan(i,j) = item;
 }
 void User::makan(){}
 void User::beli(){}
 void User::jual(){}
+ 
 
-Walikota::Walikota(string nama, int berat, int uang, pair<int,int> invSize): User(nama,berat,uang,invSize){}
 void Walikota::tagihPajak(){}
 void Walikota::tambahBangunan(){}
 void Walikota::tambahPemain(){}
 
-Petani::Petani() : User(), ladang(5,5){}
-Petani::Petani(string nama, int berat, int uang, pair<int,int> invSize, pair<int,int> fieldSize): User(nama,berat,uang, invSize), ladang(fieldSize.first, fieldSize.second){}
+
+Petani::Petani() :ladang(5,5){};
 void Petani::setLadang(int i, int j, Tanaman* t){
     if (i>=ladang.getRows() || j>ladang.getCols() || i<0 || j<0){
         // Throw Exception
@@ -110,8 +108,8 @@ void Petani::tanamTanaman(){
         cout << "Slot: ";
         cin >> slot;
         subslot = slot.substr(1,3);
-        int x = slot[0] - 'A';
-        int y = stoi(subslot)-1;
+        int y = slot[0] - 'A';
+        int x = stoi(subslot)-1;
 
         if (x>penyimpanan.getRows()-1 || y>penyimpanan.getCols()-1){
             //throw exception;
@@ -129,21 +127,17 @@ void Petani::tanamTanaman(){
         cout << "Slot: ";
         cin >> slot;
         subslot = slot.substr(1,3);
-        int x = slot[0] - 'A';
-        int y = stoi(subslot)-1;
-
+        int y = slot[0] - 'A';
+        int x = stoi(subslot)-1;
         if (x>ladang.getRows()-1 || y>ladang.getCols()-1){
             //throw exception;
         }
         else{
+            
             setLadang(x,y,temp);
             break;
         }
     }
-}
-
-Inventory<Tanaman*> *Petani::getladang(){
-    return &ladang;
 }
 void Petani::panenTanaman(){
     cetakLadang();
@@ -231,4 +225,131 @@ void Petani::cetakLadang(){
         cout << "- " << printed[i]->getKode() << ": " << printed[i]->getNama() << '\n';
     }
 }
+
+Peternak::Peternak() : peternakan(5,5){}
+void Peternak::setPeternakan(int i, int j, Hewan* t){
+    if (i>=peternakan.getRows() || j>peternakan.getCols() || i<0 || j<0){
+        // Throw Exception
+    }
+    delete peternakan(i,j);
+    peternakan(i,j) = t;
+}
+void Peternak::cetakPeternakan(){
+    vector<Hewan*> printed(0);
+    int length1 = (7 + (peternakan.getCols()-1)*6)/2 - 7;
+    int i,j,k;
+    bool flag = false;
+    cout << "     ";
+    for (i=0;i<length1;i++){
+        cout << '=';
+    }
+    cout << "[ Peternakan ]";
+    if (peternakan.getCols()%2!=0){
+        length1++;
+    }
+    for (i=0;i<length1;i++){
+        cout << '=';
+    }
+    cout << '\n';
+    cout << "        ";
+    for(i=0; i<peternakan.getCols(); i++){
+        cout << char('A'+i) << "     ";
+    }
+    cout << endl;
+    for (i = 0; i < peternakan.getRows(); ++i) {
+        cout << "     ";
+        for (j = 0; j < peternakan.getCols(); ++j) {
+            cout << "+-----";
+        }
+        cout << "+" << endl;
+        cout << "  " << setw(2) << setfill(' ') << i+1;
+        for (j = 0; j < peternakan.getCols(); ++j) {
+            cout << " | ";
+            if (peternakan(i,j)){
+                for (k=0;k<printed.size();k++){
+                    if(peternakan(i,j)->getKode() == printed[k]->getKode()){
+                        flag = true;
+                    }
+                }
+                
+                if (!flag){
+                    printed.push_back(peternakan(i,j));
+                }
+                flag=false;
+                if (peternakan(i,j)->siapPanen()){
+                    for (k=0;k<3;k++){
+                        print_green(peternakan(i,j)->getKode()[k]);
+                    }
+                }
+                else{
+                    for (k=0;k<3;k++){
+                        print_red(peternakan(i,j)->getKode()[k]);
+                    }
+                }
+            }
+            else{
+                cout << "   ";
+            }
+        }
+        cout << " |" << endl;
+    }
+    cout << "     ";
+    for (int j = 0; j < peternakan.getCols(); ++j) {
+        cout << "+-----";
+    }
+    cout << "+\n\n";
+
+    for(i=0;i<printed.size();i++){
+        cout << "- " << printed[i]->getKode() << ": " << printed[i]->getNama() << '\n';
+    }
+}
+void Peternak::ternak(){
+    if (peternakan.isFull()){
+        //throw exception
+    }
+    if(penyimpanan.isEmpty()){
+        //throw exception
+    }
+    string slot;
+    string subslot;
+    Hewan* temp;
+    while (true){
+        cout << "Pilih Hewan Dari Penyimpanan \n";
+        cetak_penyimpanan();
+
+        cout << "Slot: ";
+        cin >> slot;
+        subslot = slot.substr(1,3);
+        int y = slot[0] - 'A';
+        int x = stoi(subslot)-1;
+
+        if (x>penyimpanan.getRows()-1 || y>penyimpanan.getCols()-1){
+            //throw exception;
+        }
+        else{
+            temp = static_cast<Hewan*>(penyimpanan(x,y));
+            penyimpanan(x,y)=nullptr;
+            break;
+        }
+    }
+    while (true){
+        cout << "\n\nPilih Pilih petak tanah yang akan ditanami \n";
+        cetakPeternakan();
+
+        cout << "Slot: ";
+        cin >> slot;
+        subslot = slot.substr(1,3);
+        int y = slot[0] - 'A';
+        int x = stoi(subslot)-1;
+
+        if (x>peternakan.getRows()-1 || y>peternakan.getCols()-1){
+            //throw exception;
+        }
+        else{
+            setPeternakan(x,y,temp);
+            break;
+        }
+    }
+}
+void panen();
 

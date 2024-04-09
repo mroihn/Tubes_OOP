@@ -66,15 +66,15 @@ class Peternak: public User{
     private:
         Inventory<Hewan*> peternakan;
     public:
+        Peternak();
         Peternak(string nama, int berat, int uang, pair<int,int> invSize, pair<int,int> farmSize): User(nama,berat,uang, invSize), peternakan(farmSize.first, farmSize.second){}
-        void cetakPeternakan(){
-            cout << "TODO IMPLEMENT CETAK PETERNAKAN\n";
-        }
+        void cetakPeternakan();
+        void setPeternakan(int i, int j, Hewan* t);
         Inventory<Hewan*>* getfarm(){
             return &peternakan;
         }
-        void ternak(){cout << "do nothing";}
-        void panen(){cout << "do nothing";}
+        void ternak();
+        void panen();
 };
 
 
