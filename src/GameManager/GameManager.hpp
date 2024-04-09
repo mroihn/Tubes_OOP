@@ -7,11 +7,9 @@
 #include <string>
 #include <vector>
 #include <map>
-#include "../InvItems/InvItems.cpp"
-#include "../Inventory/Inventory.cpp"
+#include "../InvItems/InvItems.hpp"
+#include "../Inventory/Inventory.hpp"
 #include "../User/User.hpp"
-#include "../pcolor/pcolor.c"
-#include "../User/User.cpp"
 
 using namespace std;
 

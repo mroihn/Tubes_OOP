@@ -1,5 +1,9 @@
 #include "GameManager.hpp"
 #include "GameManager.cpp"
+#include "../InvItems/InvItems.cpp"
+#include "../Inventory/Inventory.cpp"
+#include "../User/User.cpp"
+#include "../pcolor/pcolor.c"
 // #include "../InvItems/InvItems.cpp"
 
 
