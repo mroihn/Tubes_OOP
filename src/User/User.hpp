@@ -55,36 +55,34 @@ class Walikota: public User{
         //double calculatetax() const override;
 };
 
-// class Petani: public User{
-//     private:
-//         Inventory<Tanaman*> ladang;
-//     public: 
-//         Petani();
-//         Petani(string nama, int berat, int uang, pair<int,int> invSize, pair<int,int> fieldSize);
-//         void setLadang(int i, int j, Tanaman* t);
-//         void tanamTanaman();
+class Petani: public User{
+    private:
+        Inventory<Tanaman*> ladang;
+    public: 
+        Petani(string username, pair<int,int> invSize, pair<int,int> fieldSize);
+        void setLadang(int i, int j, Tanaman* t);
+        void tanamTanaman();
     
-//         Inventory<Tanaman*> *getladang();
-//         void panenTanaman();
-//         void cetakLadang();
-//         //double calculatetax() const override;
-// }; 
+        Inventory<Tanaman*> *getladang();
+        void panenTanaman();
+        void cetakLadang();
+        //double calculatetax() const override;
+}; 
 
-// class Peternak: public User{
-//     private:
-//         Inventory<Hewan*> peternakan;
-//     public:
-//         Peternak();
-//         Peternak(string nama, pair<int,int> invSize, pair<int,int> farmSize): User(nama, invSize), peternakan(farmSize.first, farmSize.second){}
-//         void cetakPeternakan();
-//         void setPeternakan(int i, int j, Hewan* t);
-//         Inventory<Hewan*>* getfarm(){
-//             return &peternakan;
-//         }
-//         void ternak();
-//         void panen();
-//         //double calculatetax() const override;
-// };
+class Peternak: public User{
+    private:
+        Inventory<Hewan*> peternakan;
+    public:
+        Peternak(string username, pair<int,int> invSize, pair<int,int> barnSize);
+        void cetakPeternakan();
+        void setPeternakan(int i, int j, Hewan* t);
+        Inventory<Hewan*>* getfarm(){
+            return &peternakan;
+        }
+        void ternak();
+        void panen();
+        //double calculatetax() const override;
+};
 
 
 #endif
