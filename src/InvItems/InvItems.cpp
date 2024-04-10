@@ -48,6 +48,10 @@ int Product::getAddedWeight(){
     return added_weight;
 }
 
+bool Product::isMakanan() const {
+    return true; // Product bisa dimakan
+}
+
 Material::Material(){}
 Material::Material(int id, string kode_huruf, string nama, string origin, int added_weight, int price): Product(id,kode_huruf,nama, origin,added_weight,price){}
 void Material::print(){
@@ -97,6 +101,9 @@ bool Hewan::siapPanen(){
     return weight>=weight_to_harvest;
 }
 
+bool Hewan::isMakanan() const {
+    return false; 
+}
 Herbivore::Herbivore(){}
 Herbivore::Herbivore(int id, string kode_huruf, string nama, int weight_to_harvest, int price): Hewan(id,kode_huruf,nama,weight_to_harvest,price){}
 
@@ -169,6 +176,10 @@ bool Tanaman::siapPanen(){
     return umur_tanaman>=duration_to_harvest;
 }
 
+bool Tanaman::isMakanan() const {
+    return false; 
+}
+
 Material_Plant::Material_Plant(){}
 Material_Plant::Material_Plant(int id, string kode_huruf, string nama, int duration_to_harvest, int price): Tanaman(id,kode_huruf,nama,duration_to_harvest,price){}
 
@@ -199,4 +210,8 @@ void Building::print(){
         cout << material << " " << quantity << " ";
     }
     cout << endl;
+}
+
+bool Building::isMakanan() const {
+    return false; 
 }

@@ -26,6 +26,8 @@ class InvItems{
         friend ostream& operator<<(ostream& os, InvItems& b);
         //memprint semua atribut objek
         virtual void print();
+        virtual bool isMakanan() const = 0;
+
 };
 
 //<ID> <KODE_HURUF> <NAME> <TYPE> <ORIGIN> <ADDED_WEIGHT> <PRICE>
@@ -41,6 +43,7 @@ class Product: public InvItems{
         Product* clone();
         void print();
         int getAddedWeight();
+        bool isMakanan() const override;
 };
 
 //Type : PRODUCT_MATERIAL_PLANT
@@ -83,6 +86,7 @@ class Hewan: public InvItems{
         int getWeightToHarvestItem();
         virtual void print();
         bool siapPanen();
+        bool isMakanan() const override;
 };
 
 class Herbivore: public Hewan{
@@ -128,6 +132,7 @@ class Tanaman: public InvItems{
         int getDurationToHarvestItem();
         virtual void print();
         bool siapPanen();
+        bool isMakanan() const override;
 };
 
 class Material_Plant: public Tanaman{
@@ -157,6 +162,7 @@ class Building: public InvItems{
         Building();
         Building(int id, string kode_huruf, string nama, int price, map<string, int> recipe);
         void print();
+        bool isMakanan() const override;
 };
 
 #endif

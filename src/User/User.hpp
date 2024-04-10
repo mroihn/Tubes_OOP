@@ -6,6 +6,7 @@
 #include "../InvItems/InvItems.hpp"
 #include "../pcolor/pcolor.h"
 #include "../Inventory/Inventory.cpp"  
+#include "UserException.hpp"
 // #include "../InvItems/InvItems.cpp"
 // #include "../pcolor/pcolor.c"
 
@@ -21,7 +22,9 @@ class User{
         Inventory<InvItems*> penyimpanan;
     public:
         User();
-        User(string username, int berat, int uang, pair<int,int> invSize);
+        User(string username, pair<int,int> invSize);
+        ~User();
+
         int getBerat();
         Inventory<InvItems*> *getInv();
         int getUang();
@@ -30,52 +33,58 @@ class User{
         void setPenyimpanan(int i, int j, InvItems* item);
 
         void setPenyimpanan( InvItems* item);
-        virtual void cetakPeternakan();
+        //virtual void cetakPeternakan();
+
+        //virtual double calculatetax() const = 0;
 
         void makan();
         void beli();
         void jual();
 };
  
+ 
 class Walikota: public User{
     private:
         static int jumlah_walikota;
     public:
-        Walikota(string nama, int berat, int uang, pair<int,int> invSize);
+        Walikota(string username, pair<int,int> invSize);
+        ~Walikota();
         void tagihPajak();
         void tambahBangunan();
         void tambahPemain();
+        //double calculatetax() const override;
 };
 
-class Petani: public User{
-    private:
-        Inventory<Tanaman*> ladang;
-    public: 
-        Petani();
-        Petani(string nama, int berat, int uang, pair<int,int> invSize, pair<int,int> fieldSize);
-        void setLadang(int i, int j, Tanaman* t);
-        void tanamTanaman();
+// class Petani: public User{
+//     private:
+//         Inventory<Tanaman*> ladang;
+//     public: 
+//         Petani();
+//         Petani(string nama, int berat, int uang, pair<int,int> invSize, pair<int,int> fieldSize);
+//         void setLadang(int i, int j, Tanaman* t);
+//         void tanamTanaman();
     
-        Inventory<Tanaman*> *getladang();
-        void panenTanaman();
-        void cetakLadang();
-        
-}; 
+//         Inventory<Tanaman*> *getladang();
+//         void panenTanaman();
+//         void cetakLadang();
+//         //double calculatetax() const override;
+// }; 
 
-class Peternak: public User{
-    private:
-        Inventory<Hewan*> peternakan;
-    public:
-        Peternak();
-        Peternak(string nama, int berat, int uang, pair<int,int> invSize, pair<int,int> farmSize): User(nama,berat,uang, invSize), peternakan(farmSize.first, farmSize.second){}
-        void cetakPeternakan();
-        void setPeternakan(int i, int j, Hewan* t);
-        Inventory<Hewan*>* getfarm(){
-            return &peternakan;
-        }
-        void ternak();
-        void panen();
-};
+// class Peternak: public User{
+//     private:
+//         Inventory<Hewan*> peternakan;
+//     public:
+//         Peternak();
+//         Peternak(string nama, pair<int,int> invSize, pair<int,int> farmSize): User(nama, invSize), peternakan(farmSize.first, farmSize.second){}
+//         void cetakPeternakan();
+//         void setPeternakan(int i, int j, Hewan* t);
+//         Inventory<Hewan*>* getfarm(){
+//             return &peternakan;
+//         }
+//         void ternak();
+//         void panen();
+//         //double calculatetax() const override;
+// };
 
 
 #endif
