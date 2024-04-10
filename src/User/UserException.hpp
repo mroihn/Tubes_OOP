@@ -29,4 +29,11 @@ class BukanMakanan : public UserException {
         }
 };
 
+class WalikotaHanyaSatu : public UserException {
+    public:
+        string what() override {
+            return "Ups!Peran Walikota hanya boleh satu!\n";
+        }
+};
+
 #endif

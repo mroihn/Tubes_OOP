@@ -77,7 +77,7 @@ void User::makan() {
     cetak_penyimpanan();
     string slot;
     string subslot;
-    while (true) {
+    while(true){
         cout << "\nSlot: ";
         cin >> slot;
         subslot = slot.substr(1, 2);
@@ -119,14 +119,19 @@ void User::makan() {
             cout << e.what() << endl;
         }
     }
-}
+};
 
 void User::beli(){}
 void User::jual(){}
  
 
 int Walikota::jumlah_walikota = 0;
-Walikota::Walikota(string username, pair<int, int> invSize) : User(username, invSize){}
+Walikota::Walikota(string username, pair<int, int> invSize) : User(username, invSize){
+    if(jumlah_walikota!=0){
+        throw WalikotaHanyaSatu();
+    }
+    jumlah_walikota++;
+}
 Walikota::~Walikota(){}
 void Walikota::tagihPajak(){}
 void Walikota::tambahBangunan(){}

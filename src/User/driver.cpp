@@ -15,7 +15,7 @@ int main(){
     // p.cetakLadang();
     //p.ladang(0,0)->print();
     pair<int,int> n(5,5);
-    User u("JohnDoe", n);
+    Walikota u("JohnDoe", n);
 
     // Menambahkan beberapa item ke penyimpanan u
     u.setPenyimpanan(0, 0, new Fruit(1, "FRT1", "Apple", "Local", 1, 5));
@@ -24,6 +24,8 @@ int main(){
 
     // // Memanggil metode makan untuk menguji fungsinya
     u.makan();
+
+    
 
     return 0;
 }
