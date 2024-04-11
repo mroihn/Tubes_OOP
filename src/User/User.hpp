@@ -28,6 +28,7 @@ class User{
         int getBerat();
         Inventory<InvItems*> *getInv();
         int getUang();
+        void setUang(int uang);
         void next();
         void cetak_penyimpanan();
         void setPenyimpanan(int i, int j, InvItems* item);
@@ -37,6 +38,7 @@ class User{
 
         //virtual double calculatetax() const = 0;
 
+        int sisaPenyimpanan();
         void makan();
         void beli();
         void jual();

@@ -22,6 +22,10 @@ int User::getUang(){
     return uang;
 } 
 
+void User :: setUang(int uang){
+    this->uang = uang;
+}
+
 void User::next(){}
 void User::cetak_penyimpanan(){
     int length1 = (7 + (penyimpanan.getCols()-1)*6)/2 - 7;
@@ -75,6 +79,18 @@ void User::setPenyimpanan(int i, int j, InvItems* item){
     delete penyimpanan(i,j);
     penyimpanan(i,j) = item;
 }
+
+void User :: setPenyimpanan( InvItems* item){
+    for (int i = 0; i < penyimpanan.getRows();i++){
+        for (int j = 0; j < penyimpanan.getCols();j++){
+            if(penyimpanan(i,j) == nullptr){
+                this->setPenyimpanan(i, j, item);
+                return ;
+            }
+        }
+    }
+}
+
 void User::makan() {
     cetak_penyimpanan();
     string slot;
@@ -121,6 +137,10 @@ void User::makan() {
             cout << e.what() << endl;
         }
     }
+}
+
+int User :: sisaPenyimpanan(){
+    return penyimpanan.getCols() * penyimpanan.getRows() - penyimpanan.getNeff();
 }
 
 void User::beli(){}

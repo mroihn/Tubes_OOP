@@ -3,6 +3,7 @@
 
 #include "../Inventory/Inventory.hpp"  
 #include "../InvItems/InvItems.hpp"
+#include "../User/User.hpp"
 #include <vector>
 #include <map>
 
@@ -18,8 +19,8 @@ class Toko{
         void cetak_toko();
         void addBarang(InvItems* item,int harga,int stok);
         void kurangiBarang(string namaBarang, int jumlah);
-        void beli();
-        void jual();
+        void beli(User* pembeli);
+        void jual(User* penjual);
 };
 
 #endif
