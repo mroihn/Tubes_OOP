@@ -14,6 +14,9 @@ int main(){
     p.tanamTanaman();
     p.cetak_penyimpanan();
     p.cetakLadang();
+    p.tanamTanaman();
+    p.cetak_penyimpanan();
+    p.cetakLadang();
     //p.ladang(0,0)->print();
 
     

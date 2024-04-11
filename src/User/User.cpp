@@ -1,5 +1,6 @@
 #include "User.hpp"
-
+#include <limits>
+#include <stdexcept>
 
 User::User(string username, pair<int,int> invSize): penyimpanan(invSize.first, invSize.second){
     this->username = username;
@@ -64,7 +65,7 @@ void User::cetak_penyimpanan(){
     for (int j = 0; j < penyimpanan.getCols(); ++j) {
         cout << "+-----";
     }
-    cout << "+" << endl;
+    cout << "+\n\n";
 }
 void User::setPenyimpanan(int i, int j, InvItems* item){
     if (i>=penyimpanan.getRows() || j>penyimpanan.getCols() || i<0 || j<0){
@@ -180,7 +181,7 @@ void Petani::tanamTanaman(){
                     break;
                 }
                 else{
-                    throw HarapanKosong();
+                    throw SlotKosong();
                 }
             }
         }catch (UserException& e){
@@ -201,13 +202,12 @@ void Petani::tanamTanaman(){
                 throw BarisKolomTidakSesuai();
             }
             else{
-                if (penyimpanan(x,y)){
-                    temp = static_cast<Tanaman*>(penyimpanan(x,y));
-                    penyimpanan(x,y)=nullptr;
+                if (!ladang(x,y)){
+                    setLadang(x,y,temp);
                     break;
                 }
                 else{
-                    throw HarapanKosong();
+                    throw SlotTerisi();
                 }
             }
         }catch (UserException& e){
@@ -410,7 +410,7 @@ void Peternak::ternak(){
                     break;
                 }
                 else{
-                    throw HarapanKosong();
+                    throw SlotKosong();
                 }
             }
         }catch (UserException& e){
@@ -432,8 +432,13 @@ void Peternak::ternak(){
                 throw BarisKolomTidakSesuai();
             }
             else{
-                setPeternakan(x,y,temp);
-                break;
+                if (!peternakan(x,y)){
+                    setPeternakan(x,y,temp);
+                    break;
+                }
+                else{
+                    throw SlotTerisi();
+                }
             }
         }catch (UserException& e){
             cout << e.what() << '\n';

@@ -43,6 +43,13 @@ class SlotTerisi : public UserException {
         }
 };
 
+class SlotKosong : public UserException {
+    public:
+        string what() override {
+            return "Slot ini kosong. \nPilih slot lain\n";
+        }
+};
+
 class LadangFull : public UserException {
     public:
         string what() override {
