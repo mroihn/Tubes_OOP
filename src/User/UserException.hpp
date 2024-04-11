@@ -11,7 +11,7 @@ class UserException {
 class BarisKolomTidakSesuai : public UserException {
     public :
         string what() override{
-            return "Input baris dan kolom tidak sesuai dengan ukuran matriks penyimpanan";
+            return "Input baris dan kolom tidak sesuai dengan ukuran matriks penyimpanan\n";
         }
 };
 
@@ -36,4 +36,31 @@ class WalikotaHanyaSatu : public UserException {
         }
 };
 
+class SlotTerisi : public UserException {
+    public:
+        string what() override {
+            return "Slot Sudah Terisi. \nPilih slot lain\n";
+        }
+};
+
+class LadangFull : public UserException {
+    public:
+        string what() override {
+            return "Ladang Sudah Penuh. \n";
+        }
+};
+
+class PeternakanFull : public UserException {
+    public:
+        string what() override {
+            return "Peternakan Sudah Penuh. \n";
+        }
+};
+
+class PenyimpananKosong : public UserException {
+    public:
+        string what() override {
+            return "Penyimpanan saat ini Kosong. \n";
+        }
+};
 #endif

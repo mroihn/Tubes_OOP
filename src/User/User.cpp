@@ -70,6 +70,7 @@ void User::setPenyimpanan(int i, int j, InvItems* item){
     if (i>=penyimpanan.getRows() || j>penyimpanan.getCols() || i<0 || j<0){
         // Throw Exception
     }
+    penyimpanan.incNeff();
     delete penyimpanan(i,j);
     penyimpanan(i,j) = item;
 }
@@ -144,54 +145,73 @@ void Petani::setLadang(int i, int j, Tanaman* t){
     if (i>=ladang.getRows() || j>ladang.getCols() || i<0 || j<0){
         throw BarisKolomTidakSesuai();
     }
+    ladang.incNeff();
     delete ladang(i,j);
     ladang(i,j) = t;
 }
 void Petani::tanamTanaman(){
     if (ladang.isFull()){
-        //throw exception
+        throw LadangFull();
     }
     if(penyimpanan.isEmpty()){
-        //throw exception
+        throw PenyimpananKosong();
     }
     string slot;
     string subslot;
     Tanaman* temp;
     while (true){
-        cout << "Pilih Tanaman Dari Penyimpanan \n";
-        cetak_penyimpanan();
+        try{
+            cout << "Pilih Tanaman Dari Penyimpanan \n";
+            cetak_penyimpanan();
 
-        cout << "Slot: ";
-        cin >> slot;
-        subslot = slot.substr(1,3);
-        int y = slot[0] - 'A';
-        int x = stoi(subslot)-1;
+            cout << "Slot: ";
+            cin >> slot;
+            subslot = slot.substr(1,3);
+            int y = slot[0] - 'A';
+            int x = stoi(subslot)-1;
 
-        if (x>penyimpanan.getRows()-1 || y>penyimpanan.getCols()-1){
-            //throw exception;
-        }
-        else{
-            temp = static_cast<Tanaman*>(penyimpanan(x,y));
-            penyimpanan(x,y)=nullptr;
-            break;
+            if (x>penyimpanan.getRows()-1 || y>penyimpanan.getCols()-1 || x<0 || y<0){
+                throw BarisKolomTidakSesuai();
+            }
+            else{
+                if (penyimpanan(x,y)){
+                    temp = static_cast<Tanaman*>(penyimpanan(x,y));
+                    penyimpanan(x,y)=nullptr;
+                    break;
+                }
+                else{
+                    throw HarapanKosong();
+                }
+            }
+        }catch (UserException& e){
+            cout << e.what() << '\n';
         }
     }
     while (true){
-        cout << "\n\nPilih Pilih petak tanah yang akan ditanami \n";
-        cetakLadang();
+        try{
+            cout << "\n\nPilih Pilih petak tanah yang akan ditanami \n";
+            cetakLadang();
 
-        cout << "Slot: ";
-        cin >> slot;
-        subslot = slot.substr(1,3);
-        int y = slot[0] - 'A';
-        int x = stoi(subslot)-1;
-        if (x>ladang.getRows()-1 || y>ladang.getCols()-1){
-            //throw exception;
-        }
-        else{
-            
-            setLadang(x,y,temp);
-            break;
+            cout << "Slot: ";
+            cin >> slot;
+            subslot = slot.substr(1,3);
+            int y = slot[0] - 'A';
+            int x = stoi(subslot)-1;
+            if (x>penyimpanan.getRows()-1 || y>penyimpanan.getCols()-1 || x<0 || y<0){
+                throw BarisKolomTidakSesuai();
+            }
+            else{
+                if (penyimpanan(x,y)){
+                    temp = static_cast<Tanaman*>(penyimpanan(x,y));
+                    penyimpanan(x,y)=nullptr;
+                    break;
+                }
+                else{
+                    throw HarapanKosong();
+                }
+            }
+        }catch (UserException& e){
+            cout << e.what() << '\n';
         }
     }
 }
@@ -361,49 +381,62 @@ void Peternak::cetakPeternakan(){
 }
 void Peternak::ternak(){
     if (peternakan.isFull()){
-        //throw exception
+        throw PeternakanFull();
     }
     if(penyimpanan.isEmpty()){
-        //throw exception
+        throw PenyimpananKosong();
     }
     string slot;
     string subslot;
     Hewan* temp;
     while (true){
-        cout << "Pilih Hewan Dari Penyimpanan \n";
-        cetak_penyimpanan();
+        try{
+            cout << "Pilih Hewan Dari Penyimpanan \n";
+            cetak_penyimpanan();
 
-        cout << "Slot: ";
-        cin >> slot;
-        subslot = slot.substr(1,3);
-        int y = slot[0] - 'A';
-        int x = stoi(subslot)-1;
+            cout << "Slot: ";
+            cin >> slot;
+            subslot = slot.substr(1,3);
+            int y = slot[0] - 'A';
+            int x = stoi(subslot)-1;
 
-        if (x>penyimpanan.getRows()-1 || y>penyimpanan.getCols()-1){
-            //throw exception;
-        }
-        else{
-            temp = static_cast<Hewan*>(penyimpanan(x,y));
-            penyimpanan(x,y)=nullptr;
-            break;
+            if (x>penyimpanan.getRows()-1 || y>penyimpanan.getCols()-1 || x<0 || y<0){
+                throw BarisKolomTidakSesuai();
+            }
+            else{
+                if (penyimpanan(x,y)){
+                    temp = static_cast<Hewan*>(penyimpanan(x,y));
+                    penyimpanan(x,y)=nullptr;
+                    break;
+                }
+                else{
+                    throw HarapanKosong();
+                }
+            }
+        }catch (UserException& e){
+            cout << e.what() << '\n';
         }
     }
     while (true){
-        cout << "\n\nPilih Pilih petak tanah yang akan ditanami \n";
-        cetakPeternakan();
+        try{
+            cout << "\n\nPilih Pilih petak tanah yang akan ditanami \n";
+            cetakPeternakan();
 
-        cout << "Slot: ";
-        cin >> slot;
-        subslot = slot.substr(1,3);
-        int y = slot[0] - 'A';
-        int x = stoi(subslot)-1;
+            cout << "Slot: ";
+            cin >> slot;
+            subslot = slot.substr(1,3);
+            int y = slot[0] - 'A';
+            int x = stoi(subslot)-1;
 
-        if (x>peternakan.getRows()-1 || y>peternakan.getCols()-1){
-            //throw exception;
-        }
-        else{
-            setPeternakan(x,y,temp);
-            break;
+            if (x>peternakan.getRows()-1 || y>peternakan.getCols()-1 || x<0 || y<0){
+                throw BarisKolomTidakSesuai();
+            }
+            else{
+                setPeternakan(x,y,temp);
+                break;
+            }
+        }catch (UserException& e){
+            cout << e.what() << '\n';
         }
     }
 }
