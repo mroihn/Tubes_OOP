@@ -73,7 +73,7 @@ void User::cetak_penyimpanan(){
 }
 void User::setPenyimpanan(int i, int j, InvItems* item){
     if (i>=penyimpanan.getRows() || j>penyimpanan.getCols() || i<0 || j<0){
-        // Throw Exception
+        throw BarisKolomTidakSesuai();
     }
     penyimpanan.incNeff();
     delete penyimpanan(i,j);
@@ -84,6 +84,7 @@ void User :: setPenyimpanan( InvItems* item){
     for (int i = 0; i < penyimpanan.getRows();i++){
         for (int j = 0; j < penyimpanan.getCols();j++){
             if(penyimpanan(i,j) == nullptr){
+                penyimpanan.incNeff();
                 this->setPenyimpanan(i, j, item);
                 return ;
             }
@@ -198,6 +199,7 @@ void Petani::tanamTanaman(){
                 if (penyimpanan(x,y)){
                     temp = static_cast<Tanaman*>(penyimpanan(x,y));
                     penyimpanan(x,y)=nullptr;
+                    penyimpanan.decNeff();
                     break;
                 }
                 else{
@@ -327,6 +329,7 @@ void Peternak::setPeternakan(int i, int j, Hewan* t){
     if (i>=peternakan.getRows() || j>peternakan.getCols() || i<0 || j<0){
         // Throw Exception
     }
+    peternakan.incNeff();
     delete peternakan(i,j);
     peternakan(i,j) = t;
 }
@@ -427,6 +430,7 @@ void Peternak::ternak(){
                 if (penyimpanan(x,y)){
                     temp = static_cast<Hewan*>(penyimpanan(x,y));
                     penyimpanan(x,y)=nullptr;
+                    penyimpanan.decNeff();
                     break;
                 }
                 else{
@@ -439,7 +443,7 @@ void Peternak::ternak(){
     }
     while (true){
         try{
-            cout << "\n\nPilih Pilih petak tanah yang akan ditanami \n";
+            cout << "\n\nPilih petak tanah yang akan ditanami \n";
             cetakPeternakan();
 
             cout << "Slot: ";

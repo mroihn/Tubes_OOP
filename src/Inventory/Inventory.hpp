@@ -37,6 +37,8 @@ public:
 
     void incNeff();
     
+    void decNeff();
+    
     bool isEmpty();
 
     bool isFull();

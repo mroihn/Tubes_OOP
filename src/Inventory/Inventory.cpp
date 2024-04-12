@@ -79,6 +79,11 @@ void Inventory<T>::incNeff(){
 }
 
 template<class T>
+void Inventory<T>::incNeff(){
+    neff--;
+}
+
+template<class T>
 bool Inventory<T>::isEmpty() {
     return (neff == 0);
 }
