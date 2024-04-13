@@ -220,7 +220,7 @@ void GameManager::bacaState(string filename){
                 int umur;
                 file >> pos >> plantname >> umur;
                 int col = int(pos[0]-'A');
-                int row = (pos[1]-'0')*10 + (pos[2]-'0');
+                int row = (pos[1]-'0')*10 + (pos[2]-'0')-1;
                 Tanaman * t = Tanaman::getlistTanaman()[plantname]->clone();
                 t->setUmur(umur);
                 p->getladang().addItem(t,row,col);
@@ -239,7 +239,7 @@ void GameManager::bacaState(string filename){
                 int berat;
                 file >> pos >> animalName >> berat;
                 int col = int(pos[0]-'A');
-                int row = (pos[1]-'0')*10 + (pos[2]-'0');
+                int row = (pos[1]-'0')*10 + (pos[2]-'0')-1;
                 Hewan * t = Hewan::getListHewan()[animalName]->clone();
                 t->setBerat(berat);
                 p->getfarm().addItem(t,row,col);
