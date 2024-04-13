@@ -16,21 +16,24 @@ void GameManager::bacaConfigHewan(string filename){
         if (iss >> id >> kode_huruf >> nama >> type >> weight_to_harvest >> price) {
             if(type=="HERBIVORE"){
                 Herbivore *h = new Herbivore(id, kode_huruf, nama, weight_to_harvest, price);
-                animals[nama] = h;
+                Hewan::addListHewan(h);
+                // animals[nama] = h;
             }else if(type=="CARNIVORE"){
                 Carnivore *h = new Carnivore(id, kode_huruf, nama, weight_to_harvest, price);
-                animals[nama] = h; 
+                Hewan::addListHewan(h);
+                // animals[nama] = h; 
             }else{
                 Omnivore *h = new Omnivore(id, kode_huruf, nama, weight_to_harvest, price);
-                animals[nama] = h;
+                Hewan::addListHewan(h);
+                // animals[nama] = h;
             }
         }
     }
     file.close();
-
-    for (auto hewan : animals) {
-        hewan.second->print();
-    }
+    Hewan::printListHewan();
+    // for (auto hewan : animals) {
+    //     hewan.second->print();
+    // }
 }
 
 void GameManager::bacaConfigTanaman(string filename){
@@ -49,18 +52,19 @@ void GameManager::bacaConfigTanaman(string filename){
         if (iss >> id >> kode_huruf >> nama >> type >> duration_to_harvest >> price) {
             if(type=="FRUIT_PLANT"){
                 Fruit_Plant *p = new Fruit_Plant(id,kode_huruf,nama,duration_to_harvest,price);
-                ListTanaman[nama] = p;
+                Tanaman::addlistTanaman(p);
             }else if(type=="MATERIAL_PLANT"){
                 Material_Plant *p = new Material_Plant(id,kode_huruf,nama,duration_to_harvest,price);
-                ListTanaman[nama] = p;
+                Tanaman::addlistTanaman(p);
             }
         }
     }
     file.close();
+    Tanaman::printListTanaman();
     //test print to see if the config has been read
-    for (auto& tanaman : ListTanaman) {
-        tanaman.second->print();
-    }
+    // for (auto& tanaman : ListTanaman) {
+    //     tanaman.second->print();
+    // }
 }
 
 void GameManager::bacaConfigProduk(string filename){
@@ -79,21 +83,22 @@ void GameManager::bacaConfigProduk(string filename){
         if (iss >> id >> kode_huruf >> nama >> type >> origin >> added_weight >> price) {
             if(type=="PRODUCT_MATERIAL_PLANT"){
                 Material *produk = new Material(id,kode_huruf,nama,origin,added_weight,price);
-                ListProduk[nama] = produk;
+                Product::addListProduk(produk);
             }else if(type=="PRODUCT_FRUIT_PLANT"){
                 Fruit *produk = new Fruit(id,kode_huruf,nama,origin,added_weight,price);
-                ListProduk[nama] = produk;
+                Product::addListProduk(produk);
             }else{
                 Meat *produk = new Meat(id,kode_huruf,nama,origin,added_weight,price);
-                ListProduk[nama] = produk;
+                Product::addListProduk(produk);
             }
         }
     }
     file.close();
+    Product::printListProduk();
     //test print to see if the config has been read
-    for (auto& produk : ListProduk) {
-        produk.second->print();
-    }
+    // for (auto& produk : ListProduk) {
+    //     produk.second->print();
+    // }
 }
 
 void GameManager::bacaConfigRecipe(string filename){
@@ -161,15 +166,19 @@ void GameManager::bacaState(string filename){
         string nama, role;
         int berat, uang, n_items;
         file >> nama >> role >> berat >> uang;
-        User*u;
+        User*u = new Petani("Placeholder",inventorySize, fieldSize);
         if(role=="Petani"){
+            delete u;
             u = new Petani(nama,berat,uang, inventorySize, fieldSize);
         }else if(role=="Peternak"){
+            delete u;
             u = new Peternak(nama,berat,uang,inventorySize, farmSize);
         }else{
+            delete u;
             u = new Walikota(nama,berat,uang,inventorySize);
         }
         ListUser[nama] = u;
+        // u->cetak_penyimpanan();
         file.ignore();
         file >> n_items;
         // n_items=;
@@ -180,19 +189,19 @@ void GameManager::bacaState(string filename){
             file >> item_name;
             // animals["COW"]->print();
             // animals[item_name]->print();
-            auto it = animals.find(item_name);
-            auto it2 = ListTanaman.find(item_name);
-            auto it3 = ListProduk.find(item_name);
+            auto it = Hewan::getListHewan().find(item_name);
+            auto it2 = Tanaman::getlistTanaman().find(item_name);
+            auto it3 = Product::getListProduk().find(item_name);
             auto it4 = ListBuilding.find(item_name);
-            if(it != animals.end()){
-                Hewan * h = animals[item_name]->clone();
+            if(it != Hewan::getListHewan().end()){
+                Hewan * h = Hewan::getListHewan()[item_name]->clone();
                 u->setPenyimpanan(h);
                 //u->penyimpanan.addItem(h)
-            }else if(it2 != ListTanaman.end()){
-                Tanaman * t = ListTanaman[item_name]->clone();
+            }else if(it2 != Tanaman::getlistTanaman().end()){
+                Tanaman * t = Tanaman::getlistTanaman()[item_name]->clone();
                 u->setPenyimpanan(t);
-            }else if(it3 != ListProduk.end()){
-                Product * p = ListProduk[item_name]->clone();
+            }else if(it3 != Product::getListProduk().end()){
+                Product * p = Product::getListProduk()[item_name]->clone();
                 u->setPenyimpanan(p);
             }else if(it4 != ListBuilding.end()){
                 Building b = ListBuilding[item_name];
@@ -212,9 +221,9 @@ void GameManager::bacaState(string filename){
                 file >> pos >> plantname >> umur;
                 int col = int(pos[0]-'A');
                 int row = (pos[1]-'0')*10 + (pos[2]-'0');
-                Tanaman * t = ListTanaman[plantname]->clone();
+                Tanaman * t = Tanaman::getlistTanaman()[plantname]->clone();
                 t->setUmur(umur);
-                p->getladang()->addItem(t,row,col);
+                p->getladang().addItem(t,row,col);
                 n_tanaman--;
             }
             p->cetakLadang();
@@ -231,9 +240,9 @@ void GameManager::bacaState(string filename){
                 file >> pos >> animalName >> berat;
                 int col = int(pos[0]-'A');
                 int row = (pos[1]-'0')*10 + (pos[2]-'0');
-                Hewan * t = animals[animalName]->clone();
+                Hewan * t = Hewan::getListHewan()[animalName]->clone();
                 t->setBerat(berat);
-                p->getfarm()->addItem(t,row,col);
+                p->getfarm().addItem(t,row,col);
                 n_hewan--;
             }
             p->cetakPeternakan();

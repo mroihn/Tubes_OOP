@@ -26,6 +26,8 @@ public:
     void addItem(T item, int row, int col);
     void addItem(T item);
 
+    void deleteItem(T item);
+
     template<typename U>
     U* getItem(int row, int col);
 

@@ -28,6 +28,7 @@ class InvItems{
         virtual void print();
         virtual bool isMakanan() const = 0;
 
+
 };
 
 //<ID> <KODE_HURUF> <NAME> <TYPE> <ORIGIN> <ADDED_WEIGHT> <PRICE>
@@ -37,11 +38,15 @@ class Product: public InvItems{
     protected:
         string origin;
         int added_weight;
+        static map<string,Product*> ListProduk;
     public:
         Product();
         Product(int id, string kode_huruf, string nama, string origin, int added_weight, int price);
         Product* clone();
         void print();
+        static void addListProduk(Product* p);
+        static void printListProduk();
+        static map<string, Product*>& getListProduk();
         int getAddedWeight();
         bool isMakanan() const override;
 };
@@ -76,6 +81,7 @@ class Hewan: public InvItems{
     protected:
         int weight_to_harvest;
         int weight;
+        static map<string,Hewan*> animals;
     public:
         Hewan();
         //user defined constructor, dengan berat awal 0
@@ -84,7 +90,11 @@ class Hewan: public InvItems{
         void setBerat(int berat);
         void tambahBerat(int berat);
         int getWeightToHarvestItem();
+        static void addListHewan(Hewan*h);
+        static void printListHewan();
+        static map<string,Hewan*>& getListHewan();
         virtual void print();
+        Product* Panen();
         bool siapPanen();
         bool isMakanan() const override;
 };
@@ -95,6 +105,7 @@ class Herbivore: public Hewan{
         Herbivore(int id, string kode_huruf, string nama, int weight_to_harvest, int price);
 
         void print();
+        Product* Panen();
         void makan(Product* Food);
 };
 
@@ -105,21 +116,24 @@ class Carnivore: public Hewan{
 
         void print();
         void makan(Product* Food);
+        Product* Panen();
 };
-
 class Omnivore: public Hewan{
+
     public:
         Omnivore();
         Omnivore(int id, string kode_huruf, string nama, int weight_to_harvest, int price);
 
         void print();
         void makan(Product* Food);
+        pair<Product*, Product*> Panen() ;
 };
 
 //<ID> <KODE_HURUF> <NAME> <TYPE> <DURATION_TO_HARVEST> <PRICE> <UMUR>
 //Turunan: Material_Plant, Fruit_Plant
 class Tanaman: public InvItems{
     protected:
+        static map<string,Tanaman*> ListTanaman;
         int duration_to_harvest;
         int umur_tanaman;
     public:
@@ -127,9 +141,13 @@ class Tanaman: public InvItems{
         //user defined constructor, umur di awal selalu 0
         Tanaman(int id, string kode_huruf, string nama, int duration_to_harvest, int price);
         void setUmur(int umur);
-        Tanaman* clone();
+        virtual Tanaman* clone() = 0;
         void tambahUmurTanaman();
         int getDurationToHarvestItem();
+        static map<string, Tanaman*>& getlistTanaman();
+        static void addlistTanaman(Tanaman*h);
+        static void printListTanaman();
+        virtual Product* Panen() = 0;
         virtual void print();
         bool siapPanen();
         bool isMakanan() const override;
@@ -139,7 +157,8 @@ class Material_Plant: public Tanaman{
     public:
         Material_Plant();
         Material_Plant(int id, string kode_huruf, string nama, int duration_to_harvest, int price);
-
+        Product* Panen();
+        Tanaman* clone();
         void print();
 };
 
@@ -147,7 +166,8 @@ class Fruit_Plant: public Tanaman{
     public:
         Fruit_Plant();
         Fruit_Plant(int id, string kode_huruf, string nama, int duration_to_harvest, int price);
-
+        Product* Panen();
+        Tanaman* clone();
         void print();
 };
 
