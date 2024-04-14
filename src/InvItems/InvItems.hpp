@@ -86,7 +86,7 @@ class Hewan: public InvItems{
         Hewan();
         //user defined constructor, dengan berat awal 0
         Hewan(int id, string kode_huruf, string nama, int weight_to_harvest, int price);
-        Hewan* clone();
+        virtual Hewan* clone() =0;
         void setBerat(int berat);
         void tambahBerat(int berat);
         int getWeightToHarvestItem();
@@ -94,7 +94,7 @@ class Hewan: public InvItems{
         static void printListHewan();
         static map<string,Hewan*>& getListHewan();
         virtual void print();
-        Product* Panen();
+        virtual vector<Product*> Panen() = 0;
         bool siapPanen();
         bool isMakanan() const override;
 };
@@ -104,8 +104,9 @@ class Herbivore: public Hewan{
         Herbivore();
         Herbivore(int id, string kode_huruf, string nama, int weight_to_harvest, int price);
 
+        Hewan* clone();
         void print();
-        Product* Panen();
+        vector<Product*> Panen();
         void makan(Product* Food);
 };
 
@@ -114,9 +115,10 @@ class Carnivore: public Hewan{
         Carnivore();
         Carnivore(int id, string kode_huruf, string nama, int weight_to_harvest, int price);
 
+        Hewan* clone();
         void print();
         void makan(Product* Food);
-        Product* Panen();
+        vector<Product*> Panen();
 };
 class Omnivore: public Hewan{
 
@@ -124,9 +126,10 @@ class Omnivore: public Hewan{
         Omnivore();
         Omnivore(int id, string kode_huruf, string nama, int weight_to_harvest, int price);
 
+        Hewan* clone();
         void print();
         void makan(Product* Food);
-        pair<Product*, Product*> Panen() ;
+        vector<Product*> Panen();
 };
 
 //<ID> <KODE_HURUF> <NAME> <TYPE> <DURATION_TO_HARVEST> <PRICE> <UMUR>

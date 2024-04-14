@@ -4,12 +4,13 @@
 #include <iostream>
 #include <fstream>
 #include <sstream>
-#include <string>
+// #include <string>
 #include <vector>
 #include <map>
 #include "../InvItems/InvItems.hpp"
 #include "../Inventory/Inventory.hpp"
 #include "../User/User.hpp"
+#include "../Toko/Toko.hpp"
 
 using namespace std;
 
@@ -17,6 +18,7 @@ class GameManager{
     private:
         map<string,Building> ListBuilding;
         map<string,User*> ListUser;
+        Toko toko;
         int max_uang;
         int max_berat;
         pair<int,int> inventorySize;

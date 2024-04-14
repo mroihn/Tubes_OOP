@@ -16,19 +16,19 @@ class User{
     protected:
         // static int n_player;
         int id;
-        string username;
+        std::string username;
         int berat_badan;
         int uang;
         Inventory<InvItems*> penyimpanan;
     public:
         User();
-        User(string username, pair<int,int> invSize);
-        User(string username, int berat,int uang, pair<int,int> invSize);
+        User(std::string username, pair<int,int> invSize);
+        User(std::string username, int berat,int uang, pair<int,int> invSize);
         virtual ~User();
 
         int getBerat();
         Inventory<InvItems*>& getInv();
-        InvItems* getItem(string kode_huruf);
+        InvItems* getItem(std::string kode_huruf);
         int getUang();
         void setUang(int uang);
         void next();
@@ -51,8 +51,8 @@ class Walikota: public User{
     private:
         static int jumlah_walikota;
     public:
-        Walikota(string username, pair<int,int> invSize);
-        Walikota(string username, int berat, int uang, pair<int,int> invSize);
+        Walikota(std::string username, pair<int,int> invSize);
+        Walikota(std::string username, int berat, int uang, pair<int,int> invSize);
         ~Walikota();
         void tagihPajak();
         void tambahBangunan();
@@ -64,13 +64,13 @@ class Petani: public User{
     private:
         Inventory<Tanaman*> ladang;
     public: 
-        Petani(string username, pair<int,int> invSize, pair<int,int> fieldSize);
-        Petani(string nama,int berat,int uang,pair<int,int> inventorySize,pair<int,int> fieldSize);
+        Petani(std::string username, pair<int,int> invSize, pair<int,int> fieldSize);
+        Petani(std::string nama,int berat,int uang,pair<int,int> inventorySize,pair<int,int> fieldSize);
         void setLadang(int i, int j, Tanaman* t);
         void tanamTanaman();
     
         Inventory<Tanaman*>& getladang();
-        Tanaman* getTanaman(string kode_huruf);
+        Tanaman* getTanaman(int i, int j);
         void panenTanaman();
         void cetakLadang();
         //double calculatetax() const override;
@@ -80,13 +80,13 @@ class Peternak: public User{
     private:
         Inventory<Hewan*> peternakan;
     public:
-        Peternak(string username, pair<int,int> invSize, pair<int,int> barnSize);
-        Peternak(string nama,int berat,int uang,pair<int,int> inventorySize,pair<int,int> farmSize);
+        Peternak(std::string nama, pair<int,int> invSize, pair<int,int> farmSize);
+        Peternak(std::string nama,int berat,int uang,pair<int,int> inventorySize,pair<int,int> farmSize);
         void cetakPeternakan();
         void setPeternakan(int i, int j, Hewan* t);
-        Inventory<Hewan*>& getfarm(){
-            return peternakan;
-        }
+        Inventory<Hewan*>& getfarm();
+
+        Hewan* getHewan(int i, int j);
         void ternak();
         void panen();
         //double calculatetax() const override;

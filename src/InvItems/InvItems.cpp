@@ -94,9 +94,7 @@ InvItems(id,kode_huruf,nama, price){
     this ->weight = 0;
 }
 // Hewan::Hewan(const Hewan& other): id(other.id), kode_huruf(other.kode_huruf)
-Hewan* Hewan::clone(){
-    return new Hewan(*this);
-}
+
 void Hewan::setBerat(int berat){
     this->weight = berat;
 }
@@ -138,6 +136,10 @@ Herbivore::Herbivore(int id, string kode_huruf, string nama, int weight_to_harve
 void Herbivore::print(){
     cout << id << " " << kode_huruf << " " << nama << " HERBIVORE " << weight_to_harvest << " " << price << " " << weight << endl;
 }
+
+Hewan* Herbivore::clone(){
+    return new Herbivore(*this);
+}
 void Herbivore::makan(Product* Food){
     if(Fruit* buah = dynamic_cast<Fruit*>(Food)){
         weight+=Food->getAddedWeight();
@@ -147,12 +149,37 @@ void Herbivore::makan(Product* Food){
     }
 }
 
+vector<Product*> Herbivore::Panen(){
+    vector<Product*> products;
+    if(kode_huruf=="COW"){
+        Product *p = Product::getListProduk()["COW_MEAT"]->clone();
+        products.push_back(p);
+    }else if(kode_huruf=="SHP"){
+        Product *p = Product::getListProduk()["SHEEP_MEAT"]->clone();
+        products.push_back(p);
+    }else if(kode_huruf=="HRS"){
+        Product *p = Product::getListProduk()["HORSE_MEAT"]->clone();
+        products.push_back(p);
+    }else if(kode_huruf=="RBT"){
+        Product *p = Product::getListProduk()["RABBIT_MEAT"]->clone();
+        products.push_back(p);
+    }else{
+        //throw exc
+    }
+    return products;
+}
+
 Carnivore::Carnivore(){}
 Carnivore::Carnivore(int id, string kode_huruf, string nama, int weight_to_harvest, int price): Hewan(id,kode_huruf,nama,weight_to_harvest,price){}
 
 void Carnivore::print(){
     cout << id << " " << kode_huruf << " " << nama << " CARNIVORE " << weight_to_harvest << " " << price << " " << weight << endl;
 }
+
+Hewan* Carnivore::clone(){
+    return new Carnivore(*this);
+}
+
 void Carnivore::makan(Product* Food){
     if(Meat* daging = dynamic_cast<Meat*>(Food)){
         weight+=Food->getAddedWeight();
@@ -162,14 +189,48 @@ void Carnivore::makan(Product* Food){
     }
 }
 
+vector<Product*> Carnivore::Panen(){
+    vector<Product*> products;
+    if(kode_huruf=="SNK"){
+        Product *p = Product::getListProduk()["SNAKE_MEAT"]->clone();
+        products.push_back(p);
+    }else{
+        //throw exc
+    }
+    return products;
+}
+
 Omnivore::Omnivore(){}
 Omnivore::Omnivore(int id, string kode_huruf, string nama, int weight_to_harvest, int price): Hewan(id,kode_huruf,nama,weight_to_harvest,price){}
 
 void Omnivore::print(){
     cout << id << " " << kode_huruf << " " << nama << " OMNIVORE " << weight_to_harvest << " " << price << " " << weight << endl;
 }
+
+Hewan* Omnivore::clone(){
+    return new Omnivore(*this);
+}
+
 void Omnivore::makan(Product* Food){
     weight+=Food->getAddedWeight();
+}
+
+vector<Product*> Omnivore::Panen(){
+    vector<Product*> products;
+    if(kode_huruf=="CHK"){
+        Product *M = Product::getListProduk()["CHICKEN_MEAT"]->clone();
+        products.push_back(M);
+        Product *E = Product::getListProduk()["CHICKEN_EGG"]->clone();
+        products.push_back(E);
+    }else if(kode_huruf=="DCK"){
+        Product *M = Product::getListProduk()["DUCK_MEAT"]->clone();
+        products.push_back(M);
+        Product *E = Product::getListProduk()["DUCK_EGG"]->clone();
+        products.push_back(E);
+    }else{
+        //throw exc
+    }
+    return products;
 }
 
 
