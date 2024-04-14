@@ -250,6 +250,35 @@ void GameManager::bacaState(string filename){
         }
         jumlahPlayer--;
     }
+    file.ignore();
+    int n_item_in_toko;
+    file >> n_item_in_toko;
+    while (n_item_in_toko>0)
+    {
+        string item_name;
+        int kuantitas;
+        file.ignore();
+        file >> item_name >> kuantitas;
+        auto it = Hewan::getListHewan().find(item_name);
+        auto it2 = Tanaman::getlistTanaman().find(item_name);
+        auto it3 = Product::getListProduk().find(item_name);
+        auto it4 = ListBuilding.find(item_name);
+        InvItems* i;
+        if(it != Hewan::getListHewan().end()){
+            i = Hewan::getListHewan()[item_name]->clone();
+        }else if(it2 != Tanaman::getlistTanaman().end()){
+            i = Tanaman::getlistTanaman()[item_name]->clone();
+        }else if(it3 != Product::getListProduk().end()){
+            i = Product::getListProduk()[item_name]->clone();
+        }else if(it4 != ListBuilding.end()){
+            Building b = ListBuilding[item_name];
+            i = &b;
+        }
+        toko.addBarang(i, kuantitas);
+        n_item_in_toko--;
+    }
+    toko.cetak_toko();
+    
 }
 
 
