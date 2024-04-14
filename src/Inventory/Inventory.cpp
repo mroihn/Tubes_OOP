@@ -114,5 +114,8 @@ bool Inventory<T>::isFull() {
 
 template<class T>
 T& Inventory<T>::operator()(int i, int j) {
+    if(i<0 || j<0 || i>rows-1 || j>cols-1){
+        throw BarisKolomTidakSesuai();
+    }
     return contents[i][j];
 }

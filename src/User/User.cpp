@@ -2,14 +2,16 @@
 #include <limits>
 #include <stdexcept>
 
-User::User(string username, pair<int,int> invSize): penyimpanan(invSize.first, invSize.second){
+using namespace std;
+
+User::User(std::string username, pair<int,int> invSize): penyimpanan(invSize.first, invSize.second){
     this->username = username;
     berat_badan = 40;
     uang = 50;
     // n_player++;
     // id = n_player;
 }
-User::User(string username, int berat,int uang, pair<int,int> invSize): penyimpanan(invSize.first, invSize.second){
+User::User(std::string username, int berat,int uang, pair<int,int> invSize): penyimpanan(invSize.first, invSize.second){
     this->username = username;
     this->berat_badan = berat;
     this->uang = uang;
@@ -96,8 +98,8 @@ void User :: setPenyimpanan( InvItems* item){
 
 void User::makan() {
     cetak_penyimpanan();
-    string slot;
-    string subslot;
+    std::string slot;
+    std::string subslot;
     while (true) {
         cout << "\nSlot: ";
         cin >> slot;
@@ -167,13 +169,13 @@ InvItems* User::jual(int i,int j){
  
 
 int Walikota::jumlah_walikota = 0;
-Walikota::Walikota(string username, pair<int, int> invSize) : User(username, invSize){
+Walikota::Walikota(std::string username, pair<int, int> invSize) : User(username, invSize){
     if(jumlah_walikota!=0){
         throw WalikotaHanyaSatu();
     }
     jumlah_walikota++;
 }
-Walikota::Walikota(string username, int berat, int uang, pair<int,int> invSize): User(username, berat, uang, invSize){
+Walikota::Walikota(std::string username, int berat, int uang, pair<int,int> invSize): User(username, berat, uang, invSize){
     if(jumlah_walikota!=0){
         throw WalikotaHanyaSatu();
     }
@@ -186,8 +188,8 @@ void Walikota::tambahPemain(){}
 
 
 
-Petani::Petani(string username, pair<int,int> invSize, pair<int,int> fieldSize): ladang(fieldSize.first,fieldSize.second), User(username, invSize){};
-Petani::Petani(string nama,int berat,int uang,pair<int,int> inventorySize,pair<int,int> fieldSize): User(username, berat, uang, inventorySize), ladang(fieldSize.first, fieldSize.second){};
+Petani::Petani(std::string username, pair<int,int> invSize, pair<int,int> fieldSize): ladang(fieldSize.first,fieldSize.second), User(username, invSize){};
+Petani::Petani(std::string nama,int berat,int uang,pair<int,int> inventorySize,pair<int,int> fieldSize): User(username, berat, uang, inventorySize), ladang(fieldSize.first, fieldSize.second){};
 void Petani::setLadang(int i, int j, Tanaman* t){
     if (i>=ladang.getRows() || j>ladang.getCols() || i<0 || j<0){
         throw BarisKolomTidakSesuai();
@@ -203,8 +205,8 @@ void Petani::tanamTanaman(){
     if(penyimpanan.isEmpty()){
         throw PenyimpananKosong();
     }
-    string slot;
-    string subslot;
+    std::string slot;
+    std::string subslot;
     Tanaman* temp;
     while (true){
         try{
@@ -267,16 +269,19 @@ Inventory<Tanaman*>& Petani::getladang(){
     return ladang;
 }
 
-Tanaman* Petani::getTanaman(string kode_huruf){
+Inventory<Hewan*>& Peternak::getfarm(){
+    return peternakan;
+}
+
+Tanaman* Petani::getTanaman(int i, int j){
     if(ladang.isEmpty()){
         throw LadangEmpty();
     }
-    for(int i=0; i<ladang.getRows(); i++){
-        for(int j=0; j<ladang.getCols(); j++){
-            if(ladang(i,j)!=nullptr && ladang(i,j)->getKode()==kode_huruf){
-                return ladang(i,j);
-            }
-        }
+    if (i>ladang.getRows()-1 || j>ladang.getCols()-1 || i<0 || j<0){
+        throw BarisKolomTidakSesuai();
+    }
+    if(ladang(i,j)!=nullptr){
+        return ladang(i,j);
     }
     cout << "Tanaman tidak ada di ladang!\n";
     return nullptr;
@@ -284,7 +289,7 @@ Tanaman* Petani::getTanaman(string kode_huruf){
 
 void Petani::panenTanaman(){
     cetakLadang();
-    map<string, int> ListSiapPanen;
+    map<std::string, int> ListSiapPanen;
     int jumlahSiapPanen, noTanaman, JumlahPetak;
     jumlahSiapPanen=0;
     for(int i = 0; i<ladang.getRows(); i++){
@@ -332,15 +337,42 @@ void Petani::panenTanaman(){
                 cout << "\nPetak tidak cukup\n";
             }
         }
-
-        while (JumlahPetak>0)
-        {
-            Tanaman * t = getTanaman(it->first);
-            Product* p = t->Panen();
-            penyimpanan.addItem(p);
-            ladang.deleteItem(t);
-           JumlahPetak--;
+        if(JumlahPetak>sisaPenyimpanan()){
+            throw PenyimpananTidakCukup();
         }
+        cout << "\nPilih petak yang ingin dipanen\n";
+        // ostream& printPetak;
+        for(int i=0; i<JumlahPetak; i++){
+            std::string petak;
+            cout << "Petak ke-" << i+1 << ": ";
+            cin >> petak;
+            int col = int(petak[0]-'A');
+            int row = (petak[1]-'0')*10 + (petak[2]-'0')-1;
+            while (ladang(row,col) == nullptr || ladang(row,col)->getKode()!=it->first)
+            {
+                cout << "Tidak ada " << it->first << " di petak tersebut!\n";
+                cout << "Petak ke-" << i+1 << ": ";
+                cin >> petak;
+                col = int(petak[0]-'A');
+                row = (petak[1]-'0')*10 + (petak[2]-'0')-1;
+            }
+            
+            cout << row << " " << col << endl;
+            Tanaman* t = getTanaman(row,col);
+            Product *p = t->Panen();
+            setPenyimpanan(p);
+            ladang.deleteItem(t);
+        }
+        cout << JumlahPetak << " petak Tanaman " << it->first << " pada petak " << "printPetak\n" ;
+        // while (JumlahPetak>0)
+        // {
+        //     cout << "Petak"
+        //     Tanaman * t = getTanaman(it->first);
+        //     Product* p = t->Panen();
+        //     penyimpanan.addItem(p);
+        //     ladang.deleteItem(t);
+        //    JumlahPetak--;
+        // }
         cetak_penyimpanan();
         cetakLadang();
 
@@ -419,8 +451,8 @@ void Petani::cetakLadang(){
     }
 }
 
-Peternak::Peternak(string nama, pair<int,int> invSize, pair<int,int> farmSize) : peternakan(farmSize.first,farmSize.second), User(username, invSize){}
-Peternak::Peternak(string nama,int berat,int uang,pair<int,int> inventorySize,pair<int,int> farmSize): User(username, berat, uang, inventorySize), peternakan(farmSize.first, farmSize.second){};
+Peternak::Peternak(std::string nama, pair<int,int> invSize, pair<int,int> farmSize) : peternakan(farmSize.first,farmSize.second), User(nama, invSize){}
+Peternak::Peternak(std::string nama,int berat,int uang,pair<int,int> inventorySize,pair<int,int> farmSize): User(username, berat, uang, inventorySize), peternakan(farmSize.first, farmSize.second){};
 void Peternak::setPeternakan(int i, int j, Hewan* t){
     if (i>=peternakan.getRows() || j>peternakan.getCols() || i<0 || j<0){
         // Throw Exception
@@ -498,6 +530,20 @@ void Peternak::cetakPeternakan(){
         cout << "- " << printed[i]->getKode() << ": " << printed[i]->getNama() << '\n';
     }
 }
+
+Hewan* Peternak::getHewan(int i, int j){
+    if(peternakan.isEmpty()){
+        throw LadangEmpty();
+    }
+    if (i>peternakan.getRows()-1 || j>peternakan.getCols()-1 || i<0 || j<0){
+        throw BarisKolomTidakSesuai();
+    }
+    if(peternakan(i,j)!=nullptr){
+        return peternakan(i,j);
+    }
+    cout << "Hewan tidak ada di peternakan!\n";
+    return nullptr;
+}
 void Peternak::ternak(){
     if (peternakan.isFull()){
         throw PeternakanFull();
@@ -505,8 +551,8 @@ void Peternak::ternak(){
     if(penyimpanan.isEmpty()){
         throw PenyimpananKosong();
     }
-    string slot;
-    string subslot;
+    std::string slot;
+    std::string subslot;
     Hewan* temp;
     while (true){
         try{
@@ -565,5 +611,111 @@ void Peternak::ternak(){
         }
     }
 }
-void panen();
+void Peternak::panen(){
+    cetakPeternakan();
+    map<std::string, int> ListSiapPanen;
+    int jumlahSiapPanen, noHewan, JumlahPetak;
+    jumlahSiapPanen=0;
+    for(int i = 0; i<peternakan.getRows(); i++){
+        for(int j = 0; j<peternakan.getCols(); j++){
+            if(peternakan(i,j)!=nullptr && peternakan(i,j)->siapPanen()){
+                ListSiapPanen[peternakan(i,j)->getKode()]+=1;
+                jumlahSiapPanen++;
+            }
+        }
+    }
+    try{
+        if(jumlahSiapPanen==0){
+            //throw exc
+            throw HarapanKosong();
+        }
+
+        cout << "Pilih Hewan siap panen yang kamu miliki \n";
+        int size = ListSiapPanen.size();
+
+        for (int i = 0; i < size; ++i) {
+            auto it = ListSiapPanen.begin();
+            std::advance(it, i); // Move iterator
+            cout << "\t" << i+1 << ". " << it->first << " (" << it->second << " petak siap panen)\n";
+        }
+
+        noHewan = -1;
+        JumlahPetak = -1;
+        
+        while (noHewan<1 || noHewan>size)
+        {
+            cout << "Nomor tanaman yang ingin dipanen: ";
+            cin >> noHewan;
+            if(noHewan<1 || noHewan>size){
+                cout << "\nTidak ada Tanaman dengan nomor tersebut, masukkan nomor yang lain!\n";
+            }
+        }
+        auto it = ListSiapPanen.begin();
+        advance(it, noHewan-1);
+        
+        while (JumlahPetak<1 || JumlahPetak>it->second)
+        {
+            cout << "Berapa petak yang ingin dipanen: ";
+            cin >> JumlahPetak;
+            if(JumlahPetak<1 || JumlahPetak>it->second){
+                cout << "\nPetak tidak cukup\n";
+            }
+        }
+        //Ayam dan bebek akan menghasilkan 2 produk, sementara hewan lain
+        //hanya menghasilkan 1 produk saja
+        if(it->first=="CHK" || it->first=="DCK"){
+            if(JumlahPetak*2>sisaPenyimpanan()){
+                throw PenyimpananTidakCukup();
+            }else{
+                if(JumlahPetak>sisaPenyimpanan()){
+                    throw PenyimpananTidakCukup();
+                }
+            }
+        }
+        cout << "\nPilih petak yang ingin dipanen\n";
+        // ostream& printPetak;
+        for(int i=0; i<JumlahPetak; i++){
+            std::string petak;
+            cout << "Petak ke-" << i+1 << ": ";
+            cin >> petak;
+            int col = int(petak[0]-'A');
+            int row = (petak[1]-'0')*10 + (petak[2]-'0')-1;
+            cout << row << " " << col << "\n";
+            while (peternakan(row,col) == nullptr || peternakan(row,col)->getKode()!=it->first)
+            {
+                cout << "Tidak ada " << it->first << " di petak tersebut!\n";
+                cout << "Petak ke-" << i+1 << ": ";
+                cin >> petak;
+                col = int(petak[0]-'A');
+                row = (petak[1]-'0')*10 + (petak[2]-'0')-1;
+            }
+            
+            Hewan* t = getHewan(row,col);
+            vector<Product*> p = t->Panen();
+            int size = p.size();
+            for(int i=0; i<size; i++){
+                setPenyimpanan(p[i]);
+            }
+            // setPenyimpanan(p);
+            peternakan.deleteItem(t);
+            // printPetak << petak << " ";
+        }
+        cout << JumlahPetak << " petak Tanaman" << it->first << "pada petak " << "printPetak";   
+        // while (JumlahPetak>0)
+        // {
+        //     cout << "Petak"
+        //     Tanaman * t = getTanaman(it->first);
+        //     Product* p = t->Panen();
+        //     penyimpanan.addItem(p);
+        //     ladang.deleteItem(t);
+        //    JumlahPetak--;
+        // }
+        cetak_penyimpanan();
+        cetakPeternakan();
+
+        
+    }catch(UserException& e){
+        cout << e.what() << endl;
+    }
+}
 

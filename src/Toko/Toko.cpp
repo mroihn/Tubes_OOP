@@ -1,36 +1,36 @@
 #include "Toko.hpp"
 
 Toko :: Toko(){
-    Tanaman* t1 = new Material_Plant(1,"TEK","TEAK_TREE",5,4);
-    this->addBarang(t1, -1);
-    Tanaman* t2 = new Material_Plant(1,"SDT","SANDALWOOD_TREE",5,4);
-    this->addBarang(t2, -1);
-    Tanaman* t3 = new Material_Plant(1,"ALT","ALOE_TREE",5,4);
-    this->addBarang(t3, -1);
-    Tanaman* t4 = new Material_Plant(1,"IRN","IRONWOOD_TREE",5,4);
-    this->addBarang(t4, -1);
-    Tanaman* t5 = new Fruit_Plant(1,"APL","APPLE_TREE",5,4);
-    this->addBarang(t5, -1);
-    Tanaman* t6 = new Fruit_Plant(1,"ORG","ORANGE_TREE",5,4);
-    this->addBarang(t6, -1);
-    Tanaman* t7 = new Fruit_Plant(1,"BNT","BANANA_TREE",5,4);
-    this->addBarang(t7, -1);
-    Tanaman* t8 = new Fruit_Plant(1,"GAV","GUAVA_TREE",5,4);
-    this->addBarang(t8, -1);
-    Hewan *h1 = new Hewan(2, "COW", "COW", 7, 8);
-    this->addBarang(h1, -1);
-    Hewan *h2 = new Hewan(2, "SHP", "SHEEP", 7, 8);
-    this->addBarang(h2, -1);
-    Hewan *h3 = new Hewan(2, "HRS", "HORSE", 7, 8);
-    this->addBarang(h3, -1);
-    Hewan *h4 = new Hewan(2, "RBT", "RABBIT", 7, 8);
-    this->addBarang(h4, -1);
-    Hewan *h5 = new Hewan(2, "SNK", "SNAKE", 7, 8);
-    this->addBarang(h5, -1);
-    Hewan *h6 = new Hewan(2, "CHK", "CHICKEN", 7, 8);
-    this->addBarang(h6, -1);
-    Hewan *h7 = new Hewan(2, "DCK", "DUCK", 7, 8);
-    this->addBarang(h7, -1);
+    Tanaman* t1 = new Material_Plant(1,"TTT","Teak Tree",5,4);
+    this->addBarang(t1, 1, -1);
+    Tanaman* t2 = new Material_Plant(1,"TTT","Sandalwood Tree",5,4);
+    this->addBarang(t2, 1, -1);
+    Tanaman* t3 = new Material_Plant(1,"TTT","Aloe Tree",5,4);
+    this->addBarang(t3, 1, -1);
+    Tanaman* t4 = new Material_Plant(1,"TTT","Ironwood Tree",5,4);
+    this->addBarang(t4, 1, -1);
+    Tanaman* t5 = new Fruit_Plant(1,"TTT","Apple Tree",5,4);
+    this->addBarang(t5, 1, -1);
+    Tanaman* t6 = new Fruit_Plant(1,"TTT","Orange Tree ",5,4);
+    this->addBarang(t6, 1, -1);
+    Tanaman* t7 = new Fruit_Plant(1,"TTT","Banana Tree",5,4);
+    this->addBarang(t7, 1, -1);
+    Tanaman* t8 = new Fruit_Plant(1,"TTT","Guava Tree",5,4);
+    this->addBarang(t8, 1, -1);
+    Hewan *h1 = new Herbivore(2, "HHH", "Cow", 7, 8);
+    this->addBarang(h1, 1, -1);
+    Hewan *h2 = new Herbivore(2, "HHH", "Sheep", 7, 8);
+    this->addBarang(h2, 1, -1);
+    Hewan *h3 = new Herbivore(2, "HHH", "Horse", 7, 8);
+    this->addBarang(h3, 1, -1);
+    Hewan *h4 = new Herbivore(2, "HHH", "Rabbit ", 7, 8);
+    this->addBarang(h4, 1, -1);
+    Hewan *h5 = new Carnivore(2, "HHH", "Snake", 7, 8);
+    this->addBarang(h5, 1, -1);
+    Hewan *h6 = new Omnivore(2, "HHH", "Chicken", 7, 8);
+    this->addBarang(h6, 1, -1);
+    Hewan *h7 = new Omnivore(2, "HHH", "Duck", 7, 8);
+    this->addBarang(h7, 1, -1);
 }
 
 void Toko :: cetak_toko(){
