@@ -22,7 +22,8 @@ class Toko{
         void kurangiBarang(string namaBarang, int jumlah);
         void beli(User* pembeli);
         void jual(User* penjual);
-        int getListBarangSize();
+        int getJumlahJenisBarang();
+        const map<string, int>& getListStok();
         InvItems* getBarang(int i);
 };
 

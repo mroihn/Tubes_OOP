@@ -287,6 +287,7 @@ void GameManager::simpan(string fileloc){
         std::cerr << "Lokasi berkas tidak valid\n ";
         return;
     }
+    file.clear();
     int n_pemain = ListUser.size();
     file << n_pemain;
     file << endl;
@@ -330,6 +331,13 @@ void GameManager::simpan(string fileloc){
             }
         }
         file << ss.str();
+    }
+    int jumlahJenis = toko.getJumlahJenisBarang();
+    file << jumlahJenis << endl;
+    for(const auto& pair : toko.getListStok()){
+        if(pair.second>0){
+            file << pair.first << " " << pair.second << endl;
+        }
     }
 }
 

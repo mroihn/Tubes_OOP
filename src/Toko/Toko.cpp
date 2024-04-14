@@ -33,8 +33,14 @@ Toko :: Toko(){
     this->addBarang(h7, -1);
 }
 
-int Toko :: getListBarangSize(){
-    return ListBarang.size();
+int Toko::getJumlahJenisBarang(){
+    int count=0;
+    for(const auto& item : ListStok){
+        if(item.second>0){
+            count++;
+        }
+    }
+    return count;
 }
 
 InvItems* Toko :: getBarang(int i){
@@ -179,4 +185,8 @@ void Toko :: jual(User* penjual){
     }catch(TokoException& e){
         cout << e.what() << '\n';
     }
+}
+
+const map<string, int>& Toko::getListStok(){
+    return ListStok;
 }
