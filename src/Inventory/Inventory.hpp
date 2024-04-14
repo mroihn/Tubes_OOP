@@ -36,7 +36,9 @@ public:
     int getNeff() const;
 
     void incNeff();
-    
+
+    void decNeff();
+
     bool isEmpty();
 
     bool isFull();

@@ -1,36 +1,36 @@
 #include "Toko.hpp"
 
 Toko :: Toko(){
-    Tanaman* t1 = new Tanaman(1,"TTT","Teak Tree",5,4);
-    this->addBarang(t1, 1, -1);
-    Tanaman* t2 = new Tanaman(1,"TTT","Sandalwood Tree",5,4);
-    this->addBarang(t2, 1, -1);
-    Tanaman* t3 = new Tanaman(1,"TTT","Aloe Tree",5,4);
-    this->addBarang(t3, 1, -1);
-    Tanaman* t4 = new Tanaman(1,"TTT","Ironwood Tree",5,4);
-    this->addBarang(t4, 1, -1);
-    Tanaman* t5 = new Tanaman(1,"TTT","Apple Tree",5,4);
-    this->addBarang(t5, 1, -1);
-    Tanaman* t6 = new Tanaman(1,"TTT","Orange Tree ",5,4);
-    this->addBarang(t6, 1, -1);
-    Tanaman* t7 = new Tanaman(1,"TTT","Banana Tree",5,4);
-    this->addBarang(t7, 1, -1);
-    Tanaman* t8 = new Tanaman(1,"TTT","Guava Tree",5,4);
-    this->addBarang(t8, 1, -1);
-    Hewan *h1 = new Hewan(2, "HHH", "Cow", 7, 8);
-    this->addBarang(h1, 1, -1);
-    Hewan *h2 = new Hewan(2, "HHH", "Sheep", 7, 8);
-    this->addBarang(h2, 1, -1);
-    Hewan *h3 = new Hewan(2, "HHH", "Horse", 7, 8);
-    this->addBarang(h3, 1, -1);
-    Hewan *h4 = new Hewan(2, "HHH", "Rabbit ", 7, 8);
-    this->addBarang(h4, 1, -1);
-    Hewan *h5 = new Hewan(2, "HHH", "Snake", 7, 8);
-    this->addBarang(h5, 1, -1);
-    Hewan *h6 = new Hewan(2, "HHH", "Chicken", 7, 8);
-    this->addBarang(h6, 1, -1);
-    Hewan *h7 = new Hewan(2, "HHH", "Duck", 7, 8);
-    this->addBarang(h7, 1, -1);
+    Tanaman* t1 = new Tanaman(1,"TEK","TEAK_TREE",5,4);
+    this->addBarang(t1, -1);
+    Tanaman* t2 = new Tanaman(1,"SDT","SANDALWOOD_TREE",5,4);
+    this->addBarang(t2, -1);
+    Tanaman* t3 = new Tanaman(1,"ALT","ALOE_TREE",5,4);
+    this->addBarang(t3, -1);
+    Tanaman* t4 = new Tanaman(1,"IRN","IRONWOOD_TREE",5,4);
+    this->addBarang(t4, -1);
+    Tanaman* t5 = new Tanaman(1,"APL","APPLE_TREE",5,4);
+    this->addBarang(t5, -1);
+    Tanaman* t6 = new Tanaman(1,"ORG","ORANGE_TREE",5,4);
+    this->addBarang(t6, -1);
+    Tanaman* t7 = new Tanaman(1,"BNT","BANANA_TREE",5,4);
+    this->addBarang(t7, -1);
+    Tanaman* t8 = new Tanaman(1,"GAV","GUAVA_TREE",5,4);
+    this->addBarang(t8, -1);
+    Hewan *h1 = new Hewan(2, "COW", "COW", 7, 8);
+    this->addBarang(h1, -1);
+    Hewan *h2 = new Hewan(2, "SHP", "SHEEP", 7, 8);
+    this->addBarang(h2, -1);
+    Hewan *h3 = new Hewan(2, "HRS", "HORSE", 7, 8);
+    this->addBarang(h3, -1);
+    Hewan *h4 = new Hewan(2, "RBT", "RABBIT", 7, 8);
+    this->addBarang(h4, -1);
+    Hewan *h5 = new Hewan(2, "SNK", "SNAKE", 7, 8);
+    this->addBarang(h5, -1);
+    Hewan *h6 = new Hewan(2, "CHK", "CHICKEN", 7, 8);
+    this->addBarang(h6, -1);
+    Hewan *h7 = new Hewan(2, "DCK", "DUCK", 7, 8);
+    this->addBarang(h7, -1);
 }
 
 void Toko :: cetak_toko(){
@@ -48,81 +48,126 @@ void Toko :: cetak_toko(){
     }
 }
 
-void Toko :: addBarang(InvItems *item, int harga, int stok){
+void Toko :: addBarang(InvItems *item, int stok){
     ListBarang.push_back(item);
     string namaBarang = item->getNama();
-    ListHarga[namaBarang] = harga;
+    ListHarga[namaBarang] = item->getPriceItem();
     ListStok[namaBarang] += stok;
 }
 
 void Toko :: kurangiBarang(string namaBarang, int jumlah){
-    if(ListStok[namaBarang] != -1){
-        if(jumlah>ListStok[namaBarang]){
-        cout << "gak cukup bos" << endl;
-        }
-        else if(jumlah == ListStok[namaBarang]){
-            int idx = -1;
-            for (int i = 0; i < ListBarang.size();i++){
-                if(ListBarang[i]->getNama() == namaBarang){
-                    idx = i;
+    try{
+        if(ListStok[namaBarang] != -1){
+            if(jumlah>ListStok[namaBarang]){
+                throw StokBarangKurang();
+            }
+            else if(jumlah == ListStok[namaBarang]){
+                int idx = -1;
+                for (int i = 0; i < ListBarang.size();i++){
+                    if(ListBarang[i]->getNama() == namaBarang){
+                        idx = i;
+                    }
+                }
+                if(idx!=-1){
+                    ListBarang.erase(ListBarang.begin() + idx);
+                    ListHarga.erase(namaBarang);
+                    ListStok.erase(namaBarang);
                 }
             }
-            if(idx!=-1){
-                ListBarang.erase(ListBarang.begin() + idx);
-                ListHarga.erase(namaBarang);
-                ListStok.erase(namaBarang);
+            else{
+                ListStok[namaBarang]-=jumlah;
             }
         }
-        else{
-            ListStok[namaBarang]-=jumlah;
-        }
+    }catch (TokoException& e){
+        cout << e.what() << "\n";
     }
-    
 }
 
 void Toko :: beli(User* pembeli){
-    cout << "Selamat datang di toko!!" << endl;
-    cout << "Berikut merupakan hal yang dapat Anda Beli" << endl;
-    this->cetak_toko();
-    cout << "\n";
-    cout << "Uang anda : " << pembeli->getUang() << endl;
-    cout << "Sisa Penyimpanan : " << pembeli->sisaPenyimpanan() << endl;
-    cout << "\n";
-    cout << "Barang ingin dibeli : ";
-    int pilihanBarang;
-    cin >> pilihanBarang;
-    bool cek = false;
-    int kuantitas;
-    while(!cek){
+    try{
+        cout << "Selamat datang di toko!!" << endl;
+        cout << "Berikut merupakan hal yang dapat Anda Beli" << endl;
+        this->cetak_toko();
+        cout << "\n";
+        cout << "Uang anda : " << pembeli->getUang() << endl;
+        cout << "Sisa Penyimpanan : " << pembeli->sisaPenyimpanan() << endl;
+        cout << "\n";
+        cout << "Barang ingin dibeli : ";
+        int pilihanBarang;
+        cin >> pilihanBarang;
+        bool cek = false;
+        int kuantitas;
         cout << "kuantitas : ";
         cin >> kuantitas;
         if(kuantitas> pembeli->sisaPenyimpanan()){
-            cout << "slot gak cukup" << endl;
+            throw SlotPembeliTidakCukup();
+        }
+
+        string namaBarang = ListBarang[pilihanBarang - 1]->getNama();
+        if(kuantitas > ListStok[namaBarang] && ListStok[namaBarang] != -1){
+            throw StokBarangKurang();
+        }
+        
+        int totalHarga = ListHarga[namaBarang] * kuantitas;
+        if(pembeli->getUang() < totalHarga){
+            throw UangTidakCukup();
         }
         else{
-            cek = true;
+            pembeli->beli(totalHarga);
+            cout << "Pilih cara penyimpanan" << endl;
+            cout << "1. Otomatis" << endl;
+            cout << "2. Manual" << endl;
+            int pilihan;
+            cin >> pilihan;
+            if(pilihan == 1){
+                for (int i = 0; i < kuantitas;i++){
+                    this->kurangiBarang(namaBarang, 1);
+                    pembeli->setPenyimpanan(ListBarang[pilihanBarang - 1]);
+                }
+            }
+            else if(pilihan == 2){
+                for (int i = 0; i < kuantitas;i++){
+                    string petakPilihan;
+                    cout << "Petak slot ke-" << i+1 << " : ";
+                    cin >> petakPilihan;
+                    string subslot = petakPilihan.substr(1,3);
+                    int y = petakPilihan[0] - 'A';
+                    int x = stoi(subslot)-1;
+                    this->kurangiBarang(namaBarang, 1);
+                    pembeli->setPenyimpanan(x, y, ListBarang[pilihanBarang - 1]);
+                }
+                
+            }
+            cout << "Selamat Anda berhasil membeli " << kuantitas << " " << namaBarang << ". Uang Anda tersisa " << pembeli->getUang() << " gulden." << endl;
         }
-    }
-    string namaBarang = ListBarang[pilihanBarang - 1]->getNama();
-    int totalHarga = ListHarga[namaBarang] * kuantitas;
-    if(pembeli->getUang() < totalHarga){
-        cout << "Uang lu gak cukup bos" << endl;
-    }
-    else{
-        pembeli->setUang(pembeli->getUang() - totalHarga);
-        for (int i = 0; i < kuantitas;i++){
-            pembeli->setPenyimpanan(ListBarang[pilihanBarang - 1]);
-        }
-        this->kurangiBarang(namaBarang, kuantitas);
-        cout << "Selamat Anda berhasil membeli " << kuantitas << " " << namaBarang << ". Uang Anda tersisa " << pembeli->getUang() << " gulden." << endl;
+    }catch(TokoException& e){
+        cout << e.what() << '\n';
     }
 }
 
 void Toko :: jual(User* penjual){
-    cout << "\nBerikut merupakan penyimpanan Anda" << endl;
-    penjual->cetak_penyimpanan();
-    cout << "Silahkan pilih petak yang ingin Anda jual!" << endl;
-    string petakPilihan;
-    cin >> petakPilihan;
-    cout << petakPilihan << endl;
+    try{
+        cout << "\nBerikut merupakan penyimpanan Anda" << endl;
+        penjual->cetak_penyimpanan();
+        cout << "Masukkan jumlah barang yang ingin dijual : ";
+        int cntBarang;
+        cin >> cntBarang;
+        cout << "Silahkan pilih petak yang ingin Anda jual!" << endl;
+        int total = 0;
+        for (int i = 0; i < cntBarang;i++){
+            cout << "Pilih slot ke-" << i + 1 << " : ";
+            string petakPilihan;
+            cin >> petakPilihan;
+            string subslot = petakPilihan.substr(1,3);
+            int y = petakPilihan[0] - 'A';
+            int x = stoi(subslot)-1;
+            InvItems *barang = penjual->jual(x, y);
+            this->addBarang(barang, 1);
+            total += barang->getPriceItem();
+        }
+
+        cout << "\nBarang Anda berhasil dijual! Uang Anda bertambah "<<total<<" gulden!" << endl;
+    }catch(TokoException& e){
+        cout << e.what() << '\n';
+    }
 }

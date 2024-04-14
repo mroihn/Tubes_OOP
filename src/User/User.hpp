@@ -28,10 +28,10 @@ class User{
         int getBerat();
         Inventory<InvItems*> *getInv();
         int getUang();
-        void setUang(int uang);
         void next();
         void cetak_penyimpanan();
         void setPenyimpanan(int i, int j, InvItems* item);
+        void hapusItem(int x,int y);
 
         void setPenyimpanan( InvItems* item);
         //virtual void cetakPeternakan();
@@ -40,8 +40,8 @@ class User{
 
         int sisaPenyimpanan();
         void makan();
-        void beli();
-        void jual();
+        void beli(int harga);
+        InvItems* jual(int i,int j);
 };
  
  

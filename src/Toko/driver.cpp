@@ -19,6 +19,8 @@ int main(){
     p.setPenyimpanan(0,1,t2);
     p.setPenyimpanan(2,2,t3);
     p.cetak_penyimpanan();
+    // t.jual(&p);
     t.beli(&p);
-    t.jual(&p);
+   
+    p.cetak_penyimpanan();
 }
