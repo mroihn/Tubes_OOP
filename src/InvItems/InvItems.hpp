@@ -88,6 +88,7 @@ class Hewan: public InvItems{
         Hewan(int id, string kode_huruf, string nama, int weight_to_harvest, int price);
         virtual Hewan* clone() =0;
         void setBerat(int berat);
+        int getBerat();
         void tambahBerat(int berat);
         int getWeightToHarvestItem();
         static void addListHewan(Hewan*h);
@@ -144,6 +145,7 @@ class Tanaman: public InvItems{
         //user defined constructor, umur di awal selalu 0
         Tanaman(int id, string kode_huruf, string nama, int duration_to_harvest, int price);
         void setUmur(int umur);
+        int getUmur();
         virtual Tanaman* clone() = 0;
         void tambahUmurTanaman();
         int getDurationToHarvestItem();

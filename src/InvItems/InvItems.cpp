@@ -98,6 +98,10 @@ InvItems(id,kode_huruf,nama, price){
 void Hewan::setBerat(int berat){
     this->weight = berat;
 }
+int Hewan::getBerat(){
+    return weight;
+}
+
 
 void Hewan::tambahBerat(int berat){
     weight+=berat;
@@ -244,6 +248,9 @@ InvItems(id,kode_huruf,nama, price){
 
 void Tanaman::setUmur(int umur){
     this->umur_tanaman = umur;
+}
+int Tanaman::getUmur(){
+    return umur_tanaman;
 }
 void Tanaman::tambahUmurTanaman(){
     umur_tanaman++;

@@ -46,4 +46,5 @@ int main(){
 
 
     g.bacaState("../../data/state.txt");
+    g.simpan("../../data/simpan.txt");
 }

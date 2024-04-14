@@ -122,8 +122,8 @@ void GameManager::bacaConfigRecipe(string filename){
                 recipe[material] = material_num;
             }
             
-            Building building(id, kode_huruf, nama, price, recipe);
-            ListBuilding[nama] = building;
+            Building *b = new  Building(id, kode_huruf, nama, price, recipe);
+            ListBuilding[nama] = b;
         }
         recipe.clear();
     }
@@ -131,7 +131,7 @@ void GameManager::bacaConfigRecipe(string filename){
 
     //test print to see if the config has been read
     for (auto& building : ListBuilding) {
-        building.second.print();
+        building.second->print();
     }
 }
 
@@ -166,7 +166,7 @@ void GameManager::bacaState(string filename){
         string nama, role;
         int berat, uang, n_items;
         file >> nama >> role >> berat >> uang;
-        User*u = new Petani("Placeholder",inventorySize, fieldSize);
+        User*u = new Petani(nama,inventorySize, fieldSize);
         if(role=="Petani"){
             delete u;
             u = new Petani(nama,berat,uang, inventorySize, fieldSize);
@@ -204,8 +204,8 @@ void GameManager::bacaState(string filename){
                 Product * p = Product::getListProduk()[item_name]->clone();
                 u->setPenyimpanan(p);
             }else if(it4 != ListBuilding.end()){
-                Building b = ListBuilding[item_name];
-                u->setPenyimpanan(&b);
+                Building *b = ListBuilding[item_name];
+                u->setPenyimpanan(b);
             }
             n_items--;
         }
@@ -271,14 +271,66 @@ void GameManager::bacaState(string filename){
         }else if(it3 != Product::getListProduk().end()){
             i = Product::getListProduk()[item_name]->clone();
         }else if(it4 != ListBuilding.end()){
-            Building b = ListBuilding[item_name];
-            i = &b;
+            Building *b = ListBuilding[item_name];
+            i = b;
         }
         toko.addBarang(i, kuantitas);
         n_item_in_toko--;
     }
     toko.cetak_toko();
     
+}
+
+void GameManager::simpan(string fileloc){
+    ofstream file(fileloc);
+    if (!file.is_open()) {
+        std::cerr << "Lokasi berkas tidak valid\n ";
+        return;
+    }
+    int n_pemain = ListUser.size();
+    file << n_pemain;
+    file << endl;
+    for(const auto& [nama, user] : ListUser){
+        string role;
+        stringstream ss;
+        if(Petani *p = dynamic_cast<Petani*>(user)){
+            role = "Petani";
+            ss << p->getladang().getNeff() << endl;
+            for(int i = 0; i<p->getladang().getRows(); i++){
+                for(int j = 0; j<p->getladang().getCols(); j++){
+                    if(p->getladang()(i,j)!=nullptr){
+                        string pos;
+                        pos = 'A'+j;
+                        ss << pos << setw(2) << setfill('0') << i+1 << " " <<  p->getladang()(i,j)->getNama() << " " << p->getladang()(i,j)->getUmur() << endl;
+                    }
+                }
+            }
+        }else if(Peternak *p = dynamic_cast<Peternak*>(user)){
+            role = "Peternak";
+            ss << p->getfarm().getNeff() << endl;
+            for(int i = 0; i<p->getfarm().getRows(); i++){
+                for(int j = 0; j<p->getfarm().getCols(); j++){
+                    if(p->getfarm()(i,j)!=nullptr){
+                        string pos;
+                        pos = 'A'+j;
+                        ss << pos << setw(2) << setfill('0') << i+1 << " " <<  p->getfarm()(i,j)->getNama() << " " << p->getfarm()(i,j)->getBerat() << endl;
+                    }
+                }
+            }
+        }else{
+            role = "Walikota";
+        }
+        file << user->getNama() << " " << role << " " << user->getBerat() << " " << user->getUang() << endl;
+        file << user->getInv().getNeff() << endl;
+        for(int i = 0; i<user->getInv().getRows(); i++){
+            for(int j = 0; j<user->getInv().getCols(); j++){
+                if(user->getInv()(i,j)!=nullptr){
+                    file << user->getInv()(i,j)->getNama() << endl;
+                }
+            }
+        }
+        file << ss.str();
+    }
 }
 
 

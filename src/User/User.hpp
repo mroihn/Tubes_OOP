@@ -26,6 +26,7 @@ class User{
         User(std::string username, int berat,int uang, pair<int,int> invSize);
         virtual ~User();
 
+        string getNama();
         int getBerat();
         Inventory<InvItems*>& getInv();
         InvItems* getItem(std::string kode_huruf);

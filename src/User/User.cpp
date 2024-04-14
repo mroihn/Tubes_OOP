@@ -19,6 +19,10 @@ User::User(std::string username, int berat,int uang, pair<int,int> invSize): pen
 
 User::~User(){}
 
+string User::getNama(){
+    return username;
+}
+
 int User::getBerat(){
     return berat_badan;
 }
@@ -88,7 +92,6 @@ void User :: setPenyimpanan( InvItems* item){
     for (int i = 0; i < penyimpanan.getRows();i++){
         for (int j = 0; j < penyimpanan.getCols();j++){
             if(penyimpanan(i,j) == nullptr){
-                penyimpanan.incNeff();
                 this->setPenyimpanan(i, j, item);
                 return ;
             }

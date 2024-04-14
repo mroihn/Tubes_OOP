@@ -16,7 +16,7 @@ using namespace std;
 
 class GameManager{
     private:
-        map<string,Building> ListBuilding;
+        map<string,Building*> ListBuilding;
         map<string,User*> ListUser;
         Toko toko;
         int max_uang;
@@ -31,6 +31,7 @@ class GameManager{
         void bacaConfigRecipe(string filename);
         void bacaConfigMisc(string filename);
         void bacaState(string filename);
+        void simpan(string fileloc);
         void printLogo();
 };
 
