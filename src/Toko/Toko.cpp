@@ -33,6 +33,15 @@ Toko :: Toko(){
     this->addBarang(h7, -1);
 }
 
+int Toko :: getListBarangSize(){
+    return ListBarang.size();
+}
+
+InvItems* Toko :: getBarang(int i){
+    return ListBarang[i];
+}
+
+
 void Toko :: cetak_toko(){
     for (int i = 0; i < ListBarang.size(); i++)
     {

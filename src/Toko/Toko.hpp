@@ -22,6 +22,8 @@ class Toko{
         void kurangiBarang(string namaBarang, int jumlah);
         void beli(User* pembeli);
         void jual(User* penjual);
+        int getListBarangSize();
+        InvItems* getBarang(int i);
 };
 
 #endif
