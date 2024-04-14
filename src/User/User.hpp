@@ -33,7 +33,6 @@ class User{
         void next();
         void cetak_penyimpanan();
         void setPenyimpanan(int i, int j, InvItems* item);
-        void hapusItem(int x,int y);
 
         void setPenyimpanan( InvItems* item);
         //virtual void cetakPeternakan();

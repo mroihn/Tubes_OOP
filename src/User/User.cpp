@@ -146,11 +146,6 @@ int User :: sisaPenyimpanan(){
     return penyimpanan.getCols() * penyimpanan.getRows() - penyimpanan.getNeff();
 }
 
-void User :: hapusItem(int x,int y){
-    penyimpanan(x, y) = nullptr;
-    penyimpanan.decNeff();
-}
-
 void User::beli(int harga){
     uang -= harga;
 }
@@ -163,7 +158,7 @@ InvItems* User::jual(int i,int j){
         }
         uang += penyimpanan(i,j)->getPriceItem();
         barang = penyimpanan(i, j);
-        this->hapusItem(i, j);
+        penyimpanan.deleteItem(barang);
     }catch(UserException& e){
         cout << e.what() << "\n";
     }
