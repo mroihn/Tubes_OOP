@@ -5,9 +5,9 @@
 int main(){
     pair<int,int> n(5,5);
     Petani p("Budi",n,n);
-    Tanaman* t1 = new Tanaman(1,"ABC","hahuy",5,4);
-    Tanaman* t2 = new Tanaman(2,"DEF","hihihiha",7,8);
-    Tanaman* t3 = new Tanaman(3,"XYZ","mimimimimimimi",11,12);
+    Tanaman* t1 = new Material_Plant(1,"ABC","hahuy",5,4);
+    Tanaman* t2 = new Fruit_Plant(2,"DEF","hihihiha",7,8);
+    Tanaman* t3 = new Fruit_Plant(3,"XYZ","mimimimimimimi",11,12);
     p.setPenyimpanan(0,0,t1);
     p.setPenyimpanan(0,1,t2);
     p.setPenyimpanan(2,2,t3);

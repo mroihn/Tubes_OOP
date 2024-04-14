@@ -28,18 +28,37 @@ void Inventory<T>::addItem(T item, int row, int col) {
 
 template<class T>
 void Inventory<T>::addItem(T item) {
-    cout << rows << " " << cols << endl;
     for(int i=0; i<rows; i++){
         for(int j=0; j<cols; j++){
             if(contents[i][j]==nullptr){
                 contents[i][j]=item;
                 printf("Item ditambahkan di %d, %d\n", i,j);
+                neff++;
                 return;
             }
         }
     }
     cout << "Penyimpanan penuh\n";
 }
+
+
+
+template<class T>
+void Inventory<T>::deleteItem(T item) {
+    for(int i=0; i<rows; i++){
+        for(int j=0; j<cols; j++){
+            if(contents[i][j]==item){
+                delete contents[i][j];
+                contents[i][j]=nullptr;
+                // printf("Item ditambahkan di %d, %d\n", i,j);
+                neff--;
+                return;
+            }
+        }
+    }
+    cout << "Item Tidak ada di penyimpanan\n";
+}
+
 
 template<class T>
 template<typename U>

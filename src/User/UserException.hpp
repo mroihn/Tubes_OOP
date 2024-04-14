@@ -57,6 +57,13 @@ class LadangFull : public UserException {
         }
 };
 
+class LadangEmpty : public UserException {
+    public:
+        string what() override {
+            return "Ladang Masih Kosong. \n";
+        }
+};
+
 class PeternakanFull : public UserException {
     public:
         string what() override {

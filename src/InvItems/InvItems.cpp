@@ -1,5 +1,9 @@
 #include "InvItems.hpp"
 
+map<string,Tanaman*> Tanaman::ListTanaman;
+map<string,Hewan*> Hewan::animals;
+map<string,Product*> Product::ListProduk;
+
 //InvItems
 InvItems::InvItems() {}
 
@@ -52,6 +56,18 @@ bool Product::isMakanan() const {
     return true; // Product bisa dimakan
 }
 
+void Product::addListProduk(Product*h){
+    Product::ListProduk[h->getNama()] = h;
+}
+void Product::printListProduk(){
+    for (auto Produk : ListProduk) {
+        Produk.second->print();
+    }
+}
+map<string,Product*>& Product::getListProduk(){
+    return ListProduk;
+}
+
 Material::Material(){}
 Material::Material(int id, string kode_huruf, string nama, string origin, int added_weight, int price): Product(id,kode_huruf,nama, origin,added_weight,price){}
 void Material::print(){
@@ -91,6 +107,18 @@ void Hewan::tambahBerat(int berat){
 
 int Hewan::getWeightToHarvestItem(){
     return weight_to_harvest;
+}
+
+void Hewan::addListHewan(Hewan*h){
+    animals[h->getNama()] = h;
+}
+void Hewan::printListHewan(){
+    for (auto hewan : animals) {
+        hewan.second->print();
+    }
+}
+map<string,Hewan*>& Hewan::getListHewan(){
+    return animals;
 }
 
 void Hewan::print(){
@@ -152,9 +180,6 @@ InvItems(id,kode_huruf,nama, price){
     this->umur_tanaman = 0;
 }
 
-Tanaman* Tanaman::clone(){
-    return new Tanaman(*this);
-}
 
 void Tanaman::setUmur(int umur){
     this->umur_tanaman = umur;
@@ -165,6 +190,18 @@ void Tanaman::tambahUmurTanaman(){
 
 int Tanaman::getDurationToHarvestItem(){
     return duration_to_harvest;
+}
+
+map<string, Tanaman*>& Tanaman::getlistTanaman(){
+    return ListTanaman;
+}
+void Tanaman::addlistTanaman(Tanaman*h){
+    ListTanaman[h->getNama()] = h;
+}
+void Tanaman::printListTanaman(){
+    for (auto& tanaman : ListTanaman) {
+        tanaman.second->print();
+    }
 }
 
 void Tanaman::print(){
@@ -187,11 +224,56 @@ void Material_Plant::print(){
     cout << id << " " << kode_huruf << " " << nama << " MATERIAL_PLANT " << duration_to_harvest << " " << price << " " << umur_tanaman << endl;
 }
 
+Product* Material_Plant::Panen(){
+    if(kode_huruf=="TEK"){
+        Product * p = Product::getListProduk()["TEAK_WOOD"]->clone();
+        return p;
+    }else if(kode_huruf == "SDT"){
+        Product * p = Product::getListProduk()["SANDALWOOD_WOOD"]->clone();
+        return p;
+    }else if(kode_huruf=="ALT"){
+        Product * p = Product::getListProduk()["ALOE_WOOD"]->clone();
+        return p;
+    }else if(kode_huruf=="IRN"){
+        Product * p = Product::getListProduk()["IRONWOOD_WOOD"]->clone();
+        return p;
+    }else{
+        cout << "Tidak ada resep panen yang cocok\n";
+        return nullptr;
+    }
+}
+Tanaman* Material_Plant::clone(){
+    return new Material_Plant(*this);
+}
+
 Fruit_Plant::Fruit_Plant(){}
 Fruit_Plant::Fruit_Plant(int id, string kode_huruf, string nama, int duration_to_harvest, int price): Tanaman(id,kode_huruf,nama,duration_to_harvest,price){}
 
 void Fruit_Plant::print(){
     cout << id << " " << kode_huruf << " " << nama << " FRUIT_PLANT " << duration_to_harvest << " " << price << " " << umur_tanaman << endl;
+}
+
+Product* Fruit_Plant::Panen(){
+    if(kode_huruf=="APL"){
+        Product * p = Product::getListProduk()["APPLE"]->clone();
+        return p;
+    }else if(kode_huruf == "ORG"){
+        Product * p = Product::getListProduk()["ORANGE"]->clone();
+        return p;
+    }else if(kode_huruf=="BNT"){
+        Product * p = Product::getListProduk()["BANANA"]->clone();
+        return p;
+    }else if(kode_huruf=="GAV"){
+        Product * p = Product::getListProduk()["GUAVA"]->clone();
+        return p;
+    }else{
+        cout << "Tidak ada resep panen yang cocok\n";
+        return nullptr;
+    }
+}
+
+Tanaman* Fruit_Plant::clone(){
+    return new Fruit_Plant(*this);
 }
 
 

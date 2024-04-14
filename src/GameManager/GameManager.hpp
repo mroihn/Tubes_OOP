@@ -15,9 +15,6 @@ using namespace std;
 
 class GameManager{
     private:
-        map<string,Hewan*> animals;
-        map<string,Tanaman*> ListTanaman;
-        map<string,Product*> ListProduk;
         map<string,Building> ListBuilding;
         map<string,User*> ListUser;
         int max_uang;
