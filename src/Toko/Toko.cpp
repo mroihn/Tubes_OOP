@@ -1,21 +1,21 @@
 #include "Toko.hpp"
 
 Toko :: Toko(){
-    Tanaman* t1 = new Tanaman(1,"TEK","TEAK_TREE",5,4);
+    Tanaman* t1 = new Material_Plant(1,"TEK","TEAK_TREE",5,4);
     this->addBarang(t1, -1);
-    Tanaman* t2 = new Tanaman(1,"SDT","SANDALWOOD_TREE",5,4);
+    Tanaman* t2 = new Material_Plant(1,"SDT","SANDALWOOD_TREE",5,4);
     this->addBarang(t2, -1);
-    Tanaman* t3 = new Tanaman(1,"ALT","ALOE_TREE",5,4);
+    Tanaman* t3 = new Material_Plant(1,"ALT","ALOE_TREE",5,4);
     this->addBarang(t3, -1);
-    Tanaman* t4 = new Tanaman(1,"IRN","IRONWOOD_TREE",5,4);
+    Tanaman* t4 = new Material_Plant(1,"IRN","IRONWOOD_TREE",5,4);
     this->addBarang(t4, -1);
-    Tanaman* t5 = new Tanaman(1,"APL","APPLE_TREE",5,4);
+    Tanaman* t5 = new Fruit_Plant(1,"APL","APPLE_TREE",5,4);
     this->addBarang(t5, -1);
-    Tanaman* t6 = new Tanaman(1,"ORG","ORANGE_TREE",5,4);
+    Tanaman* t6 = new Fruit_Plant(1,"ORG","ORANGE_TREE",5,4);
     this->addBarang(t6, -1);
-    Tanaman* t7 = new Tanaman(1,"BNT","BANANA_TREE",5,4);
+    Tanaman* t7 = new Fruit_Plant(1,"BNT","BANANA_TREE",5,4);
     this->addBarang(t7, -1);
-    Tanaman* t8 = new Tanaman(1,"GAV","GUAVA_TREE",5,4);
+    Tanaman* t8 = new Fruit_Plant(1,"GAV","GUAVA_TREE",5,4);
     this->addBarang(t8, -1);
     Hewan *h1 = new Hewan(2, "COW", "COW", 7, 8);
     this->addBarang(h1, -1);
