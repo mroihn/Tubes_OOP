@@ -64,10 +64,17 @@ void Toko :: cetak_toko(){
 }
 
 void Toko :: addBarang(InvItems *item, int stok){
-    ListBarang.push_back(item);
     string namaBarang = item->getNama();
-    ListHarga[namaBarang] = item->getPriceItem();
-    ListStok[namaBarang] += stok;
+    if(!ListStok[namaBarang]){
+        ListBarang.push_back(item);
+        ListHarga[namaBarang] = item->getPriceItem();
+        ListStok[namaBarang] += stok;
+    }
+    else{
+        if(ListStok[namaBarang] != -1){
+            ListStok[namaBarang] += stok;
+        }
+    }
 }
 
 void Toko :: kurangiBarang(string namaBarang, int jumlah){
@@ -127,34 +134,40 @@ void Toko :: beli(User* pembeli){
         if(pembeli->getUang() < totalHarga){
             throw UangTidakCukup();
         }
-        else{
-            pembeli->beli(totalHarga);
-            cout << "Pilih cara penyimpanan" << endl;
-            cout << "1. Otomatis" << endl;
-            cout << "2. Manual" << endl;
-            int pilihan;
-            cin >> pilihan;
-            if(pilihan == 1){
-                for (int i = 0; i < kuantitas;i++){
-                    this->kurangiBarang(namaBarang, 1);
-                    pembeli->setPenyimpanan(ListBarang[pilihanBarang - 1]);
-                }
+
+        if(Walikota* p = dynamic_cast<Walikota*>(pembeli)){
+            if(Building* b = dynamic_cast<Building*>(ListBarang[pilihanBarang - 1])){
+                throw RoleBeliTidakSesuai();
             }
-            else if(pilihan == 2){
-                for (int i = 0; i < kuantitas;i++){
-                    string petakPilihan;
-                    cout << "Petak slot ke-" << i+1 << " : ";
-                    cin >> petakPilihan;
-                    string subslot = petakPilihan.substr(1,3);
-                    int y = petakPilihan[0] - 'A';
-                    int x = stoi(subslot)-1;
-                    this->kurangiBarang(namaBarang, 1);
-                    pembeli->setPenyimpanan(x, y, ListBarang[pilihanBarang - 1]);
-                }
-                
-            }
-            cout << "Selamat Anda berhasil membeli " << kuantitas << " " << namaBarang << ". Uang Anda tersisa " << pembeli->getUang() << " gulden." << endl;
         }
+
+        pembeli->beli(totalHarga);
+        cout << "Pilih cara penyimpanan" << endl;
+        cout << "1. Otomatis" << endl;
+        cout << "2. Manual" << endl;
+        int pilihan;
+        cin >> pilihan;
+        if(pilihan == 1){
+            for (int i = 0; i < kuantitas;i++){
+                this->kurangiBarang(namaBarang, 1);
+                pembeli->setPenyimpanan(ListBarang[pilihanBarang - 1]);
+            }
+        }
+        else if(pilihan == 2){
+            for (int i = 0; i < kuantitas;i++){
+                string petakPilihan;
+                cout << "Petak slot ke-" << i+1 << " : ";
+                cin >> petakPilihan;
+                string subslot = petakPilihan.substr(1,3);
+                int y = petakPilihan[0] - 'A';
+                int x = stoi(subslot)-1;
+                this->kurangiBarang(namaBarang, 1);
+                pembeli->setPenyimpanan(x, y, ListBarang[pilihanBarang - 1]);
+            }
+            
+        }
+        cout << "Selamat Anda berhasil membeli " << kuantitas << " " << namaBarang << ". Uang Anda tersisa " << pembeli->getUang() << " gulden." << endl;
+
     }catch(TokoException& e){
         cout << e.what() << '\n';
     }
@@ -177,6 +190,22 @@ void Toko :: jual(User* penjual){
             int y = petakPilihan[0] - 'A';
             int x = stoi(subslot)-1;
             InvItems *barang = penjual->jual(x, y);
+            cout << barang->getNama() << endl;
+
+            if(Petani* p = dynamic_cast<Petani*>(penjual)){
+                if(Building* b = dynamic_cast<Building*>(barang)){
+                    penjual->batalJual(barang, x, y);
+                    throw RoleJualTidakSesuai();
+                }
+            }
+
+            if(Peternak* p = dynamic_cast<Peternak*>(penjual)){
+                if(Building* b = dynamic_cast<Building*>(barang)){
+                    penjual->batalJual(barang, x, y);
+                    throw RoleJualTidakSesuai();
+                }
+            }
+
             this->addBarang(barang, 1);
             total += barang->getPriceItem();
         }
@@ -184,6 +213,8 @@ void Toko :: jual(User* penjual){
         cout << "\nBarang Anda berhasil dijual! Uang Anda bertambah "<<total<<" gulden!" << endl;
     }catch(TokoException& e){
         cout << e.what() << '\n';
+    }catch(UserException& e){
+        cout << e.what() << "\n";
     }
 }
 

@@ -29,4 +29,18 @@ class UangTidakCukup  : public TokoException {
         }
 };
 
+class RoleBeliTidakSesuai  : public TokoException {
+    public :
+        string what() override{
+            return "Tidak bisa membeli bangunan dengan role ini\n";
+        }
+};
+
+class RoleJualTidakSesuai  : public TokoException {
+    public :
+        string what() override{
+            return "Tidak bisa menjual bangunan dengan role ini\n";
+        }
+};
+
 #endif

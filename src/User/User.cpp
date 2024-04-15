@@ -178,17 +178,20 @@ void User::beli(int harga){
 
 InvItems* User::jual(int i,int j){
     InvItems *barang;
-    try{
-        if(penyimpanan(i, j) == nullptr){
-            throw SlotKosong();
-        }
-        uang += penyimpanan(i,j)->getPriceItem();
-        barang = penyimpanan(i, j);
-        penyimpanan.deleteItem(barang);
-    }catch(UserException& e){
-        cout << e.what() << "\n";
+    if(penyimpanan(i, j) == nullptr){
+        throw SlotKosong();
     }
+    uang += penyimpanan(i,j)->getPriceItem();
+    barang = penyimpanan(i, j);
+    penyimpanan(i, j) = nullptr;
+    penyimpanan.decNeff();
+    
     return barang;
+}
+
+void User::batalJual(InvItems* item,int i,int j){
+    uang -= item->getPriceItem();
+    this->setPenyimpanan(i, j, item);
 }
  
 

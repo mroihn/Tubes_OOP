@@ -44,6 +44,7 @@ class User{
         void makan();
         void beli(int harga);
         InvItems* jual(int i,int j);
+        void batalJual(InvItems* item,int i,int j);
 };
  
  
