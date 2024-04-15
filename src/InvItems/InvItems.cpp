@@ -156,7 +156,7 @@ void Herbivore::makan(InvItems* Food){
     }else if(Fruit* buah = dynamic_cast<Fruit*>(Food)){
         throw HerbivoreMakanDaging();
     }else{
-        throw BukanMakanan();
+        throw ItemBukanMakanan();
     }
 }
 
@@ -198,7 +198,7 @@ void Carnivore::makan(InvItems* Food){
     }else if(Fruit* daging = dynamic_cast<Fruit*>(Food)){
         throw CarnivoreMakanBuah();
     }else{
-        throw BukanMakanan();
+        throw ItemBukanMakanan();
     }
 }
 
@@ -233,7 +233,7 @@ void Omnivore::makan(InvItems* Food){
         weight+=makanan->getAddedWeight();
         return;
     }
-    throw BukanMakanan();
+    throw ItemBukanMakanan();
 
 }
 

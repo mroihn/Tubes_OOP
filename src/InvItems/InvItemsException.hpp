@@ -20,7 +20,7 @@ class CarnivoreMakanBuah : public InvItemsException  {
 		return "Carnivore tidak bisa makan buah, berikan makanan lain!";
 	}
 };
-class BukanMakanan : public InvItemsException  {
+class ItemBukanMakanan : public InvItemsException  {
 	public:
 	string what() {
 		return "Item ini bukan Makanan!";
