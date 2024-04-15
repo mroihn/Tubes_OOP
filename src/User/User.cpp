@@ -123,10 +123,31 @@ void User::makan() {
 
             // Menambah berat badan jika item di slot adalah makanan
             InvItems* item = penyimpanan(i, j);
-            if (item->isMakanan()) {
-                // Downcast objek item ke kelas Product
+            if (item->isProduct()) {
                 Product* productItem = dynamic_cast<Product*>(item);
                 if (productItem != nullptr) {
+                    // Melakukan pengecekan tipe produk
+                    Fruit* fruitItem = dynamic_cast<Fruit*>(productItem);
+                    Meat* meatItem = dynamic_cast<Meat*>(productItem);
+                    Material* materialItem = dynamic_cast<Material*>(productItem);
+
+                    // Cek tipe produk dan lakukan penanganan sesuai
+                    if (fruitItem != nullptr) {
+                        berat_badan += fruitItem->getAddedWeight();
+                        cout << "Dengan lahapnya, kamu memakan hidangan itu." << endl;
+                        cout << "Alhasil, berat badan kamu naik menjadi " << berat_badan << endl;
+                        delete penyimpanan(i, j);
+                        break;
+                    } else if (meatItem != nullptr) {
+                        berat_badan += meatItem->getAddedWeight();
+                        cout << "Dengan lahapnya, kamu memakan hidangan itu." << endl;
+                        cout << "Alhasil, berat badan kamu naik menjadi " << berat_badan << endl;
+                        delete penyimpanan(i, j);
+                        break;
+                    } else if (materialItem != nullptr) {
+                        throw BukanMakanan();
+                    }
+
                     // Memanggil metode getAddedWeight() dari objek yang telah di-downcast
                     berat_badan += productItem->getAddedWeight();
                     cout << "Dengan lahapnya, kamu memakan hidangan itu." << endl;
