@@ -369,6 +369,13 @@ void GameManager :: play(){
 
                 if(pilihan == "NEXT"){
                     it++;
+                    map<std::string, User*>::iterator itr = ListUser.begin();
+                    while(itr != ListUser.end()){
+                        if(Petani* p = dynamic_cast<Petani*>(itr->second)){
+                            p->tambahUmurTanaman();
+                        }
+                        itr++;
+                    }
                 }
 
                 if(pilihan == "CETAK_PENYIMPANAN"){
@@ -432,11 +439,11 @@ void GameManager :: play(){
                 }
 
                 if(pilihan == "BELI"){
-                    cout << "beli" << endl;
+                    toko.beli(it->second);
                 }
 
                 if(pilihan == "JUAL"){
-                    cout << "jual" << endl;
+                    toko.jual(it->second);
                 }
 
                 if(pilihan == "PANEN"){
@@ -464,13 +471,22 @@ void GameManager :: play(){
 
                 if(pilihan == "TAMBAH_PEMAIN"){
                     if(Walikota* p = dynamic_cast<Walikota*>(it->second)){
-                        p->tambahPemain();
+                        User *pemain = p->tambahPemain(inventorySize, fieldSize, farmSize);
+                        if(Petani* s = dynamic_cast<Petani*>(pemain)){
+                            ListUser[s->getNama()] = s;
+                        }
+                        if(Peternak* t = dynamic_cast<Peternak*>(pemain)){
+                            ListUser[t->getNama()] = t;
+                        }
+
                     }else{
                         throw RoleTidakSesuai();
                     }
                 }
 
             }catch(GameManagerException& e){
+                cout << e.what() << endl;
+            }catch(UserException& e){
                 cout << e.what() << endl;
             }
 

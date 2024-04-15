@@ -22,7 +22,7 @@ class SlotPembeliTidakCukup  : public TokoException {
         }
 };
 
-class UangTidakCukup  : public TokoException {
+class UangPembeliTidakCukup  : public TokoException {
     public :
         string what() override{
             return "Uang pembeli tidak cukup\n";

@@ -304,7 +304,36 @@ void Walikota::tambahBangunan() {
     
 }
 
-void Walikota::tambahPemain(){}
+User* Walikota:: tambahPemain(pair<int,int> inventorySize,pair<int,int> fieldSize,pair<int,int> farmSize){
+    Petani *p = new Petani("Dummy", inventorySize, fieldSize);
+    if(uang < 50){
+        throw UangTidakCukup();
+    }
+    cout << "Masukkan jenis pemain (huruf kecil) : ";
+    string jenis;
+    cin >> jenis;
+    cout << "Masukkan nama pemain : ";
+    string nama;
+    cin >> nama;
+    
+    if(jenis == "walikota"){
+        throw WalikotaHanyaSatu();
+    }
+    else if(jenis == "petani"){
+        delete p;
+        Petani *p = new Petani(nama, inventorySize, fieldSize);
+    }
+    else if(jenis == "peternak"){
+        delete p;
+        Peternak *p = new Peternak(nama, inventorySize, farmSize);
+    }
+    uang -= 50;
+    return p;
+}
+
+double Walikota :: pungutpajak(){
+    return 0;
+}
 
 
 
@@ -617,6 +646,16 @@ void Petani::cetakLadang(){
 
     for(i=0;i<printed.size();i++){
         cout << "- " << printed[i]->getKode() << ": " << printed[i]->getNama() << '\n';
+    }
+}
+
+void Petani :: tambahUmurTanaman(){
+    for (int i = 0; i < ladang.getRows(); ++i){
+        for (int j = 0; j < ladang.getCols(); ++j){
+            if(ladang(i,j)){
+                ladang(i, j)->tambahUmurTanaman();
+            }
+        }
     }
 }
 

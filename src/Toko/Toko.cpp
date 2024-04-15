@@ -132,7 +132,7 @@ void Toko :: beli(User* pembeli){
         
         int totalHarga = ListHarga[namaBarang] * kuantitas;
         if(pembeli->getUang() < totalHarga){
-            throw UangTidakCukup();
+            throw UangPembeliTidakCukup();
         }
 
         if(Walikota* p = dynamic_cast<Walikota*>(pembeli)){

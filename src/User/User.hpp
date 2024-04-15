@@ -58,8 +58,8 @@ class Walikota: public User{
         void tagihPajak();
         int findMaterial(const string& materialName, int neededQuantity);
         void tambahBangunan();
-        void tambahPemain();
-        
+        User* tambahPemain(pair<int,int> inventorySize,pair<int,int> fieldSize,pair<int,int> farmSize);
+        double pungutpajak() override ;
 };
 
 class Petani: public User{
@@ -81,6 +81,8 @@ class Petani: public User{
 
         double pungutpajak() override;
         int getNetoKekayaan();
+
+        void tambahUmurTanaman();
 }; 
 
 class Peternak: public User{

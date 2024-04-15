@@ -121,4 +121,11 @@ class TidakAdaResep : public UserException {
             return "Kamu tidak punya resep bangunan tersebut! \n";
         }
 };
+
+class UangTidakCukup : public UserException {
+    public:
+        std::string what() override {
+            return "Uang tidak cukup! \n";
+        }
+};
 #endif
