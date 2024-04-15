@@ -360,6 +360,7 @@ void GameManager :: play(){
     map<std::string, User*>::iterator it = ListUser.begin();
     while (it != ListUser.end()){
         cout << "\nGiliran " << it->first << " untuk bermain!\n";
+        cout << "Uang : " << it->second->getUang() << " Berat : " << it->second->getBerat() << endl;
         string pilihan;
         while(pilihan != "NEXT"){
             try{
@@ -384,7 +385,7 @@ void GameManager :: play(){
 
                 if(pilihan == "PUNGUT_PAJAK"){
                     if(Walikota* p = dynamic_cast<Walikota*>(it->second)){
-                        p->tagihPajak();
+                        p->tagihPajak(ListUser);
                     }else{
                         throw RoleTidakSesuai();
                     }

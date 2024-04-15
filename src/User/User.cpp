@@ -209,7 +209,37 @@ Walikota::Walikota(std::string username, int berat, int uang, pair<int,int> invS
     jumlah_walikota++;
 }
 Walikota::~Walikota(){}
-void Walikota::tagihPajak(){}
+
+void Walikota::tagihPajak(map<string,User*> ListUser){
+    cout << "Cring cring cring..." << endl;
+    cout << "Pajak sudah dipungut!" << endl;
+    cout << "\n";
+    cout << "Berikut adalah detil dari pemungutan" << endl;
+    map<std::string, User*>::iterator itr = ListUser.begin();
+    int i = 1;
+    int total = 0;
+    while(itr != ListUser.end()){
+        if(Petani* p = dynamic_cast<Petani*>(itr->second)){
+            double pajak = p->pungutpajak();
+            total += pajak;
+            cout << "  " << i << ". " << p->getNama() << " - Petani : " << pajak << " gulden" << endl;
+        }
+
+        if(Peternak* p = dynamic_cast<Peternak*>(itr->second)){
+            double pajak = p->pungutpajak();
+            total += pajak;
+            cout << "  " << i << ". " << p->getNama() << " - Peternak : " << pajak << " gulden" << endl;
+        }
+
+        itr++;
+        i++;
+    }
+
+    uang += total;
+    cout << "Negara mendapatkan pemasukan sebesar " << total << " gulden." << endl;
+    cout << "Gunakan dengan baik dan jangan dikorupsi ya!" << endl;
+}
+
 int Walikota::findMaterial(const string& materialName, int neededQuantity) {
     int foundQuantity = 0;
     for (int i = 0; i < penyimpanan.getRows(); ++i) {

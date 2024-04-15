@@ -55,7 +55,7 @@ class Walikota: public User{
         Walikota(std::string username, pair<int,int> invSize);
         Walikota(std::string username, int berat, int uang, pair<int,int> invSize);
         ~Walikota();
-        void tagihPajak();
+        void tagihPajak(map<string,User*> ListUser);
         int findMaterial(const string& materialName, int neededQuantity);
         void tambahBangunan();
         User* tambahPemain(pair<int,int> inventorySize,pair<int,int> fieldSize,pair<int,int> farmSize);
