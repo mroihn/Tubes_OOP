@@ -5,6 +5,7 @@
 #include <string>
 #include <iostream>
 #include <vector>
+#include <algorithm>
 #include <map>
 #include "InvItemsException.hpp"
 using namespace std;
@@ -21,6 +22,7 @@ class InvItems{
         string getKode();
         string getNama();
         int getPriceItem();
+        int getId();
 
         //Operator overloading (akan memprint nama item)
         friend ostream& operator<<(ostream& os, InvItems& b);
@@ -183,11 +185,17 @@ class Fruit_Plant: public Tanaman{
 class Building: public InvItems{
     private:
         map<string, int> recipe;
+        static map<string,Building*> ListBuilding;
     public:
         Building();
         Building(int id, string kode_huruf, string nama, int price, map<string, int> recipe);
         void print();
         bool isProduct() const override;
+        static map<string, Building*>& getlistBuilding();
+        map<string, int> getRecipe() const;
+        static void addlistBuilding(Building*h);
+        static void printListBuilding();
+        Building* clone();
 };
 
 #endif

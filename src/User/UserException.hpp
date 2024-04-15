@@ -114,4 +114,11 @@ class PeternakanKosong : public UserException {
             return "Peternakan saat ini Kosong. \n";
         }
 };
+
+class TidakAdaResep : public UserException {
+    public:
+        std::string what() override {
+            return "Kamu tidak punya resep bangunan tersebut! \n";
+        }
+};
 #endif

@@ -17,17 +17,17 @@ int main(){
     g.bacaConfigProduk("../../config/product.txt");
     g.bacaConfigRecipe("../../config/recipe.txt");
     g.bacaConfigMisc("../../config/misc.txt");
-    // g.driver();
+    //g.driver();
 
-    // Tanaman *t = Tanaman::getlistTanaman()["APPLE_TREE"]->clone();
-    // Tanaman *t2 = Tanaman::getlistTanaman()["APPLE_TREE"]->clone();
-    // t->setUmur(20);
-    // t2->setUmur(20);
+    Tanaman *t = Tanaman::getlistTanaman()["APPLE_TREE"]->clone();
+    Tanaman *t2 = Tanaman::getlistTanaman()["APPLE_TREE"]->clone();
+    t->setUmur(20);
+    t2->setUmur(20);
     pair<int,int> n(5,5);
-    // Petani p("Bagas", n,n);
-    // p.getladang().addItem(t);
-    // p.getladang().addItem(t2);
-    // p.panenTanaman();
+    Petani p("Bagas", n,n);
+    p.getladang().addItem(t);
+    p.getladang().addItem(t2);
+    p.panenTanaman();
 
     Hewan *h = Hewan::getListHewan()["CHICKEN"]->clone();
     Hewan *h2 = Hewan::getListHewan()["CHICKEN"]->clone();
@@ -44,6 +44,20 @@ int main(){
     pt.getfarm().addItem(h2);
     pt.panen();
 
+    // //testing tambahBangunan()
+    // Walikota u("JohnDoe", n);
+
+    // // Menambahkan beberapa item ke penyimpanan u
+    // u.setPenyimpanan(0, 0, new Fruit(1, "FRT1", "Apple", "Local", 1, 5));
+    // u.setPenyimpanan(0, 1, new Material(2, "MAT1", "SANDAL_WOOD", "Oak", 3, 3));
+    // u.setPenyimpanan(1, 3, new Material(2, "MAT2", "TEAK_WOOD", "Oak", 1, 4));
+    // u.setPenyimpanan(1, 1, new Meat(3, "MET1", "Beef", "Local", 2, 10));
+
+
+    // // // Memanggil metode makan untuk menguji fungsinya 
+    // u.cetak_penyimpanan();
+    // u.tambahBangunan();
+    // u.cetak_penyimpanan();
 
     g.bacaState("../../data/state.txt");
     g.simpan("../../data/simpan.txt");

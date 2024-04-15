@@ -3,6 +3,7 @@
 map<string,Tanaman*> Tanaman::ListTanaman;
 map<string,Hewan*> Hewan::animals;
 map<string,Product*> Product::ListProduk;
+map<string,Building*> Building::ListBuilding;
 
 //InvItems
 InvItems::InvItems() {}
@@ -24,6 +25,10 @@ int InvItems::getPriceItem(){
     return price;
 }
 
+//getter id
+int InvItems::getId(){
+    return id;
+}
 
 ostream& operator<<(ostream& os, InvItems& b){
     os << b.kode_huruf;
@@ -352,16 +357,49 @@ Building::Building(int id, string kode_huruf, string nama, int price, map<string
 InvItems(id, kode_huruf, nama,price){
     this->recipe = recipe;
 }
+
 void Building::print(){
-    cout << id << " " << kode_huruf << " " << nama << " " << price << " ";
-    for(auto it = recipe.begin(); it != recipe.end(); ++it){
-        const std::string& material = it->first;
+    cout << getId() << ". " << nama << " (" << getPriceItem() << " gulden, ";
+    for (auto it = recipe.begin(); it != recipe.end(); ++it) {
+        const string& material = it->first;
         int quantity = it->second;
-        cout << material << " " << quantity << " ";
+        cout << material << " " << quantity;
+        if (next(it) != recipe.end()) {
+            cout << ", ";
+        }
     }
-    cout << endl;
+    cout << ")" << endl;
 }
 
 bool Building::isProduct() const {
     return false; 
+}
+
+map<string, Building*>& Building::getlistBuilding(){
+    return ListBuilding;
+}
+
+map<string, int> Building::getRecipe() const {
+    return recipe;
+}
+
+void Building::addlistBuilding(Building* h){
+    ListBuilding[h->getNama()] = h;
+}
+
+void Building::printListBuilding() {
+    vector<pair<string, Building*>> buildingVector(ListBuilding.begin(), ListBuilding.end());
+    
+    // Urutkan vektor secara terbalik
+    reverse(buildingVector.begin(), buildingVector.end());
+
+    // Cetak elemen-elemen vektor
+    for (const auto& building : buildingVector) {
+        building.second->print();
+    }
+}
+
+
+Building* Building::clone(){
+    return new Building(*this);
 }

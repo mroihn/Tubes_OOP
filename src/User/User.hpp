@@ -56,9 +56,10 @@ class Walikota: public User{
         Walikota(std::string username, int berat, int uang, pair<int,int> invSize);
         ~Walikota();
         void tagihPajak();
+        int findMaterial(const string& materialName, int neededQuantity);
         void tambahBangunan();
         void tambahPemain();
-        //double calculatetax() const override;
+        
 };
 
 class Petani: public User{

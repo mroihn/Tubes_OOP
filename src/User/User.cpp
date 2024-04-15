@@ -210,7 +210,103 @@ Walikota::Walikota(std::string username, int berat, int uang, pair<int,int> invS
 }
 Walikota::~Walikota(){}
 void Walikota::tagihPajak(){}
-void Walikota::tambahBangunan(){}
+int Walikota::findMaterial(const string& materialName, int neededQuantity) {
+    int foundQuantity = 0;
+    for (int i = 0; i < penyimpanan.getRows(); ++i) {
+        for (int j = 0; j < penyimpanan.getCols(); ++j) {
+            if (penyimpanan(i,j)!=nullptr && penyimpanan(i,j)->getNama() == materialName) {
+                foundQuantity++;
+                if (foundQuantity == neededQuantity) {
+                    return foundQuantity;
+                }
+            }
+        }
+    }
+    return foundQuantity;
+}
+
+void Walikota::tambahBangunan() {
+    // Mencetak daftar resep bangunan yang tersedia
+    cout << endl;
+    cout << "Resep bangunan yang ada adalah sebagai berikut:" << endl;
+    Building::printListBuilding();
+
+
+    // Meminta input nama bangunan yang ingin dibangun
+    string namaBangunan;
+    cout << "Bangunan yang ingin dibangun: ";
+    cin >> namaBangunan;
+
+    // Mengecek apakah nama bangunan ada dalam daftar resep bangunan
+    auto buildingIterator = Building::getlistBuilding().find(namaBangunan);
+    if (buildingIterator == Building::getlistBuilding().end()) {
+        throw TidakAdaResep();
+    }
+
+    // Mengambil resep bangunan
+    Building* building = buildingIterator->second;
+    map<string, int> recipe = building->getRecipe();
+
+    // Mengecek apakah inventori Walikota cukup untuk membangun bangunan
+    bool cukupBahan = true;
+    for (const auto& material : recipe) {
+        int neededQuantity = material.second;
+        int foundQuantity = findMaterial(material.first, neededQuantity);
+        if (foundQuantity < neededQuantity) {
+            cukupBahan = false;
+            break;
+        }
+    }
+
+    if (!cukupBahan) {
+        cout << "Kamu tidak punya sumber daya yang cukup untuk membangun bangunan tersebut! Masih memerlukan ";
+        cout << building->getPriceItem() - uang << " gulden, ";
+        int materialCount = 0; 
+        for (const auto& material : recipe) {
+            int neededQuantity = material.second;
+            int foundQuantity = findMaterial(material.first, neededQuantity);
+            int sisa = max(0, neededQuantity - foundQuantity);
+            cout << sisa << " " << material.first;
+            materialCount++; 
+            if (materialCount < recipe.size()) {
+                cout << ", "; 
+            } else {
+                cout << "!"; 
+            }
+        }
+        cout << endl;
+    } else{
+            // Mengurangi uang Walikota sesuai harga bangunan
+        uang -= building->getPriceItem();
+
+        // Mengurangi bahan yang digunakan dari inventaris Walikota
+        for (const auto& material : recipe) {
+            int neededQuantity = material.second;
+            int foundQuantity = findMaterial(material.first, neededQuantity);
+            for (int i = 0; i < penyimpanan.getRows(); ++i) {
+                for (int j = 0; j < penyimpanan.getCols(); ++j) {
+                    if (penyimpanan(i,j)!=nullptr && penyimpanan(i,j)->getNama() == material.first) {
+                        delete penyimpanan(i, j);
+                        neededQuantity--;
+                        if (neededQuantity == 0) {
+                            break;
+                        }
+                    }
+                }
+                if (neededQuantity == 0) {
+                    break;
+                }
+            }
+        }
+
+        // Memasukkan bangunan yang berhasil dibangun ke penyimpanan Walikota
+        penyimpanan.addItem(building);
+
+        cout << namaBangunan << " berhasil dibangun dan telah menjadi hak milik walikota!" << endl;
+    }
+
+    
+}
 void Walikota::tambahPemain(){}
 
 

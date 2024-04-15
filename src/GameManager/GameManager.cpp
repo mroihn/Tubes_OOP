@@ -121,18 +121,17 @@ void GameManager::bacaConfigRecipe(string filename){
                 iss >> material_num;
                 recipe[material] = material_num;
             }
-            
             Building *b = new  Building(id, kode_huruf, nama, price, recipe);
-            ListBuilding[nama] = b;
+            Building::addlistBuilding(b);
         }
         recipe.clear();
     }
     file.close();
 
     //test print to see if the config has been read
-    for (auto& building : ListBuilding) {
-        building.second->print();
-    }
+    // for (auto& building : ListBuilding) {
+    //     building.second->print();
+    // }
 }
 
 void GameManager::bacaConfigMisc(string filename){
