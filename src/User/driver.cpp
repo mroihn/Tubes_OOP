@@ -28,7 +28,7 @@ int main(){
     // u.setPenyimpanan(1, 1, new Meat(3, "MET1", "Beef", "Local", 2, 10));
 
     // // Memanggil metode makan untuk menguji fungsinya
-    u.makan(); 
+    // u.makan(); 
 
     //uji peternak
     Peternak p1("peternak1",n,n);

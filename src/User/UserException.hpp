@@ -36,12 +36,6 @@ class HarapanKosong : public UserException {
         }
 };
 
-class BukanHewan : public UserException {
-    public:
-        std::string what() override {
-            return "Apa yang kamu lakukan\?\?!! Itu bukan hewan \?\?!!\nSilahkan masukan slot yang berisi hewan.\n";
-        }
-};
 
 class BukanMakanan : public UserException {
     public:
