@@ -191,7 +191,7 @@ void GameManager::bacaState(string filename){
             auto it = Hewan::getListHewan().find(item_name);
             auto it2 = Tanaman::getlistTanaman().find(item_name);
             auto it3 = Product::getListProduk().find(item_name);
-            auto it4 = ListBuilding.find(item_name);
+            auto it4 = Building::getlistBuilding().find(item_name);
             if(it != Hewan::getListHewan().end()){
                 Hewan * h = Hewan::getListHewan()[item_name]->clone();
                 u->setPenyimpanan(h);
@@ -202,8 +202,8 @@ void GameManager::bacaState(string filename){
             }else if(it3 != Product::getListProduk().end()){
                 Product * p = Product::getListProduk()[item_name]->clone();
                 u->setPenyimpanan(p);
-            }else if(it4 != ListBuilding.end()){
-                Building *b = ListBuilding[item_name];
+            }else if(it4 != Building::getlistBuilding().end()){
+                Building *b = Building::getlistBuilding()[item_name];
                 u->setPenyimpanan(b);
             }
             n_items--;
@@ -261,7 +261,7 @@ void GameManager::bacaState(string filename){
         auto it = Hewan::getListHewan().find(item_name);
         auto it2 = Tanaman::getlistTanaman().find(item_name);
         auto it3 = Product::getListProduk().find(item_name);
-        auto it4 = ListBuilding.find(item_name);
+        auto it4 = Building::getlistBuilding().find(item_name);
         InvItems* i;
         if(it != Hewan::getListHewan().end()){
             i = Hewan::getListHewan()[item_name]->clone();
@@ -269,8 +269,8 @@ void GameManager::bacaState(string filename){
             i = Tanaman::getlistTanaman()[item_name]->clone();
         }else if(it3 != Product::getListProduk().end()){
             i = Product::getListProduk()[item_name]->clone();
-        }else if(it4 != ListBuilding.end()){
-            Building *b = ListBuilding[item_name];
+        }else if(it4 != Building::getlistBuilding().end()){
+            Building *b = Building::getlistBuilding()[item_name];
             i = b;
         }
         toko.addBarang(i, kuantitas);

@@ -540,6 +540,7 @@ void Petani::panenTanaman(){
         }
         cout << "\nPilih petak yang ingin dipanen\n";
         // ostream& printPetak;
+        vector<string> ListPetak;
         for(int i=0; i<JumlahPetak; i++){
             std::string petak;
             cout << "Petak ke-" << i+1 << ": ";
@@ -554,6 +555,7 @@ void Petani::panenTanaman(){
                 col = int(petak[0]-'A');
                 row = (petak[1]-'0')*10 + (petak[2]-'0')-1;
             }
+            ListPetak.push_back(petak);
             
             cout << row << " " << col << endl;
             Tanaman* t = getTanaman(row,col);
@@ -561,16 +563,15 @@ void Petani::panenTanaman(){
             setPenyimpanan(p);
             ladang.deleteItem(t);
         }
-        cout << JumlahPetak << " petak Tanaman " << it->first << " pada petak " << "printPetak\n" ;
-        // while (JumlahPetak>0)
-        // {
-        //     cout << "Petak"
-        //     Tanaman * t = getTanaman(it->first);
-        //     Product* p = t->Panen();
-        //     penyimpanan.addItem(p);
-        //     ladang.deleteItem(t);
-        //    JumlahPetak--;
-        // }
+        cout << JumlahPetak << " petak Tanaman " << it->first << " pada petak";
+        int sizePetak = ListPetak.size();
+        for(int i=0; i<sizePetak; i++){
+            cout << " " << ListPetak[i];
+            if(i<sizePetak-1){
+                cout << ",";
+            }
+        }
+        cout << " telah dipanen!\n";
         cetak_penyimpanan();
         cetakLadang();
 
@@ -889,6 +890,7 @@ void Peternak::panen(){
         }
         cout << "\nPilih petak yang ingin dipanen\n";
         // ostream& printPetak;
+        vector<string> ListPetak;
         for(int i=0; i<JumlahPetak; i++){
             std::string petak;
             cout << "Petak ke-" << i+1 << ": ";
@@ -904,7 +906,7 @@ void Peternak::panen(){
                 col = int(petak[0]-'A');
                 row = (petak[1]-'0')*10 + (petak[2]-'0')-1;
             }
-            
+            ListPetak.push_back(petak);
             Hewan* t = getHewan(row,col);
             vector<Product*> p = t->Panen();
             int size = p.size();
@@ -915,16 +917,15 @@ void Peternak::panen(){
             peternakan.deleteItem(t);
             // printPetak << petak << " ";
         }
-        cout << JumlahPetak << " petak Tanaman" << it->first << "pada petak " << "printPetak";   
-        // while (JumlahPetak>0)
-        // {
-        //     cout << "Petak"
-        //     Tanaman * t = getTanaman(it->first);
-        //     Product* p = t->Panen();
-        //     penyimpanan.addItem(p);
-        //     ladang.deleteItem(t);
-        //    JumlahPetak--;
-        // }
+        cout << JumlahPetak << " petak Tanaman " << it->first << " pada petak";
+        int sizePetak = ListPetak.size();
+        for(int i=0; i<sizePetak; i++){
+            cout << " " << ListPetak[i];
+            if(i<sizePetak-1){
+                cout << ",";
+            }
+        }
+        cout << " telah dipanen!\n";
         cetak_penyimpanan();
         cetakPeternakan();
 
