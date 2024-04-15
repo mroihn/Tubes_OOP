@@ -294,6 +294,50 @@ void Petani::tanamTanaman(){
     }
 }
 
+double Petani::pungutpajak(){
+    KTKP = 13;
+    int KKP = getNetoKekayaan()-KTKP;
+    int pajak = KKP * 0.5;
+    if (KKP <= 0){
+        return 0.0;
+    }
+    if (pajak >= getUang()){
+        return getUang();
+        uang = 0;
+    }
+    else{
+        uang -= pajak;
+        return pajak;
+    }
+}
+
+
+int Petani::getNetoKekayaan(){
+    // periksa berapa nilai aset di penyimpanan
+    int total = 0;
+    for (int i = 0; i < penyimpanan.getRows(); i++){
+        for (int j = 0; j < penyimpanan.getCols(); j++){
+            if (penyimpanan(i,j) != nullptr){
+                total += penyimpanan(i,j)->getPriceItem();
+            }
+        }
+    }
+
+    //periksa berapa nilai aset di ladang
+    for (int i = 0; i < ladang.getRows(); i++){
+        for (int j = 0; j < ladang.getCols(); j++){
+            if (ladang(i,j) != nullptr){
+                total += ladang(i,j)->getPriceItem();
+            }
+        }
+    }
+
+    //periksa berapa nilai uang
+    total += getUang();
+
+    return total;
+}
+
 Inventory<Tanaman*>& Petani::getladang(){
     return ladang;
 }
@@ -902,4 +946,47 @@ void Peternak::kasihMakan()
     {
         cout << "Kesalahan di luar ketentuan: " << e.what() << endl;
     }
-}   
+}
+
+int Peternak::getNetoKekayaan(){
+    // periksa berapa nilai aset di penyimpanan
+    int total = 0;
+    for (int i = 0; i < penyimpanan.getRows(); i++){
+        for (int j = 0; j < penyimpanan.getCols(); j++){
+            if (penyimpanan(i,j) != nullptr){
+                total += penyimpanan(i,j)->getPriceItem();
+            }
+        }
+    }
+
+    //periksa berapa nilai aset di ladang
+    for (int i = 0; i < peternakan.getRows(); i++){
+        for (int j = 0; j < peternakan.getCols(); j++){
+            if (peternakan(i,j) != nullptr){
+                total += peternakan(i,j)->getPriceItem();
+            }
+        }
+    }
+
+    //periksa berapa nilai uang
+    total += getUang();
+
+    return total;
+}
+
+double Peternak::pungutpajak(){
+    KTKP = 11;
+    int KKP = getNetoKekayaan()-KTKP;
+    int pajak = KKP * 0.5;
+    if (KKP <= 0){
+        return 0.0;
+    }
+    if (pajak >= getUang()){
+        return getUang();
+        uang = 0;
+    }
+    else{
+        uang -= pajak;
+        return pajak;
+    }
+}

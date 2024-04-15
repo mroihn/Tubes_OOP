@@ -38,7 +38,7 @@ class User{
         void setPenyimpanan( InvItems* item);
         //virtual void cetakPeternakan();
 
-        //virtual double calculatetax() const = 0;
+        virtual double pungutpajak() = 0;
 
         int sisaPenyimpanan();
         void makan();
@@ -63,6 +63,9 @@ class Walikota: public User{
 class Petani: public User{
     private:
         Inventory<Tanaman*> ladang;
+        int tax_amount;
+        int KTKP;
+        int netoKekayaan = 0;
     public: 
         Petani(std::string username, pair<int,int> invSize, pair<int,int> fieldSize);
         Petani(std::string nama,int berat,int uang,pair<int,int> inventorySize,pair<int,int> fieldSize);
@@ -73,12 +76,16 @@ class Petani: public User{
         Tanaman* getTanaman(int i, int j);
         void panenTanaman();
         void cetakLadang();
-        //double calculatetax() const override;
+
+        double pungutpajak() override;
+        int getNetoKekayaan();
 }; 
 
 class Peternak: public User{
     private:
         Inventory<Hewan*> peternakan;
+        int KTKP;
+        int netoKekayaan = 0;
     public:
         Peternak(std::string nama, pair<int,int> invSize, pair<int,int> farmSize);
         Peternak(std::string nama,int berat,int uang,pair<int,int> inventorySize,pair<int,int> farmSize);
@@ -90,7 +97,9 @@ class Peternak: public User{
         void ternak();
         void panen();
         void kasihMakan();
-        //double calculatetax() const override;
+        double pungutpajak() override;
+        int getNetoKekayaan();
+
 };
 
 
