@@ -1,35 +1,35 @@
 #include "Toko.hpp"
 
 Toko :: Toko(){
-    Tanaman* t1 = new Material_Plant(1,"TEK","TEAK_TREE",5,4);
+    Tanaman* t1 = new Material_Plant(1,"TEK","TEAK_TREE",15,5);
     this->addBarang(t1, -1);
-    Tanaman* t2 = new Material_Plant(1,"SDT","SANDALWOOD_TREE",5,4);
+    Tanaman* t2 = new Material_Plant(2,"SDT","SANDALWOOD_TREE",10,4);
     this->addBarang(t2, -1);
-    Tanaman* t3 = new Material_Plant(1,"ALT","ALOE_TREE",5,4);
+    Tanaman* t3 = new Material_Plant(3,"ALT","ALOE_TREE",9,6);
     this->addBarang(t3, -1);
-    Tanaman* t4 = new Material_Plant(1,"IRN","IRONWOOD_TREE",5,4);
+    Tanaman* t4 = new Material_Plant(4,"IRN","IRONWOOD_TREE",11,5);
     this->addBarang(t4, -1);
-    Tanaman* t5 = new Fruit_Plant(1,"APL","APPLE_TREE",5,4);
+    Tanaman* t5 = new Fruit_Plant(5,"APL","APPLE_TREE",13,4);
     this->addBarang(t5, -1);
-    Tanaman* t6 = new Fruit_Plant(1,"ORG","ORANGE_TREE",5,4);
+    Tanaman* t6 = new Fruit_Plant(6,"ORG","ORANGE_TREE",12,4);
     this->addBarang(t6, -1);
-    Tanaman* t7 = new Fruit_Plant(1,"BNT","BANANA_TREE",5,4);
+    Tanaman* t7 = new Fruit_Plant(7,"BNT","BANANA_TREE",16,3);
     this->addBarang(t7, -1);
-    Tanaman* t8 = new Fruit_Plant(1,"GAV","GUAVA_TREE",5,4);
+    Tanaman* t8 = new Fruit_Plant(8,"GAV","GUAVA_TREE",14,3);
     this->addBarang(t8, -1);
-    Hewan *h1 = new Herbivore(2, "COW", "COW", 7, 8);
+    Hewan *h1 = new Herbivore(1, "COW", "COW", 20, 6);
     this->addBarang(h1, -1);
-    Hewan *h2 = new Herbivore(2, "SHP", "SHEEP", 7, 8);
+    Hewan *h2 = new Herbivore(2, "SHP", "SHEEP", 15, 5);
     this->addBarang(h2, -1);
-    Hewan *h3 = new Herbivore(2, "HRS", "HORSE", 7, 8);
+    Hewan *h3 = new Herbivore(3, "HRS", "HORSE", 18, 5);
     this->addBarang(h3, -1);
-    Hewan *h4 = new Herbivore(2, "RBT", "RABBIT", 7, 8);
+    Hewan *h4 = new Herbivore(4, "RBT", "RABBIT", 10, 4);
     this->addBarang(h4, -1);
-    Hewan *h5 = new Carnivore(2, "SNK", "SNAKE", 7, 8);
+    Hewan *h5 = new Carnivore(5, "SNK", "SNAKE", 13, 4);
     this->addBarang(h5, -1);
-    Hewan *h6 = new Omnivore(2, "CHK", "CHICKEN", 7, 8);
+    Hewan *h6 = new Omnivore(6, "CHK", "CHICKEN", 12, 3);
     this->addBarang(h6, -1);
-    Hewan *h7 = new Omnivore(2, "DCK", "DUCK", 7, 8);
+    Hewan *h7 = new Omnivore(7, "DCK", "DUCK",11, 3);
     this->addBarang(h7, -1);
 }
 
