@@ -20,16 +20,15 @@ int main(){
     // //p.ladang(0,0)->print();
 
     
-    // Walikota u("JohnDoe", n);
+     Walikota u("JohnDoe", n);
 
     // // Menambahkan beberapa item ke penyimpanan u
     // u.setPenyimpanan(0, 0, new Fruit(1, "FRT1", "Apple", "Local", 1, 5));
     // u.setPenyimpanan(0, 1, new Material(2, "MAT1", "Wood", "Oak", 1, 3));
     // u.setPenyimpanan(1, 1, new Meat(3, "MET1", "Beef", "Local", 2, 10));
 
-    // // // Memanggil metode makan untuk menguji fungsinya
-    // u.makan();
-
+    // // Memanggil metode makan untuk menguji fungsinya
+    u.makan(); 
 
     //uji peternak
     Peternak p1("peternak1",n,n);

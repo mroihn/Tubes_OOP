@@ -144,7 +144,7 @@ bool Hewan::siapPanen(){
     return weight>=weight_to_harvest;
 }
 
-bool Hewan::isMakanan() const {
+bool Hewan::isProduct() const {
     return false; 
 }
 Herbivore::Herbivore(){}
@@ -294,7 +294,7 @@ bool Tanaman::siapPanen(){
     return umur_tanaman>=duration_to_harvest;
 }
 
-bool Tanaman::isMakanan() const {
+bool Tanaman::isProduct() const {
     return false; 
 }
 
@@ -375,6 +375,6 @@ void Building::print(){
     cout << endl;
 }
 
-bool Building::isMakanan() const {
+bool Building::isProduct() const {
     return false; 
 }

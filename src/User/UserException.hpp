@@ -57,6 +57,20 @@ class WalikotaHanyaSatu : public UserException {
         }
 };
 
+class BukanHewan : public UserException {
+    public:
+        std::string what() override {
+            return "Hanya Hewan yang bisa diternak!\n";
+        }
+};
+
+class BukanTanaman : public UserException {
+    public:
+        std::string what() override {
+            return "Hanya Tanaman yang bisa ditanam!\n";
+        }
+};
+
 class SlotTerisi : public UserException {
     public:
         std::string what() override {
@@ -98,6 +112,7 @@ class PenyimpananKosong : public UserException {
             return "Penyimpanan saat ini Kosong. \n";
         }
 };
+
 
 class PeternakanKosong : public UserException {
     public:

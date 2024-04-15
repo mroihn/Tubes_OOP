@@ -26,7 +26,7 @@ class InvItems{
         friend ostream& operator<<(ostream& os, InvItems& b);
         //memprint semua atribut objek
         virtual void print();
-        virtual bool isMakanan() const = 0;
+        virtual bool isProduct() const = 0;
 
 
 };
@@ -100,7 +100,7 @@ class Hewan: public InvItems{
         virtual void print();
         virtual vector<Product*> Panen() = 0;
         bool siapPanen();
-        bool isMakanan() const override;
+        bool isProduct() const override;
 };
 
 class Herbivore: public Hewan{
@@ -158,7 +158,7 @@ class Tanaman: public InvItems{
         virtual Product* Panen() = 0;
         virtual void print();
         bool siapPanen();
-        bool isMakanan() const override;
+        bool isProduct() const override;
 };
 
 class Material_Plant: public Tanaman{
@@ -190,7 +190,7 @@ class Building: public InvItems{
         Building();
         Building(int id, string kode_huruf, string nama, int price, map<string, int> recipe);
         void print();
-        bool isMakanan() const override;
+        bool isProduct() const override;
 };
 
 #endif
