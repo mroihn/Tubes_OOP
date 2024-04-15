@@ -227,10 +227,15 @@ void Petani::tanamTanaman(){
             }
             else{
                 if (penyimpanan(x,y)){
-                    temp = static_cast<Tanaman*>(penyimpanan(x,y));
-                    penyimpanan(x,y)=nullptr;
-                    penyimpanan.decNeff();
-                    break;
+                    if (dynamic_cast<Tanaman*>(penyimpanan(x,y))){
+                        temp = static_cast<Tanaman*>(penyimpanan(x,y));
+                        penyimpanan(x,y)=nullptr;
+                        penyimpanan.decNeff();
+                        break;
+                    }
+                    else{
+                        throw BukanTanaman();
+                    }
                 }
                 else{
                     throw SlotKosong();
@@ -573,10 +578,15 @@ void Peternak::ternak(){
             }
             else{
                 if (penyimpanan(x,y)){
-                    temp = static_cast<Hewan*>(penyimpanan(x,y));
-                    penyimpanan(x,y)=nullptr;
-                    penyimpanan.decNeff();
-                    break;
+                    if (dynamic_cast<Hewan*>(penyimpanan(x,y))){
+                        temp = static_cast<Hewan*>(penyimpanan(x,y));
+                        penyimpanan(x,y)=nullptr;
+                        penyimpanan.decNeff();
+                        break;
+                    }
+                    else{
+                        throw BukanHewan();
+                    }
                 }
                 else{
                     throw SlotKosong();
