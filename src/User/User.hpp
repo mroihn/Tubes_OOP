@@ -89,6 +89,7 @@ class Peternak: public User{
         Hewan* getHewan(int i, int j);
         void ternak();
         void panen();
+        void kasihMakan();
         //double calculatetax() const override;
 };
 

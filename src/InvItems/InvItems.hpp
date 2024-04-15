@@ -48,7 +48,7 @@ class Product: public InvItems{
         static void printListProduk();
         static map<string, Product*>& getListProduk();
         int getAddedWeight();
-        bool isMakanan() const override;
+        virtual bool isMakanan() const override;
 };
 
 //Type : PRODUCT_MATERIAL_PLANT
@@ -57,6 +57,7 @@ class Material: public Product{
         Material();
         Material(int id, string kode_huruf, string nama, string origin, int added_weight, int price);
         void print();
+        bool isMakanan() const override;
 };
 
 //Type : PRODUCT_FRUIT_PLANT
@@ -65,6 +66,7 @@ class Fruit: public Product{
         Fruit();
         Fruit(int id, string kode_huruf, string nama, string origin, int added_weight, int price);
         void print();
+        bool isMakanan() const override;
 };
 
 //Type : PRODUCT_ANIMAL
@@ -73,6 +75,7 @@ class Meat: public Product{
         Meat();
         Meat(int id, string kode_huruf, string nama, string origin, int added_weight, int price);
         void print();
+        bool isMakanan() const override;
 };
 
 //<ID> <KODE_HURUF> <NAME> <TYPE> <WEIGHT_TO_HARVEST> <PRICE> <BERAT>

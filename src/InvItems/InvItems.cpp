@@ -53,8 +53,21 @@ int Product::getAddedWeight(){
 }
 
 bool Product::isMakanan() const {
-    return true; // Product bisa dimakan
+    return true; // HARUS DIHAPUS karena MATERIAL_PLANT gak bisa dimakan
 }
+
+bool Fruit::isMakanan() const {
+    return true; 
+}
+
+bool Material::isMakanan() const {
+    return false; 
+}
+
+bool Meat::isMakanan() const {
+    return true; 
+}
+
 
 void Product::addListProduk(Product*h){
     Product::ListProduk[h->getNama()] = h;
