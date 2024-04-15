@@ -123,10 +123,31 @@ void User::makan() {
 
             // Menambah berat badan jika item di slot adalah makanan
             InvItems* item = penyimpanan(i, j);
-            if (item->isMakanan()) {
-                // Downcast objek item ke kelas Product
+            if (item->isProduct()) {
                 Product* productItem = dynamic_cast<Product*>(item);
                 if (productItem != nullptr) {
+                    // Melakukan pengecekan tipe produk
+                    Fruit* fruitItem = dynamic_cast<Fruit*>(productItem);
+                    Meat* meatItem = dynamic_cast<Meat*>(productItem);
+                    Material* materialItem = dynamic_cast<Material*>(productItem);
+
+                    // Cek tipe produk dan lakukan penanganan sesuai
+                    if (fruitItem != nullptr) {
+                        berat_badan += fruitItem->getAddedWeight();
+                        cout << "Dengan lahapnya, kamu memakan hidangan itu." << endl;
+                        cout << "Alhasil, berat badan kamu naik menjadi " << berat_badan << endl;
+                        delete penyimpanan(i, j);
+                        break;
+                    } else if (meatItem != nullptr) {
+                        berat_badan += meatItem->getAddedWeight();
+                        cout << "Dengan lahapnya, kamu memakan hidangan itu." << endl;
+                        cout << "Alhasil, berat badan kamu naik menjadi " << berat_badan << endl;
+                        delete penyimpanan(i, j);
+                        break;
+                    } else if (materialItem != nullptr) {
+                        throw BukanMakanan();
+                    }
+
                     // Memanggil metode getAddedWeight() dari objek yang telah di-downcast
                     berat_badan += productItem->getAddedWeight();
                     cout << "Dengan lahapnya, kamu memakan hidangan itu." << endl;
@@ -468,6 +489,8 @@ void Peternak::setPeternakan(int i, int j, Hewan* t){
     peternakan.incNeff();
     delete peternakan(i,j);
     peternakan(i,j) = t;
+    //setBerat(0) hewan;  
+    t -> setBerat(0);
 }
 void Peternak::cetakPeternakan(){
     vector<Hewan*> printed(0);
@@ -598,7 +621,7 @@ void Peternak::ternak(){
     }
     while (true){
         try{
-            cout << "\n\nPilih petak tanah yang akan ditanami \n";
+            cout << "\n\nPilih petak tanah yang akan menjadi lokasi ternak \n";
             cetakPeternakan();
 
             cout << "Slot: ";
@@ -732,3 +755,151 @@ void Peternak::panen(){
     }
 }
 
+//pilih satu hewan di peternakan, lalu hewan tersebut bila karnivora hanya bisa makan Meat yang ada di penyimpanan
+void Peternak::kasihMakan()
+{
+    cout << endl  << endl << " di bawah ini adalah command kasihMakan() "<< endl;
+    string tipe;
+    int x, y;
+    std::string slot;
+    std::string subslot;
+
+    try
+    {
+        if (penyimpanan.isEmpty())
+        {
+            throw PenyimpananKosong();
+        }
+        if (peternakan.isEmpty())
+        {
+            throw PeternakanKosong();
+        }
+        else
+        {
+            cetakPeternakan();
+            cout << "Pilih hewan di peternakan yang ingin diberi makan: ";
+            while (true)
+            {
+                cout << "\nSlot: ";
+                cin >> slot;
+                subslot = slot.substr(1, 2);
+                x = stoi(subslot) - 1;
+                y = slot[0] - 'A';
+                    try
+                    {
+
+                        if (x >= peternakan.getRows() || y >= peternakan.getCols() || x < 0 || y < 0)
+                        {
+                            throw BarisKolomTidakSesuai();
+                        }
+
+                        if (peternakan(x, y) == nullptr)
+                        {
+                            throw BukanHewan();
+                        }
+                        if (peternakan(x, y)->siapPanen())
+                        {
+                            throw HewanSudahSiapPanen();
+                        }
+                        else
+                        {
+                            string tipeId = typeid(*peternakan(x, y)).name();
+                            tipe = tipeId.substr(1);
+                            cout << "Anda memilih " << tipe << " untuk makan " << endl;
+                            break;
+                        }
+                    } catch (PeternakanKosong &e){
+                        cout << e.what() << endl;
+                        return;
+                    } catch (BarisKolomTidakSesuai &e) {
+                        cout << e.what() << endl;
+                    } catch (BukanHewan &e) {
+                        cout << e.what() << endl;
+                    } catch (HewanSudahSiapPanen &e) {
+                        cout << e.what() << endl;
+                    } catch (PenyimpananKosong &e) {
+                        cout << e.what() << endl;
+                        return;
+                    } catch (exception& e) {
+                        cout << "Kesalahan di luar ketentuan: " << e.what() << endl;
+                    }
+            }
+
+            cetak_penyimpanan();
+            while (true) 
+            {
+                cout << "\nSlot: ";
+                cin >> slot;
+                subslot = slot.substr(1, 2);
+                int i = stoi(subslot) - 1;
+                int j = slot[0] - 'A';
+
+
+                try
+                {
+                    // Melakukan penanganan exception
+                    if (i >= penyimpanan.getRows() || j >= penyimpanan.getCols() || i < 0 || j < 0)
+                    {
+                        throw BarisKolomTidakSesuai();
+                    }
+
+                    if (penyimpanan(i, j) == nullptr)
+                    {
+                        throw HarapanKosong();
+                    }
+
+                    else
+                    {
+                        // Menambah berat badan jika item di slot adalah makanan
+                        InvItems* item = penyimpanan(i, j);
+                        string tipeIdItem = typeid(*item).name();
+                        string tipeItem = tipeIdItem.substr(1);
+                        cout << "Anda memilih " << tipeItem << " untuk diberikan kepada " << tipe << endl;
+
+                        if(tipe == "Carnivore" && tipeItem != "Meat"){
+                            throw MakananTidakCocokException();
+                        } 
+                        if(tipe == "Herbivore" && tipeItem != "Vegetable"){ 
+                            throw MakananTidakCocokException();
+                        }
+                        if(tipe == "Omnivore" && (tipeItem != "Meat" || tipeItem != "Vegetable")){
+                            throw MakananTidakCocokException();
+                        } else{
+                            Product* productItem = dynamic_cast<Product*>(item);
+                            if (productItem != nullptr) {
+                                // Memanggil metode getAddedWeight() dari objek yang telah di-downcast
+                                getHewan(x, y)->tambahBerat(productItem->getAddedWeight());
+                                cout << "Dengan lahapnya, hewan ternak kamu memakan hidangan itu." << endl;
+                                cout << "Alhasil, berat hewan ini naik menjadi " <<  getHewan(x, y) -> getBerat() << endl;
+                                penyimpanan(i,j) = nullptr;
+                                penyimpanan.decNeff();
+                                break;
+                            }
+                        }
+                    }
+                } catch (BarisKolomTidakSesuai &e) {
+                    cout << e.what() << endl;
+                } catch (HarapanKosong &e) {
+                    cout << e.what() << endl;
+                } catch (MakananTidakCocokException &e) {
+                    cout << e.what() << endl;
+                } catch (exception& e) {
+                    cout << "Kesalahan di luar ketentuan: " << e.what() << endl;
+                }
+            }
+        }
+    }
+
+    catch (PenyimpananKosong &e)
+    {
+        cout << e.what() << endl;
+    }
+    catch (PeternakanKosong &e)
+    {
+        cout << e.what() << endl;
+    }
+    catch (exception &e)
+    {
+        cout << "Kesalahan di luar ketentuan: " << e.what() << endl;
+    }
+}   

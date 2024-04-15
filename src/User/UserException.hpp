@@ -15,6 +15,13 @@ class BarisKolomTidakSesuai : public UserException {
         }
 };
 
+class HewanSudahSiapPanen: public UserException {
+    public :
+        std::string what() override{
+            return "Hewan sudah siap panen, tidak usah makan lagi\n";
+        }
+};
+
 class PenyimpananTidakCukup : public UserException {
     public :
         std::string what() override{
@@ -28,6 +35,7 @@ class HarapanKosong : public UserException {
             return "Kamu mengambil harapan kosong dari penyimpanan.\nSilahkan masukan slot yang berisi makanan.\n";
         }
 };
+
 
 class BukanMakanan : public UserException {
     public:
@@ -99,4 +107,11 @@ class PenyimpananKosong : public UserException {
         }
 };
 
+
+class PeternakanKosong : public UserException {
+    public:
+        std::string what() override {
+            return "Peternakan saat ini Kosong. \n";
+        }
+};
 #endif
