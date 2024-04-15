@@ -11,6 +11,7 @@
 #include "../Inventory/Inventory.hpp"
 #include "../User/User.hpp"
 #include "../Toko/Toko.hpp"
+#include "GameManagerException.hpp"
 
 using namespace std;
 
