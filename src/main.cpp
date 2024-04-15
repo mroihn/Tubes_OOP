@@ -7,25 +7,26 @@ int main(){
 
     game.printLogo();
 
-    cout<<"Pilih opsi memulai game"<<endl;
-    cout<<"1. Baca dari berkas"<<endl;
-    cout<<"2. Tanpa baca"<<endl;
-    cout<<"\n";
-
-    cout<<"Ketik (1/2)"<<endl;
-    int pilihan;
-    cin>>pilihan;
-
     game.bacaConfigHewan("./config/animal.txt");
     game.bacaConfigTanaman("./config/plant.txt");
     game.bacaConfigProduk("./config/product.txt");
     game.bacaConfigRecipe("./config/recipe.txt");
     game.bacaConfigMisc("./config/misc.txt");
-    if(pilihan == 1){
+
+    cout << "Apakah Anda ingin memuat state? (y/n) ";
+    string pilihan;
+    cin>>pilihan;
+
+    if(pilihan == "y"){
         cout << "Masukkan lokasi berkas state: ";
         string fileloc;
         cin >> fileloc;
         game.bacaState(fileloc);
     }
+    else{
+        game.mulaiTanpaBaca();
+    }
+    game.cetakCommand();
     game.play();
+    game.cetakPemenang();
 }

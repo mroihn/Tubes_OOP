@@ -340,6 +340,15 @@ void GameManager::simpan(string fileloc){
     }
 }
 
+void GameManager :: mulaiTanpaBaca(){
+    Petani *p = new Petani("Petani1",inventorySize,fieldSize);
+    ListUser["Petani1"] = p;
+    Peternak *r = new Peternak("Peternak1",inventorySize,farmSize);
+    ListUser["Peternak1"] = r;
+    Walikota *w = new Walikota("Walikota",inventorySize);
+    ListUser["Walikota"] = w;
+}
+
 
 void GameManager :: printLogo(){
     system("clear");
@@ -352,24 +361,55 @@ void GameManager :: printLogo(){
     cout<<"\n";
 }
 
-void GameManager :: next(){
+bool GameManager :: isWin(User* pemain){
+    if(pemain->getBerat() >= max_berat && pemain->getUang() >= max_uang){
+        Pemenang = pemain;
+        return true;
+    }
+    return false;
+}
 
+void GameManager :: cetakPemenang(){
+    string nama = Pemenang->getNama();
+    printf("\n%s%s%s ", BLUE, "SELAMAT!!!", NORMAL);
+    cout << nama << " memenangkan permainan\n\n";
+}
+
+void GameManager :: cetakCommand(){
+    cout << "\nBerikut command yang dapat dijalankan :\n";
+    cout << "1. NEXT\n";
+    cout << "2. CETAK_PENYIMPANAN\n";
+    cout << "3. PUNGUT_PAJAK\n";
+    cout << "4. CETAK_LADANG\n";
+    cout << "5. CETAK_PETERNAKAN\n";
+    cout << "6. TANAM\n";
+    cout << "7. TERNAK\n";
+    cout << "8. BANGUN\n";
+    cout << "9. MAKAN\n";
+    cout << "10. KASIH_MAKAN\n";
+    cout << "11. BELI\n";
+    cout << "12. JUAL\n";
+    cout << "13. PANEN\n";
+    cout << "14. SIMPAN\n";
+    cout << "15. TAMBAH_PEMAIN\n";
 }
 
 void GameManager :: play(){
+    cekMenang = false;
     map<std::string, User*>::iterator it = ListUser.begin();
-    while (it != ListUser.end()){
+    while (!cekMenang){
         cout << "\nGiliran " << it->first << " untuk bermain!\n";
-        cout << "Uang : " << it->second->getUang() << " Berat : " << it->second->getBerat() << endl;
+
         string pilihan;
-        while(pilihan != "NEXT"){
+        while(pilihan != "NEXT" && !cekMenang){
             try{
+                
+                cout << "\nUang : " << it->second->getUang() << " Berat : " << it->second->getBerat() << endl;
                 print_green('>');
                 cout << " ";
                 cin >> pilihan;
 
                 if(pilihan == "NEXT"){
-                    it++;
                     map<std::string, User*>::iterator itr = ListUser.begin();
                     while(itr != ListUser.end()){
                         if(Petani* p = dynamic_cast<Petani*>(itr->second)){
@@ -377,6 +417,7 @@ void GameManager :: play(){
                         }
                         itr++;
                     }
+                    it++;
                 }
 
                 if(pilihan == "CETAK_PENYIMPANAN"){
@@ -431,6 +472,10 @@ void GameManager :: play(){
                     }
                 }
 
+                if(pilihan == "MAKAN"){
+                    it->second->makan();
+                }
+
                 if(pilihan == "KASIH_MAKAN"){
                     if(Peternak* p = dynamic_cast<Peternak*>(it->second)){
                         p->kasihMakan();
@@ -483,6 +528,10 @@ void GameManager :: play(){
                     }else{
                         throw RoleTidakSesuai();
                     }
+                }
+
+                if(isWin(it->second)){
+                    cekMenang = true;
                 }
 
             }catch(GameManagerException& e){
