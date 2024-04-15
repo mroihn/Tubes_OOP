@@ -359,7 +359,7 @@ InvItems(id, kode_huruf, nama,price){
 }
 
 void Building::print(){
-    cout << getId() << ". " << nama << " (" << getPriceItem() << " gulden, ";
+    cout << getId() << ". " << nama << " (";
     for (auto it = recipe.begin(); it != recipe.end(); ++it) {
         const string& material = it->first;
         int quantity = it->second;

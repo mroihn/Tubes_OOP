@@ -260,7 +260,6 @@ void Walikota::tambahBangunan() {
 
     if (!cukupBahan) {
         cout << "Kamu tidak punya sumber daya yang cukup untuk membangun bangunan tersebut! Masih memerlukan ";
-        cout << building->getPriceItem() - uang << " gulden, ";
         int materialCount = 0; 
         for (const auto& material : recipe) {
             int neededQuantity = material.second;
@@ -276,9 +275,6 @@ void Walikota::tambahBangunan() {
         }
         cout << endl;
     } else{
-            // Mengurangi uang Walikota sesuai harga bangunan
-        uang -= building->getPriceItem();
-
         // Mengurangi bahan yang digunakan dari inventaris Walikota
         for (const auto& material : recipe) {
             int neededQuantity = material.second;
@@ -286,7 +282,7 @@ void Walikota::tambahBangunan() {
             for (int i = 0; i < penyimpanan.getRows(); ++i) {
                 for (int j = 0; j < penyimpanan.getCols(); ++j) {
                     if (penyimpanan(i,j)!=nullptr && penyimpanan(i,j)->getNama() == material.first) {
-                        delete penyimpanan(i, j);
+                        penyimpanan(i,j) = nullptr;
                         neededQuantity--;
                         if (neededQuantity == 0) {
                             break;
@@ -307,6 +303,7 @@ void Walikota::tambahBangunan() {
 
     
 }
+
 void Walikota::tambahPemain(){}
 
 
