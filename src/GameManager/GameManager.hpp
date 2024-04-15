@@ -11,6 +11,7 @@
 #include "../Inventory/Inventory.hpp"
 #include "../User/User.hpp"
 #include "../Toko/Toko.hpp"
+#include "GameManagerException.hpp"
 
 using namespace std;
 
@@ -33,6 +34,8 @@ class GameManager{
         void bacaState(string filename);
         void simpan(string fileloc);
         void printLogo();
+        void play();
+        void next();
 };
 
 #endif

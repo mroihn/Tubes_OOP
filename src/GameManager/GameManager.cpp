@@ -352,3 +352,132 @@ void GameManager :: printLogo(){
     cout<<"╚═════╝ ╚═╝  ╚═╝╚═╝  ╚═╝╚═╝  ╚═╝╚═╝  ╚═╝╚═╝ ╚════╝  ╚════╝ "<<endl;
     cout<<"\n";
 }
+
+void GameManager :: next(){
+
+}
+
+void GameManager :: play(){
+    map<std::string, User*>::iterator it = ListUser.begin();
+    while (it != ListUser.end()){
+        cout << "\nGiliran " << it->first << " untuk bermain!\n";
+        string pilihan;
+        while(pilihan != "NEXT"){
+            try{
+                print_green('>');
+                cout << " ";
+                cin >> pilihan;
+
+                if(pilihan == "NEXT"){
+                    it++;
+                }
+
+                if(pilihan == "CETAK_PENYIMPANAN"){
+                    it->second->cetak_penyimpanan();
+                }
+
+                if(pilihan == "PUNGUT_PAJAK"){
+                    if(Walikota* p = dynamic_cast<Walikota*>(it->second)){
+                        p->tagihPajak();
+                    }else{
+                        throw RoleTidakSesuai();
+                    }
+                }
+
+                if(pilihan == "CETAK_LADANG"){
+                    if(Petani* p = dynamic_cast<Petani*>(it->second)){
+                        p->cetakLadang();
+                    }else{
+                        throw RoleTidakSesuai();
+                    }
+                }
+
+                if(pilihan == "CETAK_PETERNAKAN"){
+                    if(Peternak* p = dynamic_cast<Peternak*>(it->second)){
+                        p->cetakPeternakan();
+                    }else{
+                        throw RoleTidakSesuai();
+                    }
+                }
+
+                if(pilihan == "TANAM"){
+                    if(Petani* p = dynamic_cast<Petani*>(it->second)){
+                        p->tanamTanaman();
+                    }else{
+                        throw RoleTidakSesuai();
+                    }
+                }
+
+                if(pilihan == "TERNAK"){
+                    if(Peternak* p = dynamic_cast<Peternak*>(it->second)){
+                        p->ternak();
+                    }else{
+                        throw RoleTidakSesuai();
+                    }
+                }
+
+                if(pilihan == "BANGUN"){
+                    if(Walikota* p = dynamic_cast<Walikota*>(it->second)){
+                        p->tambahBangunan();
+                    }else{
+                        throw RoleTidakSesuai();
+                    }
+                }
+
+                if(pilihan == "KASIH_MAKAN"){
+                    if(Peternak* p = dynamic_cast<Peternak*>(it->second)){
+                        p->kasihMakan();
+                    }else{
+                        throw RoleTidakSesuai();
+                    }
+                }
+
+                if(pilihan == "BELI"){
+                    cout << "beli" << endl;
+                }
+
+                if(pilihan == "JUAL"){
+                    cout << "jual" << endl;
+                }
+
+                if(pilihan == "PANEN"){
+                    if(Petani* p = dynamic_cast<Petani*>(it->second)){
+                        p->panenTanaman();
+                    }
+                    if(Peternak* p = dynamic_cast<Peternak*>(it->second)){
+                        p->panen();
+                    }
+                    else{
+                        throw RoleTidakSesuai();
+                    }
+                }
+
+                if(pilihan == "MUAT"){
+                    
+                }
+
+                if(pilihan == "SIMPAN"){
+                    cout << "Masukkan lokasi berkas state : ";
+                    string loc;
+                    cin >> loc;
+                    this->simpan(loc);
+                }
+
+                if(pilihan == "TAMBAH_PEMAIN"){
+                    if(Walikota* p = dynamic_cast<Walikota*>(it->second)){
+                        p->tambahPemain();
+                    }else{
+                        throw RoleTidakSesuai();
+                    }
+                }
+
+            }catch(GameManagerException& e){
+                cout << e.what() << endl;
+            }
+
+        }
+        if(it == ListUser.end()){
+            it = ListUser.begin();
+        }
+    }
+}

@@ -27,4 +27,5 @@ int main(){
         cin >> fileloc;
         game.bacaState(fileloc);
     }
+    game.play();
 }
