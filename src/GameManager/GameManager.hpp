@@ -33,6 +33,8 @@ class GameManager{
         void bacaState(string filename);
         void simpan(string fileloc);
         void printLogo();
+        void play();
+        void next();
 };
 
 #endif

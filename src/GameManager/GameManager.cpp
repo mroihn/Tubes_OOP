@@ -352,3 +352,31 @@ void GameManager :: printLogo(){
     cout<<"╚═════╝ ╚═╝  ╚═╝╚═╝  ╚═╝╚═╝  ╚═╝╚═╝  ╚═╝╚═╝ ╚════╝  ╚════╝ "<<endl;
     cout<<"\n";
 }
+
+void GameManager :: next(){
+
+}
+
+void GameManager :: play(){
+    map<std::string, User*>::iterator it = ListUser.begin();
+    while (it != ListUser.end()){
+        cout << "\nGiliran " << it->first << " untuk bermain!\n";
+        string pilihan;
+        while(pilihan != "NEXT"){
+            print_green('>');
+            cout << " ";
+            cin >> pilihan;
+
+            if(pilihan == "CETAK_PENYIMPANAN"){
+                it->second->cetak_penyimpanan();
+            }
+
+            if(pilihan == "NEXT"){
+                it++;
+            }
+        }
+        if(it == ListUser.end()){
+            it = ListUser.begin();
+        }
+    }
+}
