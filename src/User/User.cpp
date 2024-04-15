@@ -500,8 +500,7 @@ void Petani::panenTanaman(){
     }
     try{
         if(jumlahSiapPanen==0){
-            //throw exc
-            throw HarapanKosong();
+            throw TanamanBelumSiapPanen();
         }
 
         cout << "Pilih tanaman siap panen yang kamu miliki \n";
@@ -842,8 +841,7 @@ void Peternak::panen(){
     }
     try{
         if(jumlahSiapPanen==0){
-            //throw exc
-            throw HarapanKosong();
+            throw HewanBelumSiapPanen();
         }
 
         cout << "Pilih Hewan siap panen yang kamu miliki \n";

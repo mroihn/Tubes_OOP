@@ -98,6 +98,7 @@ class Hewan: public InvItems{
         static map<string,Hewan*>& getListHewan();
         virtual void print();
         virtual vector<Product*> Panen() = 0;
+        virtual void makan(InvItems* Food) = 0;
         bool siapPanen();
         bool isProduct() const override;
 };
@@ -110,7 +111,7 @@ class Herbivore: public Hewan{
         Hewan* clone();
         void print();
         vector<Product*> Panen();
-        void makan(Product* Food);
+        void makan(InvItems* Food);
 };
 
 class Carnivore: public Hewan{
@@ -120,7 +121,7 @@ class Carnivore: public Hewan{
 
         Hewan* clone();
         void print();
-        void makan(Product* Food);
+        void makan(InvItems* Food);
         vector<Product*> Panen();
 };
 class Omnivore: public Hewan{
@@ -131,7 +132,7 @@ class Omnivore: public Hewan{
 
         Hewan* clone();
         void print();
-        void makan(Product* Food);
+        void makan(InvItems* Food);
         vector<Product*> Panen();
 };
 

@@ -149,12 +149,14 @@ void Herbivore::print(){
 Hewan* Herbivore::clone(){
     return new Herbivore(*this);
 }
-void Herbivore::makan(Product* Food){
+void Herbivore::makan(InvItems* Food){
     if(Fruit* buah = dynamic_cast<Fruit*>(Food)){
-        weight+=Food->getAddedWeight();
+        weight+=buah->getAddedWeight();
         cout << "herbivore makan buah " << buah->getNama() << endl;
+    }else if(Fruit* buah = dynamic_cast<Fruit*>(Food)){
+        throw HerbivoreMakanDaging();
     }else{
-        throw MakananTidakCocokException();
+        throw BukanMakanan();
     }
 }
 
@@ -189,12 +191,14 @@ Hewan* Carnivore::clone(){
     return new Carnivore(*this);
 }
 
-void Carnivore::makan(Product* Food){
+void Carnivore::makan(InvItems* Food){
     if(Meat* daging = dynamic_cast<Meat*>(Food)){
-        weight+=Food->getAddedWeight();
+        weight+=daging->getAddedWeight();
         cout << "carnivore makan daging " << daging->getNama() << endl; 
+    }else if(Fruit* daging = dynamic_cast<Fruit*>(Food)){
+        throw CarnivoreMakanBuah();
     }else{
-        throw MakananTidakCocokException();
+        throw BukanMakanan();
     }
 }
 
@@ -220,8 +224,17 @@ Hewan* Omnivore::clone(){
     return new Omnivore(*this);
 }
 
-void Omnivore::makan(Product* Food){
-    weight+=Food->getAddedWeight();
+void Omnivore::makan(InvItems* Food){
+    if(Fruit* makanan = dynamic_cast<Fruit*>(Food)){
+        weight+=makanan->getAddedWeight();
+        return;
+    }
+    if(Meat* makanan = dynamic_cast<Meat*>(Food)){
+        weight+=makanan->getAddedWeight();
+        return;
+    }
+    throw BukanMakanan();
+
 }
 
 vector<Product*> Omnivore::Panen(){

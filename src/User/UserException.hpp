@@ -128,4 +128,16 @@ class UangTidakCukup : public UserException {
             return "Uang tidak cukup! \n";
         }
 };
+class TanamanBelumSiapPanen : public UserException {
+    public:
+        std::string what() override {
+            return "Belum ada tanaman yang siap untuk dipanen! \n";
+        }
+};
+class HewanBelumSiapPanen : public UserException {
+    public:
+        std::string what() override {
+            return "Belum ada hewan yang siap untuk dipanen! \n";
+        }
+};
 #endif
