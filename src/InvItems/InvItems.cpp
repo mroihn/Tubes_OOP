@@ -30,6 +30,10 @@ int InvItems::getId(){
     return id;
 }
 
+bool InvItems::operator==(const InvItems& other){
+    return (id==other.id && kode_huruf==other.kode_huruf && nama==other.nama && price==other.price);
+}
+
 ostream& operator<<(ostream& os, InvItems& b){
     os << b.kode_huruf;
     return os;

@@ -25,8 +25,8 @@ int main(){
     t2->setUmur(20);
     pair<int,int> n(5,5);
     Petani p("Bagas", n,n);
-    p.getladang().addItem(t);
-    p.getladang().addItem(t2);
+    p.getladang()+t;
+    p.getladang()+t2;
     p.panenTanaman();
 
     Hewan *h = Hewan::getListHewan()["CHICKEN"]->clone();
@@ -40,8 +40,8 @@ int main(){
     Peternak pt("Jotaro", n,n);
     cout << pt.getBerat() << endl;
     pt.cetakPeternakan();
-    pt.getfarm().addItem(h);
-    pt.getfarm().addItem(h2);
+    pt.getfarm()+h;
+    pt.getfarm()+h2;
     pt.panen();
 
     // //testing tambahBangunan()

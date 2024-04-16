@@ -23,6 +23,7 @@ class InvItems{
         string getNama();
         int getPriceItem();
         int getId();
+        bool operator==(const InvItems& other);
 
         //Operator overloading (akan memprint nama item)
         friend ostream& operator<<(ostream& os, InvItems& b);
