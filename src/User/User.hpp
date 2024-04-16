@@ -44,6 +44,38 @@ class User{
         void beli(int harga);
         InvItems* jual(int i,int j);
         void batalJual(InvItems* item,int i,int j);
+
+        //virtual untuk cek role
+        virtual bool isPetani() = 0;
+        virtual bool isPeternak() = 0;
+        virtual bool isWalikota() = 0;
+
+        //virtual for walikota
+        virtual void tagihPajak(map<string,User*> ListUser) = 0;
+        virtual int findMaterial(const string& materialName, int neededQuantity) = 0;
+        virtual void tambahBangunan() = 0;
+        virtual User* tambahPemain(pair<int,int> inventorySize,pair<int,int> fieldSize,pair<int,int> farmSize) = 0;
+
+        //Virtual for Petani
+        virtual void setLadang(int i, int j, Tanaman* t) = 0;
+        virtual void tanamTanaman() = 0;
+        virtual Inventory<Tanaman*>& getladang() = 0;
+        virtual Tanaman* getTanaman(int i, int j) = 0;
+        virtual void cetakLadang() = 0;
+        virtual void tambahUmurTanaman() = 0;
+
+        //virtual for Peternak
+        virtual void cetakPeternakan() = 0;
+        virtual void setPeternakan(int i, int j, Hewan* t) = 0;
+        virtual Inventory<Hewan*>& getfarm() = 0;
+        virtual Hewan* getHewan(int i, int j) = 0;
+        virtual void ternak() = 0;
+        virtual void kasihMakan() = 0;
+
+        //Panen: Petani & Peternak
+        virtual int getNetoKekayaan() = 0;
+        virtual void panen() = 0;
+
 };
  
  
@@ -58,7 +90,34 @@ class Walikota: public User{
         int findMaterial(const string& materialName, int neededQuantity);
         void tambahBangunan();
         User* tambahPemain(pair<int,int> inventorySize,pair<int,int> fieldSize,pair<int,int> farmSize);
-        double pungutpajak() override ;
+        double pungutpajak() override;
+        int getNetoKekayaan();
+
+        //virtual untuk cek role
+        bool isPetani();
+        bool isPeternak();
+        bool isWalikota();
+
+        //Virtual from petani
+        //Always throw roletidakcocokexception
+        void setLadang(int i, int j, Tanaman* t);
+        void tanamTanaman();
+        Inventory<Tanaman*>& getladang();
+        Tanaman* getTanaman(int i, int j);
+        void cetakLadang();
+        void tambahUmurTanaman();
+
+        //virtual from peternak
+        //always throw exception
+        void cetakPeternakan();
+        void setPeternakan(int i, int j, Hewan* t);
+        Inventory<Hewan*>& getfarm();
+        Hewan* getHewan(int i, int j);
+        void ternak();
+        void kasihMakan();
+
+        void panen();
+
 };
 
 class Petani: public User{
@@ -75,13 +134,34 @@ class Petani: public User{
     
         Inventory<Tanaman*>& getladang();
         Tanaman* getTanaman(int i, int j);
-        void panenTanaman();
+        void panen();
         void cetakLadang();
 
         double pungutpajak() override;
         int getNetoKekayaan();
 
         void tambahUmurTanaman();
+
+        //virtual untuk cek role
+        bool isPetani();
+        bool isPeternak();
+        bool isWalikota();
+
+        //virtual dari walikota
+        //Always throw roletidakcocokException
+        void tagihPajak(map<string,User*> ListUser);
+        int findMaterial(const string& materialName, int neededQuantity);
+        void tambahBangunan();
+        User* tambahPemain(pair<int,int> inventorySize,pair<int,int> fieldSize,pair<int,int> farmSize);
+
+        //virtual dari peternakan
+        //always throw exception
+        void cetakPeternakan();
+        void setPeternakan(int i, int j, Hewan* t);
+        Inventory<Hewan*>& getfarm();
+        Hewan* getHewan(int i, int j);
+        void ternak();
+        void kasihMakan();
 }; 
 
 class Peternak: public User{
@@ -102,6 +182,28 @@ class Peternak: public User{
         void kasihMakan();
         double pungutpajak() override;
         int getNetoKekayaan();
+
+        //virtual untuk cek role
+        bool isPetani();
+        bool isPeternak();
+        bool isWalikota();
+
+        //virtual dari walikota
+        //Always throw roletidakcocokException
+        void tagihPajak(map<string,User*> ListUser);
+        int findMaterial(const string& materialName, int neededQuantity);
+        void tambahBangunan();
+        User* tambahPemain(pair<int,int> inventorySize,pair<int,int> fieldSize,pair<int,int> farmSize);
+
+        //virtual from petani
+        //always throw exception
+        void setLadang(int i, int j, Tanaman* t);
+        void tanamTanaman();
+        Inventory<Tanaman*>& getladang();
+        Tanaman* getTanaman(int i, int j);
+        void panenTanaman();
+        void cetakLadang();
+        void tambahUmurTanaman();
 
 };
 
