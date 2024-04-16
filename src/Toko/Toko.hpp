@@ -4,6 +4,7 @@
 #include "../Inventory/Inventory.hpp"  
 #include "../InvItems/InvItems.hpp"
 #include "../User/User.hpp"
+#include "../pcolor/pcolor.h"
 #include "TokoException.hpp"
 #include <vector>
 #include <map>

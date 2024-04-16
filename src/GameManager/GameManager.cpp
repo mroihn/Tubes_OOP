@@ -477,9 +477,13 @@ void GameManager :: play(){
                             User *pemain = it->second->tambahPemain(inventorySize, fieldSize, farmSize);
                             if(Petani* s = dynamic_cast<Petani*>(pemain)){
                                 ListUser[s->getNama()] = s;
+                                cout << "Pemain baru ditambahkan!" << endl;
+                                cout << "Selamat datang “" << s->getNama() << "” di kota ini !" << endl;
                             }
                             if(Peternak* t = dynamic_cast<Peternak*>(pemain)){
                                 ListUser[t->getNama()] = t;
+                                cout << "Pemain baru ditambahkan!" << endl;
+                                cout << "Selamat datang “" << t->getNama() << "” di kota ini !" << endl;
                             }
 
                         }else{

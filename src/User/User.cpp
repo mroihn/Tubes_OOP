@@ -974,39 +974,40 @@ void Peternak::ternak(){
                 int y = slot[0] - 'A';
                 int x = stoi(subslot)-1;
 
-                if (x>penyimpanan.getRows()-1 || y>penyimpanan.getCols()-1 || x<0 || y<0){
-                    throw BarisKolomTidakSesuai();
-                }
-                else{
-                    if (penyimpanan(x,y)){
-                        if (dynamic_cast<Hewan*>(penyimpanan(x,y))){
-                            temp = static_cast<Hewan*>(penyimpanan(x,y));
-                            penyimpanan(x,y)=nullptr;
-                            penyimpanan.decNeff();
-                            break;
-                        }
-                        else{
-                            throw BukanHewan();
-                        }
+            if (x>penyimpanan.getRows()-1 || y>penyimpanan.getCols()-1 || x<0 || y<0){
+                throw BarisKolomTidakSesuai();
+            }
+            else{
+                if (penyimpanan(x,y)){
+                    if (dynamic_cast<Hewan*>(penyimpanan(x,y))){
+                        temp = static_cast<Hewan*>(penyimpanan(x,y));
+                        penyimpanan(x,y)=nullptr;
+                        penyimpanan.decNeff();
+                        break;
                     }
                     else{
-                        throw SlotKosong();
+                        throw BukanHewan();
                     }
                 }
-            }catch (UserException& e){
-                for (int i = 0; i < e.what().length(); ++i) {
-                    print_red(e.what()[i]);
-                }
-            }catch(InventoryException& e){
-                for (int i = 0; i < e.what().length(); ++i) {
-                    print_red(e.what()[i]);
+                else{
+                    throw SlotKosong();
                 }
             }
+        }catch (UserException& e){
+            for (int i = 0; i < e.what().length(); ++i) {
+                print_red(e.what()[i]);
+            }
+        }catch (InventoryException& e){
+            for (int i = 0; i < e.what().length(); ++i) {
+                print_red(e.what()[i]);
+            }
+            cout << "\n";
         }
-        while (true){
-            try{
-                cout << "\n\nPilih petak tanah yang akan menjadi lokasi ternak \n";
-                cetakPeternakan();
+    }
+    while (true){
+        try{
+            cout << "\n\nPilih petak tanah yang akan menjadi lokasi ternak \n";
+            cetakPeternakan();
 
                 cout << "Slot: ";
                 cin >> slot;
