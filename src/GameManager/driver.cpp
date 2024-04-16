@@ -27,7 +27,7 @@ int main(){
     Petani p("Bagas", n,n);
     p.getladang()+t;
     p.getladang()+t2;
-    p.panenTanaman();
+    p.panen();
 
     Hewan *h = Hewan::getListHewan()["CHICKEN"]->clone();
     Hewan *h2 = Hewan::getListHewan()["CHICKEN"]->clone();

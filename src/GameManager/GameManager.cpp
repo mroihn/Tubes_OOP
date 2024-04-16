@@ -461,10 +461,6 @@ void GameManager :: play(){
                         it->second->panen();
                     }
 
-                    else if(pilihan == "MUAT"){
-                        
-                    }
-
                     else if(pilihan == "SIMPAN"){
                         cout << "Masukkan lokasi berkas state : ";
                         string loc;

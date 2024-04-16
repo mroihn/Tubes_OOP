@@ -592,8 +592,9 @@ void Petani::tanamTanaman(){
         }
     }catch (UserException& e){
         for (int i = 0; i < e.what().length(); ++i) {
-        print_red(e.what()[i]);cout << "\n";
+        print_red(e.what()[i]);
         }
+        cout << "\n";
     }
 }
 
@@ -774,11 +775,11 @@ void Petani::panen(){
     }catch(UserException& e){
         for (int i = 0; i < e.what().length(); ++i) {
             print_red(e.what()[i]);
-        }
+        }cout << '\n';
     }catch(InventoryException& e){
         for (int i = 0; i < e.what().length(); ++i) {
             print_red(e.what()[i]);
-        }
+        }cout << '\n';
     }
 }
 void Petani::cetakLadang(){
@@ -1000,7 +1001,7 @@ void Peternak::ternak(){
         }catch (UserException& e){
             for (int i = 0; i < e.what().length(); ++i) {
                 print_red(e.what()[i]);
-            }
+            }cout << "\n";
         }catch (InventoryException& e){
             for (int i = 0; i < e.what().length(); ++i) {
                 print_red(e.what()[i]);
