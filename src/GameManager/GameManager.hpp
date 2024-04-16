@@ -17,7 +17,6 @@ using namespace std;
 
 class GameManager{
     private:
-        map<string,Building*> ListBuilding;
         map<string,User*> ListUser;
         Toko toko;
         User *Pemenang;
