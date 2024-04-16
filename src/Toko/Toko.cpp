@@ -221,11 +221,17 @@ void Toko :: jual(User* penjual){
 
         cout << "\nBarang Anda berhasil dijual! Uang Anda bertambah "<<total<<" gulden!" << endl;
     }catch(TokoException& e){
-        cout << e.what() << '\n';
+        for (int i = 0; i < e.what().length(); ++i) {
+            print_red(e.what()[i]);
+        }
     }catch(UserException& e){
-        cout << e.what() << "\n";
+        for (int i = 0; i < e.what().length(); ++i) {
+            print_red(e.what()[i]);
+        }
     }catch(InventoryException& e){
-        cout << e.what() << "\n";
+        for (int i = 0; i < e.what().length(); ++i) {
+            print_red(e.what()[i]);
+        }
     }
 }
 

@@ -35,6 +35,145 @@ int User::getUang(){
     return uang;
 } 
 
+//validasi Walikota
+void Peternak::tagihPajak(map<string,User*> ListUser){
+    throw RoleTidakSesuai();
+}
+int Peternak::findMaterial(const string& materialName, int neededQuantity){
+    throw RoleTidakSesuai();
+}
+void Peternak::tambahBangunan(){
+    throw RoleTidakSesuai();
+}
+User* Peternak::tambahPemain(pair<int,int> inventorySize,pair<int,int> fieldSize,pair<int,int> farmSize){
+    throw RoleTidakSesuai();
+}
+void Petani::tagihPajak(map<string,User*> ListUser){
+    throw RoleTidakSesuai();
+}
+int Petani::findMaterial(const string& materialName, int neededQuantity){
+    throw RoleTidakSesuai();
+}
+void Petani::tambahBangunan(){
+    throw RoleTidakSesuai();
+}
+User* Petani::tambahPemain(pair<int,int> inventorySize,pair<int,int> fieldSize,pair<int,int> farmSize){
+    throw RoleTidakSesuai();
+}
+//Validasi Petani
+void Walikota::setLadang(int i, int j, Tanaman* t){
+    throw RoleTidakSesuai();
+}
+void Walikota::tanamTanaman(){
+    throw RoleTidakSesuai();
+}
+
+Inventory<Tanaman*>& Walikota::getladang(){
+    throw RoleTidakSesuai();
+}
+Tanaman* Walikota::getTanaman(int i, int j){
+    throw RoleTidakSesuai();
+}
+void Walikota::panen(){
+    throw RoleTidakSesuai();
+}
+void Walikota::cetakLadang(){
+    throw RoleTidakSesuai();
+}
+int Walikota::getNetoKekayaan(){
+    throw RoleTidakSesuai();
+}
+void Walikota::tambahUmurTanaman(){
+    throw RoleTidakSesuai();
+}
+void Peternak::setLadang(int i, int j, Tanaman* t){
+    throw RoleTidakSesuai();
+}
+void Peternak::tanamTanaman(){
+    throw RoleTidakSesuai();
+}
+
+Inventory<Tanaman*>& Peternak::getladang(){
+    throw RoleTidakSesuai();
+}
+Tanaman* Peternak::getTanaman(int i, int j){
+    throw RoleTidakSesuai();
+}
+void Peternak::cetakLadang(){
+    throw RoleTidakSesuai();
+}
+void Peternak::tambahUmurTanaman(){
+    throw RoleTidakSesuai();
+}
+
+//Validasi Peternak
+void Walikota::cetakPeternakan(){
+    throw RoleTidakSesuai();
+}
+void Walikota::setPeternakan(int i, int j, Hewan* t){
+    throw RoleTidakSesuai();
+}
+Inventory<Hewan*>& Walikota::getfarm(){
+    throw RoleTidakSesuai();
+}
+
+Hewan* Walikota::getHewan(int i, int j){
+    throw RoleTidakSesuai();
+}
+void Walikota::ternak(){
+    throw RoleTidakSesuai();
+}
+void Walikota::kasihMakan(){
+    throw RoleTidakSesuai();
+}
+void Petani::cetakPeternakan(){
+    throw RoleTidakSesuai();
+}
+void Petani::setPeternakan(int i, int j, Hewan* t){
+    throw RoleTidakSesuai();
+}
+Inventory<Hewan*>& Petani::getfarm(){
+    throw RoleTidakSesuai();
+}
+
+Hewan* Petani::getHewan(int i, int j){
+    throw RoleTidakSesuai();
+}
+void Petani::ternak(){
+    throw RoleTidakSesuai();
+}
+void Petani::kasihMakan(){
+    throw RoleTidakSesuai();
+}
+
+//Validasi role
+bool Walikota::isPetani(){
+    return false;
+}
+bool Walikota::isPeternak(){
+    return false;
+}
+bool Walikota::isWalikota(){
+    return true;
+}
+bool Petani::isPetani(){
+    return true;
+}
+bool Petani::isPeternak(){
+    return false;
+}
+bool Petani::isWalikota(){
+    return false;
+}
+bool Peternak::isPeternak(){
+    return true;
+}
+bool Peternak::isPetani(){
+    return false;
+}
+bool Peternak::isWalikota(){
+    return false;
+}
 void User::next(){}
 void User::cetak_penyimpanan(){
     int length1 = (7 + (penyimpanan.getCols()-1)*6)/2 - 7;
@@ -133,13 +272,21 @@ void User::makan() {
         }
         throw BukanMakanan();
     } catch (BarisKolomTidakSesuai &e) {
-        cout << e.what() << endl;
+        for (int i = 0; i < e.what().length(); ++i) {
+            print_red(e.what()[i]);
+        }
     } catch (HarapanKosong &e) {
-        cout << e.what() << endl;
+        for (int i = 0; i < e.what().length(); ++i) {
+            print_red(e.what()[i]);
+        }
     } catch (BukanMakanan &e) {
-        cout << e.what() << endl;
+        for (int i = 0; i < e.what().length(); ++i) {
+            print_red(e.what()[i]);
+        }
     }catch (InvItemsException& e){
-        cout << e.what() << endl;
+        for (int i = 0; i < e.what().length(); ++i) {
+            print_red(e.what()[i]);
+        }
     }
 }
 
@@ -394,9 +541,15 @@ void Petani::tanamTanaman(){
                     }
                 }
             }catch (UserException& e){
-                cout << e.what() << '\n';
-            }catch(InventoryException& e){
-                cout << e.what() << endl;
+                for (int i = 0; i < e.what().length(); ++i) {
+                print_red(e.what()[i]);
+            }
+            cout << "\n";
+            }catch (InventoryException& e){
+                for (int i = 0; i < e.what().length(); ++i) {
+                    print_red(e.what()[i]);
+                }
+            cout << "\n";
             }
         }
         while (true){
@@ -422,13 +575,21 @@ void Petani::tanamTanaman(){
                     }
                 }
             }catch (UserException& e){
-                cout << e.what() << '\n';
-            }catch(InventoryException& e){
-                cout << e.what() << endl;
+                for (int i = 0; i < e.what().length(); ++i) {
+                    print_red(e.what()[i]);
+                }
+                cout << "\n";
+            }catch (InventoryException& e){
+                for (int i = 0; i < e.what().length(); ++i) {
+                    print_red(e.what()[i]);
+                }
+                cout << "\n";
             }
         }
     }catch (UserException& e){
-        cout << e.what() << '\n';
+        for (int i = 0; i < e.what().length(); ++i) {
+        print_red(e.what()[i]);cout << "\n";
+        }
     }
 }
 
@@ -516,7 +677,7 @@ Tanaman* Petani::getTanaman(int i, int j){
     return nullptr;
 }
 
-void Petani::panenTanaman(){
+void Petani::panen(){
     cetakLadang();
     map<std::string, int> ListSiapPanen;
     int jumlahSiapPanen, noTanaman, JumlahPetak;
@@ -607,9 +768,13 @@ void Petani::panenTanaman(){
 
         
     }catch(UserException& e){
-        cout << e.what() << endl;
+        for (int i = 0; i < e.what().length(); ++i) {
+            print_red(e.what()[i]);
+        }
     }catch(InventoryException& e){
-        cout << e.what() << endl;
+        for (int i = 0; i < e.what().length(); ++i) {
+            print_red(e.what()[i]);
+        }
     }
 }
 void Petani::cetakLadang(){
@@ -829,9 +994,13 @@ void Peternak::ternak(){
                     }
                 }
             }catch (UserException& e){
-                cout << e.what() << '\n';
+                for (int i = 0; i < e.what().length(); ++i) {
+                    print_red(e.what()[i]);
+                }
             }catch(InventoryException& e){
-            cout << e.what() << endl;
+                for (int i = 0; i < e.what().length(); ++i) {
+                    print_red(e.what()[i]);
+                }
             }
         }
         while (true){
@@ -858,13 +1027,22 @@ void Peternak::ternak(){
                     }
                 }
             }catch (UserException& e){
-                cout << e.what() << '\n';
+                for (int i = 0; i < e.what().length(); ++i) {
+                    print_red(e.what()[i]);
+                }
+                cout << "\n";
             }catch(InventoryException& e){
-            cout << e.what() << endl;
+                for (int i = 0; i < e.what().length(); ++i) {
+                    print_red(e.what()[i]);
+                }
+                cout << "\n";
             }
         }
     }catch (UserException& e){
-        cout << e.what() << '\n';
+        for (int i = 0; i < e.what().length(); ++i) {
+            print_red(e.what()[i]);
+        }
+        cout << "\n";
     }
 }
 void Peternak::panen(){
@@ -970,9 +1148,13 @@ void Peternak::panen(){
 
         
     }catch(UserException& e){
-        cout << e.what() << endl;
+        for (int i = 0; i < e.what().length(); ++i) {
+            print_red(e.what()[i]);
+        }
     }catch(InventoryException& e){
-        cout << e.what() << endl;
+        for (int i = 0; i < e.what().length(); ++i) {
+            print_red(e.what()[i]);
+        }
     }
 }
 
@@ -1031,16 +1213,26 @@ void Peternak::kasihMakan()
                             break;
                         }
                     } catch (PeternakanKosong &e){
-                        cout << e.what() << endl;
+                        for (int i = 0; i < e.what().length(); ++i) {
+                            print_red(e.what()[i]);
+                        }
                         return;
                     } catch (BarisKolomTidakSesuai &e) {
-                        cout << e.what() << endl;
+                        for (int i = 0; i < e.what().length(); ++i) {
+                            print_red(e.what()[i]);
+                        }
                     } catch (BukanHewan &e) {
-                        cout << e.what() << endl;
+                        for (int i = 0; i < e.what().length(); ++i) {
+                            print_red(e.what()[i]);
+                        }
                     } catch (HewanSudahSiapPanen &e) {
-                        cout << e.what() << endl;
+                        for (int i = 0; i < e.what().length(); ++i) {
+                            print_red(e.what()[i]);
+                        }
                     } catch (PenyimpananKosong &e) {
-                        cout << e.what() << endl;
+                        for (int i = 0; i < e.what().length(); ++i) {
+                            print_red(e.what()[i]);
+                        }
                         return;
                     } catch (exception& e) {
                         cout << "Kesalahan di luar ketentuan: " << e.what() << endl;
@@ -1101,11 +1293,17 @@ void Peternak::kasihMakan()
                         }
                     }
                 } catch (BarisKolomTidakSesuai &e) {
-                    cout << e.what() << endl;
+                    for (int i = 0; i < e.what().length(); ++i) {
+                        print_red(e.what()[i]);
+                    }
                 } catch (HarapanKosong &e) {
-                    cout << e.what() << endl;
+                    for (int i = 0; i < e.what().length(); ++i) {
+                        print_red(e.what()[i]);
+                    }
                 } catch (MakananTidakCocokException &e) {
-                    cout << e.what() << endl;
+                    for (int i = 0; i < e.what().length(); ++i) {
+                        print_red(e.what()[i]);
+                    }
                 } catch (exception& e) {
                     cout << "Kesalahan di luar ketentuan: " << e.what() << endl;
                 }
@@ -1115,11 +1313,15 @@ void Peternak::kasihMakan()
 
     catch (PenyimpananKosong &e)
     {
-        cout << e.what() << endl;
+        for (int i = 0; i < e.what().length(); ++i) {
+            print_red(e.what()[i]);
+        }
     }
     catch (PeternakanKosong &e)
     {
-        cout << e.what() << endl;
+        for (int i = 0; i < e.what().length(); ++i) {
+            print_red(e.what()[i]);
+        }
     }
     catch (exception &e)
     {

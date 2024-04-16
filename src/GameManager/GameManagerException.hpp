@@ -9,12 +9,7 @@ class GameManagerException{
         virtual string what()=0; //pure virtual
 };
 
-class RoleTidakSesuai : public GameManagerException {
-    public :
-        string what() override{
-            return "Tidak dapat menjalankan command dengan role ini\n";
-        }
-};
+
 
 class MasukkanSalah : public GameManagerException {
     public :
