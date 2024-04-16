@@ -125,6 +125,10 @@ void Toko :: beli(User* pembeli){
             throw SlotPembeliTidakCukup();
         }
 
+        if(pilihanBarang > ListBarang.size() || pilihanBarang < 1){
+            throw PilihanBarangTidakAda();
+        }
+
         string namaBarang = ListBarang[pilihanBarang - 1]->getNama();
         if(kuantitas > ListStok[namaBarang] && ListStok[namaBarang] != -1){
             throw StokBarangKurang();
@@ -180,6 +184,11 @@ void Toko :: jual(User* penjual){
         cout << "Masukkan jumlah barang yang ingin dijual : ";
         int cntBarang;
         cin >> cntBarang;
+
+        if(penjual->getInv().getNeff()<cntBarang){
+            throw ItemPenjualTidakCukup();
+        }
+
         cout << "Silahkan pilih petak yang ingin Anda jual!" << endl;
         int total = 0;
         for (int i = 0; i < cntBarang;i++){
@@ -212,9 +221,17 @@ void Toko :: jual(User* penjual){
 
         cout << "\nBarang Anda berhasil dijual! Uang Anda bertambah "<<total<<" gulden!" << endl;
     }catch(TokoException& e){
-        cout << e.what() << '\n';
+        for (int i = 0; i < e.what().length(); ++i) {
+            print_red(e.what()[i]);
+        }
     }catch(UserException& e){
-        cout << e.what() << "\n";
+        for (int i = 0; i < e.what().length(); ++i) {
+            print_red(e.what()[i]);
+        }
+    }catch(InventoryException& e){
+        for (int i = 0; i < e.what().length(); ++i) {
+            print_red(e.what()[i]);
+        }
     }
 }
 

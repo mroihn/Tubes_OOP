@@ -43,4 +43,18 @@ class RoleJualTidakSesuai  : public TokoException {
         }
 };
 
+class PilihanBarangTidakAda  : public TokoException {
+    public :
+        string what() override{
+            return "Barang yang dipilih tidak ada\n";
+        }
+};
+
+class ItemPenjualTidakCukup  : public TokoException {
+    public :
+        string what() override{
+            return "Item di inventory penjual tidak cukup\n";
+        }
+};
+
 #endif
