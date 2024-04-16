@@ -30,8 +30,7 @@ class InvItems{
         virtual void print();
         virtual bool isProduct() const = 0;
         virtual bool isMakanan() = 0;
-
-
+        virtual int getAddedWeight() = 0;
 };
 
 //<ID> <KODE_HURUF> <NAME> <TYPE> <ORIGIN> <ADDED_WEIGHT> <PRICE>
@@ -110,6 +109,7 @@ class Hewan: public InvItems{
         bool siapPanen();
         bool isProduct() const override;
         bool isMakanan();
+        int getAddedWeight();
 };
 
 class Herbivore: public Hewan{
@@ -169,6 +169,7 @@ class Tanaman: public InvItems{
         bool siapPanen();
         bool isProduct() const override;
         bool isMakanan();
+        int getAddedWeight();
 };
 
 class Material_Plant: public Tanaman{
@@ -208,6 +209,7 @@ class Building: public InvItems{
         static void printListBuilding();
         bool isMakanan();
         Building* clone();
+        int getAddedWeight();
 };
 
 #endif

@@ -75,6 +75,16 @@ Product* Material::clone(){
     return new Material(*this);
 }
 
+int Hewan::getAddedWeight(){
+    throw ItemBukanMakanan();
+}
+int Tanaman::getAddedWeight(){
+    throw ItemBukanMakanan();
+}
+int Building::getAddedWeight(){
+    throw ItemBukanMakanan();
+}
+
 void Product::print(){
     cout << id << " " << kode_huruf << " " << nama << " " << origin << " " << added_weight << " " << price << endl;
 }
