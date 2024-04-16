@@ -1070,7 +1070,7 @@ void Peternak::kasihMakan()
                         if(tipe == "Herbivore" && tipeItem != "Vegetable"){ 
                             throw MakananTidakCocokException();
                         }
-                        if(tipe == "Omnivore" && (tipeItem != "Meat" || tipeItem != "Vegetable")){
+                        if(tipe == "Omnivore" && (tipeItem == "Meat" || tipeItem == "Vegetable")){
                             throw MakananTidakCocokException();
                         } else{
                             Product* productItem = dynamic_cast<Product*>(item);
