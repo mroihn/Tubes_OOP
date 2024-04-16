@@ -417,7 +417,6 @@ void GameManager :: play(){
                         }
                         itr++;
                     }
-                    it++;
                 }
 
                 if(pilihan == "CETAK_PENYIMPANAN"){
@@ -541,6 +540,7 @@ void GameManager :: play(){
             }
 
         }
+        it++;
         if(it == ListUser.end()){
             it = ListUser.begin();
         }
