@@ -599,6 +599,8 @@ void Petani::panenTanaman(){
         
     }catch(UserException& e){
         cout << e.what() << endl;
+    }catch(InventoryException& e){
+        cout << e.what() << endl;
     }
 }
 void Petani::cetakLadang(){
@@ -951,6 +953,8 @@ void Peternak::panen(){
 
         
     }catch(UserException& e){
+        cout << e.what() << endl;
+    }catch(InventoryException& e){
         cout << e.what() << endl;
     }
 }
