@@ -44,6 +44,7 @@ class User{
         void beli(int harga);
         InvItems* jual(int i,int j);
         void batalJual(InvItems* item,int i,int j);
+        bool operator==(User& other);
 
         //virtual untuk cek role
         virtual bool isPetani() = 0;

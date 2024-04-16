@@ -12,6 +12,12 @@ User::User(std::string username, pair<int,int> invSize): penyimpanan(invSize.fir
     // n_player++;
     // id = n_player;
 }
+
+bool User::operator==(User& other){
+    cout << "Kiri: " << username << " Kanan: " << other.getNama();
+    return (this->username==other.getNama());
+}
+
 User::User(std::string username, int berat,int uang, pair<int,int> invSize): penyimpanan(invSize.first, invSize.second){
     this->username = username;
     this->berat_badan = berat;
@@ -468,9 +474,6 @@ User* Walikota:: tambahPemain(map<string,User*> ListUser,pair<int,int> inventory
     string nama;
     cin >> nama;
 
-    if (ListUser[nama] != nullptr){
-        throw NamaSudahDipakai();
-    }
     
     if(jenis == "walikota"){
         throw WalikotaHanyaSatu();
@@ -482,6 +485,11 @@ User* Walikota:: tambahPemain(map<string,User*> ListUser,pair<int,int> inventory
     else if(jenis == "peternak"){
         delete p;
         Peternak *p = new Peternak(nama, inventorySize, farmSize);
+    }
+    for(const auto user : ListUser){
+        if(*p==*user.second){
+            throw NamaSudahDipakai();
+        }
     }
     uang -= 50;
     return p;
@@ -753,7 +761,6 @@ void Petani::panen(){
             }
             ListPetak.push_back(petak);
             
-            cout << row << " " << col << endl;
             Tanaman* t = getTanaman(row,col);
             Product *p = t->Panen();
             penyimpanan+p;
@@ -768,8 +775,6 @@ void Petani::panen(){
             }
         }
         cout << " telah dipanen!\n";
-        cetak_penyimpanan();
-        cetakLadang();
 
         
     }catch(UserException& e){
@@ -1140,7 +1145,7 @@ void Peternak::panen(){
             peternakan.deleteItem(t);
             // printPetak << petak << " ";
         }
-        cout << JumlahPetak << " petak Tanaman " << it->first << " pada petak";
+        cout << JumlahPetak << " petak Hewan " << it->first << " pada petak";
         int sizePetak = ListPetak.size();
         for(int i=0; i<sizePetak; i++){
             cout << " " << ListPetak[i];
@@ -1149,8 +1154,6 @@ void Peternak::panen(){
             }
         }
         cout << " telah dipanen!\n";
-        cetak_penyimpanan();
-        cetakPeternakan();
 
         
     }catch(UserException& e){

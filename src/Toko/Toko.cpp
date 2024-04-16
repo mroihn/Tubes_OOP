@@ -153,7 +153,7 @@ void Toko :: beli(User* pembeli){
         if(pilihan == 1){
             for (int i = 0; i < kuantitas;i++){
                 this->kurangiBarang(namaBarang, 1);
-                pembeli->setPenyimpanan(ListBarang[pilihanBarang - 1]);
+                pembeli->getInv()+ListBarang[pilihanBarang - 1];
             }
         }
         else if(pilihan == 2){

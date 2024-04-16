@@ -175,17 +175,17 @@ void GameManager::bacaState(string filename){
             auto it4 = Building::getlistBuilding().find(item_name);
             if(it != Hewan::getListHewan().end()){
                 Hewan * h = Hewan::getListHewan()[item_name]->clone();
-                u->setPenyimpanan(h);
+                u->getInv()+h;
                 //u->penyimpanan.addItem(h)
             }else if(it2 != Tanaman::getlistTanaman().end()){
                 Tanaman * t = Tanaman::getlistTanaman()[item_name]->clone();
-                u->setPenyimpanan(t);
+                u->getInv()+t;
             }else if(it3 != Product::getListProduk().end()){
                 Product * p = Product::getListProduk()[item_name]->clone();
-                u->setPenyimpanan(p);
+                u->getInv()+p;
             }else if(it4 != Building::getlistBuilding().end()){
                 Building *b = Building::getlistBuilding()[item_name];
-                u->setPenyimpanan(b);
+                u->getInv()+b;
             }
             n_items--;
         }
