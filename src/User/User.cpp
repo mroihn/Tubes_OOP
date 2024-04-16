@@ -45,7 +45,7 @@ int Peternak::findMaterial(const string& materialName, int neededQuantity){
 void Peternak::tambahBangunan(){
     throw RoleTidakSesuai();
 }
-User* Peternak::tambahPemain(pair<int,int> inventorySize,pair<int,int> fieldSize,pair<int,int> farmSize){
+User* Peternak::tambahPemain(map<string,User*> ListUser,pair<int,int> inventorySize,pair<int,int> fieldSize,pair<int,int> farmSize){
     throw RoleTidakSesuai();
 }
 void Petani::tagihPajak(map<string,User*> ListUser){
@@ -57,7 +57,7 @@ int Petani::findMaterial(const string& materialName, int neededQuantity){
 void Petani::tambahBangunan(){
     throw RoleTidakSesuai();
 }
-User* Petani::tambahPemain(pair<int,int> inventorySize,pair<int,int> fieldSize,pair<int,int> farmSize){
+User* Petani::tambahPemain(map<string,User*> ListUser,pair<int,int> inventorySize,pair<int,int> fieldSize,pair<int,int> farmSize){
     throw RoleTidakSesuai();
 }
 //Validasi Petani
@@ -456,7 +456,7 @@ void Walikota::tambahBangunan() {
     
 }
 
-User* Walikota:: tambahPemain(pair<int,int> inventorySize,pair<int,int> fieldSize,pair<int,int> farmSize){
+User* Walikota:: tambahPemain(map<string,User*> ListUser,pair<int,int> inventorySize,pair<int,int> fieldSize,pair<int,int> farmSize){
     Petani *p = new Petani("Dummy", inventorySize, fieldSize);
     if(uang < 50){
         throw UangTidakCukup();
@@ -467,6 +467,10 @@ User* Walikota:: tambahPemain(pair<int,int> inventorySize,pair<int,int> fieldSiz
     cout << "Masukkan nama pemain : ";
     string nama;
     cin >> nama;
+
+    if (ListUser[nama] != nullptr){
+        throw NamaSudahDipakai();
+    }
     
     if(jenis == "walikota"){
         throw WalikotaHanyaSatu();

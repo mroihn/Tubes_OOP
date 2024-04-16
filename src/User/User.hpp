@@ -54,7 +54,7 @@ class User{
         virtual void tagihPajak(map<string,User*> ListUser) = 0;
         virtual int findMaterial(const string& materialName, int neededQuantity) = 0;
         virtual void tambahBangunan() = 0;
-        virtual User* tambahPemain(pair<int,int> inventorySize,pair<int,int> fieldSize,pair<int,int> farmSize) = 0;
+        virtual User* tambahPemain(map<string,User*> ListUser,pair<int,int> inventorySize,pair<int,int> fieldSize,pair<int,int> farmSize) = 0;
 
         //Virtual for Petani
         virtual void setLadang(int i, int j, Tanaman* t) = 0;
@@ -89,7 +89,7 @@ class Walikota: public User{
         void tagihPajak(map<string,User*> ListUser);
         int findMaterial(const string& materialName, int neededQuantity);
         void tambahBangunan();
-        User* tambahPemain(pair<int,int> inventorySize,pair<int,int> fieldSize,pair<int,int> farmSize);
+        User* tambahPemain(map<string,User*> ListUser, pair<int,int> inventorySize,pair<int,int> fieldSize,pair<int,int> farmSize);
         double pungutpajak() override;
         int getNetoKekayaan();
 
@@ -152,7 +152,7 @@ class Petani: public User{
         void tagihPajak(map<string,User*> ListUser);
         int findMaterial(const string& materialName, int neededQuantity);
         void tambahBangunan();
-        User* tambahPemain(pair<int,int> inventorySize,pair<int,int> fieldSize,pair<int,int> farmSize);
+        User* tambahPemain(map<string,User*> ListUser,pair<int,int> inventorySize,pair<int,int> fieldSize,pair<int,int> farmSize);
 
         //virtual dari peternakan
         //always throw exception
@@ -193,7 +193,7 @@ class Peternak: public User{
         void tagihPajak(map<string,User*> ListUser);
         int findMaterial(const string& materialName, int neededQuantity);
         void tambahBangunan();
-        User* tambahPemain(pair<int,int> inventorySize,pair<int,int> fieldSize,pair<int,int> farmSize);
+        User* tambahPemain(map<string,User*> ListUser,pair<int,int> inventorySize,pair<int,int> fieldSize,pair<int,int> farmSize);
 
         //virtual from petani
         //always throw exception

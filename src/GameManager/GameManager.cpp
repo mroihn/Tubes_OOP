@@ -189,7 +189,7 @@ void GameManager::bacaState(string filename){
             }
             n_items--;
         }
-        u->cetak_penyimpanan();
+        // u->cetak_penyimpanan();
         if(role=="Petani"){
             int n_tanaman;
             Petani*p = dynamic_cast<Petani*>(u);
@@ -206,7 +206,7 @@ void GameManager::bacaState(string filename){
                 p->getladang().addItem(t,row,col);
                 n_tanaman--;
             }
-            p->cetakLadang();
+            // p->cetakLadang();
             ListUser[nama] = p;
         }
         if(role=="Peternak"){
@@ -225,7 +225,7 @@ void GameManager::bacaState(string filename){
                 p->getfarm().addItem(t,row,col);
                 n_hewan--;
             }
-            p->cetakPeternakan();
+            // p->cetakPeternakan();
             ListUser[nama] = p;
         }
         jumlahPlayer--;
@@ -257,7 +257,7 @@ void GameManager::bacaState(string filename){
         toko.addBarang(i, kuantitas);
         n_item_in_toko--;
     }
-    toko.cetak_toko();
+    // toko.cetak_toko();
     
 }
 
@@ -474,7 +474,7 @@ void GameManager :: play(){
 
                     else if(pilihan == "TAMBAH_PEMAIN"){
                         if(it->second->isWalikota()){
-                            User *pemain = it->second->tambahPemain(inventorySize, fieldSize, farmSize);
+                            User *pemain = it->second->tambahPemain(ListUser,inventorySize, fieldSize, farmSize);
                             if(Petani* s = dynamic_cast<Petani*>(pemain)){
                                 ListUser[s->getNama()] = s;
                                 cout << "Pemain baru ditambahkan!" << endl;

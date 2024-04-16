@@ -133,4 +133,11 @@ class HewanBelumSiapPanen : public UserException {
             return "Belum ada hewan yang siap untuk dipanen! \n";
         }
 };
+
+class NamaSudahDipakai : public UserException {
+    public:
+        std::string what() override {
+            return "Nama pemain tidak boleh sama! \n";
+        }
+};
 #endif
