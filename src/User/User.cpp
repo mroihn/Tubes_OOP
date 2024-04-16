@@ -326,7 +326,7 @@ void Walikota::tambahBangunan() {
         }
 
         // Memasukkan bangunan yang berhasil dibangun ke penyimpanan Walikota
-        penyimpanan.addItem(building);
+        penyimpanan+building;
 
         cout << namaBangunan << " berhasil dibangun dan telah menjadi hak milik walikota!" << endl;
     }
@@ -436,7 +436,7 @@ void Petani::tanamTanaman(){
             }
             else{
                 if (!ladang(x,y)){
-                    setLadang(x,y,temp);
+                    ladang.addItem(temp,x,y);
                     break;
                 }
                 else{
@@ -589,7 +589,7 @@ void Petani::panenTanaman(){
             cout << row << " " << col << endl;
             Tanaman* t = getTanaman(row,col);
             Product *p = t->Panen();
-            setPenyimpanan(p);
+            penyimpanan+p;
             ladang.deleteItem(t);
         }
         cout << JumlahPetak << " petak Tanaman " << it->first << " pada petak";
@@ -844,7 +844,7 @@ void Peternak::ternak(){
             }
             else{
                 if (!peternakan(x,y)){
-                    setPeternakan(x,y,temp);
+                    peternakan.addItem(temp,x,y);
                     break;
                 }
                 else{
@@ -939,7 +939,7 @@ void Peternak::panen(){
             vector<Product*> p = t->Panen();
             int size = p.size();
             for(int i=0; i<size; i++){
-                setPenyimpanan(p[i]);
+                penyimpanan+p[i];
             }
             // setPenyimpanan(p);
             peternakan.deleteItem(t);

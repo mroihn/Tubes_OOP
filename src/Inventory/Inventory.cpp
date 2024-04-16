@@ -1,6 +1,7 @@
 // Inventory.cpp
 
 #include "Inventory.hpp"
+#include "InventoryException.hpp"
 
 template<class T>
 Inventory<T>::Inventory(int rows, int cols) : rows(rows), cols(cols), neff(0) {
@@ -14,34 +15,15 @@ Inventory<T>::~Inventory() {
 
 template<class T>
 void Inventory<T>::addItem(T item, int row, int col) {
-    if (row >= 0 && row < rows && col >= 0 && col < cols) {
-        if(contents[row][col]!= nullptr){
-            cout << "Posisi sudah diisi!\n";
-            //throw exception?
-        }
-        contents[row][col] = item;
-        neff++;
-    } else {
-        cerr << "Posisi tidak valid." << endl;
+    if (row < 0 || row > rows || col < 0 || col > cols) {
+        throw BarisKolomTidakSesuai();
     }
-}
-
-template<class T>
-void Inventory<T>::addItem(T item) {
-    for(int i=0; i<rows; i++){
-        for(int j=0; j<cols; j++){
-            if(contents[i][j]==nullptr){
-                contents[i][j]=item;
-                printf("Item ditambahkan di %d, %d\n", i,j);
-                neff++;
-                return;
-            }
-        }
+    if(contents[row][col]!= nullptr){
+        throw SlotTerisi();
     }
-    cout << "Penyimpanan penuh\n";
+    contents[row][col] = item;
+    neff++;
 }
-
-
 
 template<class T>
 void Inventory<T>::deleteItem(T item) {
@@ -118,4 +100,18 @@ T& Inventory<T>::operator()(int i, int j) {
         throw BarisKolomTidakSesuai();
     }
     return contents[i][j];
+}
+
+template<class T>
+Inventory<T>& Inventory<T>::operator+(const T& item) {
+    for(int i=0; i<rows; i++){
+        for(int j=0; j<cols; j++){
+            if(contents[i][j]==nullptr){
+                contents[i][j]=item;
+                neff++;
+                return *this;
+            }
+        }
+    }
+    throw PenyimpananPenuh();
 }
