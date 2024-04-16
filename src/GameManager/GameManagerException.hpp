@@ -18,5 +18,12 @@ class MasukkanSalah : public GameManagerException {
         }
 };
 
+class InvalidFileLoc : public GameManagerException {
+    public :
+        string what() override{
+            return "Lokasi Berkas tidak valid!\n";
+        }
+};
+
 
 #endif

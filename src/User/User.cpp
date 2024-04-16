@@ -14,7 +14,6 @@ User::User(std::string username, pair<int,int> invSize): penyimpanan(invSize.fir
 }
 
 bool User::operator==(User& other){
-    cout << "Kiri: " << username << " Kanan: " << other.getNama();
     return (this->username==other.getNama());
 }
 

@@ -136,7 +136,7 @@ void GameManager::bacaConfigMisc(string filename){
 void GameManager::bacaState(string filename){
     ifstream file(filename);
     if (!file.is_open()) {
-        std::cerr << "Failed to open file." << std::endl;
+        throw InvalidFileLoc();
         return;
     }
     int jumlahPlayer;
@@ -264,7 +264,7 @@ void GameManager::bacaState(string filename){
 void GameManager::simpan(string fileloc){
     ofstream file(fileloc);
     if (!file.is_open()) {
-        std::cerr << "Lokasi berkas tidak valid\n ";
+        throw InvalidFileLoc();
         return;
     }
     file.clear();
