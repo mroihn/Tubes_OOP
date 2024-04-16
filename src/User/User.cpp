@@ -1,6 +1,7 @@
 #include "User.hpp"
 #include <limits>
 #include <stdexcept>
+#include <cmath>
 
 using namespace std;
 
@@ -469,7 +470,7 @@ double Petani::pungutpajak(){
     else{
         percent = 0.35;
     } 
-    int pajak = KKP * percent;
+    int pajak = round(KKP * percent);
 
     if (KKP <= 0){
         return 0.0;
@@ -1176,7 +1177,7 @@ double Peternak::pungutpajak(){
     else{
         percent = 0.35;
     } 
-    int pajak = KKP * percent;
+    int pajak = round(KKP * percent);
     if (KKP <= 0){
         return 0.0;
     }
