@@ -419,11 +419,11 @@ void GameManager :: play(){
                     }
                 }
 
-                if(pilihan == "CETAK_PENYIMPANAN"){
+                else if(pilihan == "CETAK_PENYIMPANAN"){
                     it->second->cetak_penyimpanan();
                 }
 
-                if(pilihan == "PUNGUT_PAJAK"){
+                else if(pilihan == "PUNGUT_PAJAK"){
                     if(Walikota* p = dynamic_cast<Walikota*>(it->second)){
                         p->tagihPajak(ListUser);
                     }else{
@@ -431,7 +431,7 @@ void GameManager :: play(){
                     }
                 }
 
-                if(pilihan == "CETAK_LADANG"){
+                else if(pilihan == "CETAK_LADANG"){
                     if(Petani* p = dynamic_cast<Petani*>(it->second)){
                         p->cetakLadang();
                     }else{
@@ -439,7 +439,7 @@ void GameManager :: play(){
                     }
                 }
 
-                if(pilihan == "CETAK_PETERNAKAN"){
+                else if(pilihan == "CETAK_PETERNAKAN"){
                     if(Peternak* p = dynamic_cast<Peternak*>(it->second)){
                         p->cetakPeternakan();
                     }else{
@@ -447,7 +447,7 @@ void GameManager :: play(){
                     }
                 }
 
-                if(pilihan == "TANAM"){
+                else if(pilihan == "TANAM"){
                     if(Petani* p = dynamic_cast<Petani*>(it->second)){
                         p->tanamTanaman();
                     }else{
@@ -455,7 +455,7 @@ void GameManager :: play(){
                     }
                 }
 
-                if(pilihan == "TERNAK"){
+                else if(pilihan == "TERNAK"){
                     if(Peternak* p = dynamic_cast<Peternak*>(it->second)){
                         p->ternak();
                     }else{
@@ -463,7 +463,7 @@ void GameManager :: play(){
                     }
                 }
 
-                if(pilihan == "BANGUN"){
+                else if(pilihan == "BANGUN"){
                     if(Walikota* p = dynamic_cast<Walikota*>(it->second)){
                         p->tambahBangunan();
                     }else{
@@ -471,11 +471,11 @@ void GameManager :: play(){
                     }
                 }
 
-                if(pilihan == "MAKAN"){
+                else if(pilihan == "MAKAN"){
                     it->second->makan();
                 }
 
-                if(pilihan == "KASIH_MAKAN"){
+                else if(pilihan == "KASIH_MAKAN"){
                     if(Peternak* p = dynamic_cast<Peternak*>(it->second)){
                         p->kasihMakan();
                     }else{
@@ -483,15 +483,15 @@ void GameManager :: play(){
                     }
                 }
 
-                if(pilihan == "BELI"){
+                else if(pilihan == "BELI"){
                     toko.beli(it->second);
                 }
 
-                if(pilihan == "JUAL"){
+                else if(pilihan == "JUAL"){
                     toko.jual(it->second);
                 }
 
-                if(pilihan == "PANEN"){
+                else if(pilihan == "PANEN"){
                     if(Petani* p = dynamic_cast<Petani*>(it->second)){
                         p->panenTanaman();
                     }
@@ -503,18 +503,18 @@ void GameManager :: play(){
                     }
                 }
 
-                if(pilihan == "MUAT"){
+                else if(pilihan == "MUAT"){
                     
                 }
 
-                if(pilihan == "SIMPAN"){
+                else if(pilihan == "SIMPAN"){
                     cout << "Masukkan lokasi berkas state : ";
                     string loc;
                     cin >> loc;
                     this->simpan(loc);
                 }
 
-                if(pilihan == "TAMBAH_PEMAIN"){
+                else if(pilihan == "TAMBAH_PEMAIN"){
                     if(Walikota* p = dynamic_cast<Walikota*>(it->second)){
                         User *pemain = p->tambahPemain(inventorySize, fieldSize, farmSize);
                         if(Petani* s = dynamic_cast<Petani*>(pemain)){
