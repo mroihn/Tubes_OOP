@@ -234,7 +234,6 @@ void Omnivore::makan(InvItems* Food){
         return;
     }
     throw ItemBukanMakanan();
-
 }
 
 vector<Product*> Omnivore::Panen(){

@@ -104,68 +104,43 @@ void User::makan() {
     cetak_penyimpanan();
     std::string slot;
     std::string subslot;
-    while (true) {
-        cout << "\nSlot: ";
-        cin >> slot;
-        subslot = slot.substr(1, 2);
-        int i = stoi(subslot) - 1;
-        int j = slot[0] - 'A';
+    cout << "\nSlot: ";
+    cin >> slot;
+    subslot = slot.substr(1, 2);
+    int i = stoi(subslot) - 1;
+    int j = slot[0] - 'A';
 
 
-        try {
-            // Melakukan penanganan exception
-            if (i >= penyimpanan.getRows() || j >= penyimpanan.getCols() || i < 0 || j < 0) {
-                throw BarisKolomTidakSesuai();
-            }
+    try {
+        // Melakukan penanganan exception
+        if (i >= penyimpanan.getRows() || j >= penyimpanan.getCols() || i < 0 || j < 0) {
+            throw BarisKolomTidakSesuai();
+        }
 
-            if (penyimpanan(i, j) == nullptr) {
-                throw HarapanKosong();
-            }
+        if (penyimpanan(i, j) == nullptr) {
+            throw HarapanKosong();
+        }
 
-            // Menambah berat badan jika item di slot adalah makanan
-            InvItems* item = penyimpanan(i, j);
-            if (item->isProduct()) {
-                Product* productItem = dynamic_cast<Product*>(item);
-                if (productItem != nullptr) {
-                    // Melakukan pengecekan tipe produk
-                    Fruit* fruitItem = dynamic_cast<Fruit*>(productItem);
-                    Meat* meatItem = dynamic_cast<Meat*>(productItem);
-                    Material* materialItem = dynamic_cast<Material*>(productItem);
-
-                    // Cek tipe produk dan lakukan penanganan sesuai
-                    if (fruitItem != nullptr) {
-                        berat_badan += fruitItem->getAddedWeight();
-                        cout << "Dengan lahapnya, kamu memakan hidangan itu." << endl;
-                        cout << "Alhasil, berat badan kamu naik menjadi " << berat_badan << endl;
-                        penyimpanan(i, j) = nullptr;
-                        break;
-                    } else if (meatItem != nullptr) {
-                        berat_badan += meatItem->getAddedWeight();
-                        cout << "Dengan lahapnya, kamu memakan hidangan itu." << endl;
-                        cout << "Alhasil, berat badan kamu naik menjadi " << berat_badan << endl;
-                        penyimpanan(i, j) = nullptr;
-                        break;
-                    } else if (materialItem != nullptr) {
-                        throw BukanMakanan();
-                    }
-
-                    // Memanggil metode getAddedWeight() dari objek yang telah di-downcast
-                    berat_badan += productItem->getAddedWeight();
-                    cout << "Dengan lahapnya, kamu memakan hidangan itu." << endl;
-                    cout << "Alhasil, berat badan kamu naik menjadi " << berat_badan << endl;
-                    delete penyimpanan(i, j);
-                    break;
-                } 
-            } else {
+        // Menambah berat badan jika item di slot adalah makanan
+        InvItems* item = penyimpanan(i, j);
+        if(Product* makanan = dynamic_cast<Product*>(item)){
+            if(Material* makanan = dynamic_cast<Material*>(item)){
                 throw BukanMakanan();
             }
-        } catch (BarisKolomTidakSesuai &e) {
-            cout << e.what() << endl;
-        } catch (HarapanKosong &e) {
-            cout << e.what() << endl;
-        } catch (BukanMakanan &e) {
-            cout << e.what() << endl;
+            berat_badan+=makanan->getAddedWeight();
+            cout << "Dengan lahapnya, kamu memakan hidangan itu." << endl;
+            cout << "Alhasil, berat badan kamu naik menjadi " << berat_badan << endl;
+            penyimpanan(i, j) = nullptr;
+            penyimpanan.decNeff();
+            return;
         }
+        throw BukanMakanan();
+    } catch (BarisKolomTidakSesuai &e) {
+        cout << e.what() << endl;
+    } catch (HarapanKosong &e) {
+        cout << e.what() << endl;
+    } catch (BukanMakanan &e) {
+        cout << e.what() << endl;
     }
 }
 
@@ -1033,6 +1008,7 @@ void Peternak::kasihMakan()
                             string tipeId = typeid(*peternakan(x, y)).name();
                             tipe = tipeId.substr(1);
                             cout << "Anda memilih " << tipe << " untuk makan " << endl;
+                            Hewan* h = peternakan(x,y);
                             break;
                         }
                     } catch (PeternakanKosong &e){
@@ -1082,6 +1058,7 @@ void Peternak::kasihMakan()
                         string tipeIdItem = typeid(*item).name();
                         string tipeItem = tipeIdItem.substr(1);
                         cout << "Anda memilih " << tipeItem << " untuk diberikan kepada " << tipe << endl;
+
 
                         if(tipe == "Carnivore" && tipeItem != "Meat"){
                             throw MakananTidakCocokException();
