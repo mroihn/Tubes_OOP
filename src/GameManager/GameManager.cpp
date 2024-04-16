@@ -529,6 +529,10 @@ void GameManager :: play(){
                     }
                 }
 
+                else{
+                    throw MasukkanSalah();
+                }
+
                 if(isWin(it->second)){
                     cekMenang = true;
                 }

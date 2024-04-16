@@ -16,5 +16,12 @@ class RoleTidakSesuai : public GameManagerException {
         }
 };
 
+class MasukkanSalah : public GameManagerException {
+    public :
+        string what() override{
+            return "Masukkan tidak sesuai periksa lagi!\n";
+        }
+};
+
 
 #endif
