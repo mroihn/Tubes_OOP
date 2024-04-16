@@ -39,6 +39,25 @@ void InvItems::print(){
     cout << id << " " << kode_huruf << " " << nama << " " << price << endl;
 }
 
+bool Hewan::isMakanan(){
+    return false;
+}
+bool Tanaman::isMakanan(){
+    return false;
+}
+bool Building::isMakanan(){
+    return false;
+}
+bool Fruit::isMakanan(){
+    return true;
+}
+bool Meat::isMakanan(){
+    return true;
+}
+bool Material::isMakanan(){
+    return false;
+}
+
 //PRODUCT
 Product::Product(){}
 Product::Product(int id, string kode_huruf, string nama, string origin, int added_weight, int price): 
@@ -46,8 +65,14 @@ InvItems(id,kode_huruf,nama, price){
     this->origin = origin;
     this->added_weight = added_weight;
 }
-Product* Product::clone(){
-    return new Product(*this);
+Product* Meat::clone(){
+    return new Meat(*this);
+}
+Product* Fruit::clone(){
+    return new Fruit(*this);
+}
+Product* Material::clone(){
+    return new Material(*this);
 }
 
 void Product::print(){

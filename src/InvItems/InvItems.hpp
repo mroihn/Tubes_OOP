@@ -29,6 +29,7 @@ class InvItems{
         //memprint semua atribut objek
         virtual void print();
         virtual bool isProduct() const = 0;
+        virtual bool isMakanan() = 0;
 
 
 };
@@ -44,13 +45,14 @@ class Product: public InvItems{
     public:
         Product();
         Product(int id, string kode_huruf, string nama, string origin, int added_weight, int price);
-        Product* clone();
+        virtual Product* clone() = 0;
         void print();
         static void addListProduk(Product* p);
         static void printListProduk();
         static map<string, Product*>& getListProduk();
         int getAddedWeight();
         bool isProduct() const override;
+        bool isMakanan() = 0;
 };
 
 //Type : PRODUCT_MATERIAL_PLANT
@@ -59,6 +61,8 @@ class Material: public Product{
         Material();
         Material(int id, string kode_huruf, string nama, string origin, int added_weight, int price);
         void print();
+        bool isMakanan();
+        Product* clone();
 };
 
 //Type : PRODUCT_FRUIT_PLANT
@@ -67,6 +71,8 @@ class Fruit: public Product{
         Fruit();
         Fruit(int id, string kode_huruf, string nama, string origin, int added_weight, int price);
         void print();
+        bool isMakanan();
+        Product* clone();
 };
 
 //Type : PRODUCT_ANIMAL
@@ -75,6 +81,8 @@ class Meat: public Product{
         Meat();
         Meat(int id, string kode_huruf, string nama, string origin, int added_weight, int price);
         void print();
+        bool isMakanan();
+        Product* clone();
 };
 
 //<ID> <KODE_HURUF> <NAME> <TYPE> <WEIGHT_TO_HARVEST> <PRICE> <BERAT>
@@ -101,6 +109,7 @@ class Hewan: public InvItems{
         virtual void makan(InvItems* Food) = 0;
         bool siapPanen();
         bool isProduct() const override;
+        bool isMakanan();
 };
 
 class Herbivore: public Hewan{
@@ -159,6 +168,7 @@ class Tanaman: public InvItems{
         virtual void print();
         bool siapPanen();
         bool isProduct() const override;
+        bool isMakanan();
 };
 
 class Material_Plant: public Tanaman{
@@ -196,6 +206,7 @@ class Building: public InvItems{
         map<string, int> getRecipe() const;
         static void addlistBuilding(Building*h);
         static void printListBuilding();
+        bool isMakanan();
         Building* clone();
 };
 
