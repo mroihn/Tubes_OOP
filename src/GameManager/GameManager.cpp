@@ -30,10 +30,6 @@ void GameManager::bacaConfigHewan(string filename){
         }
     }
     file.close();
-    Hewan::printListHewan();
-    // for (auto hewan : animals) {
-    //     hewan.second->print();
-    // }
 }
 
 void GameManager::bacaConfigTanaman(string filename){
@@ -60,11 +56,6 @@ void GameManager::bacaConfigTanaman(string filename){
         }
     }
     file.close();
-    Tanaman::printListTanaman();
-    //test print to see if the config has been read
-    // for (auto& tanaman : ListTanaman) {
-    //     tanaman.second->print();
-    // }
 }
 
 void GameManager::bacaConfigProduk(string filename){
@@ -94,11 +85,6 @@ void GameManager::bacaConfigProduk(string filename){
         }
     }
     file.close();
-    Product::printListProduk();
-    //test print to see if the config has been read
-    // for (auto& produk : ListProduk) {
-    //     produk.second->print();
-    // }
 }
 
 void GameManager::bacaConfigRecipe(string filename){
@@ -127,11 +113,6 @@ void GameManager::bacaConfigRecipe(string filename){
         recipe.clear();
     }
     file.close();
-
-    //test print to see if the config has been read
-    // for (auto& building : ListBuilding) {
-    //     building.second->print();
-    // }
 }
 
 void GameManager::bacaConfigMisc(string filename){
@@ -421,8 +402,8 @@ void GameManager :: play(){
                     if(pilihan == "NEXT"){
                         map<std::string, User*>::iterator itr = ListUser.begin();
                         while(itr != ListUser.end()){
-                            if(Petani* p = dynamic_cast<Petani*>(itr->second)){
-                                p->tambahUmurTanaman();
+                            if(itr->second->isPetani()){
+                                itr->second->tambahUmurTanaman();
                             }
                             itr++;
                         }
@@ -433,51 +414,27 @@ void GameManager :: play(){
                     }
 
                     else if(pilihan == "PUNGUT_PAJAK"){
-                        if(Walikota* p = dynamic_cast<Walikota*>(it->second)){
-                            p->tagihPajak(ListUser);
-                        }else{
-                            throw RoleTidakSesuai();
-                        }
+                        it->second->tagihPajak(ListUser);
                     }
 
                     else if(pilihan == "CETAK_LADANG"){
-                        if(Petani* p = dynamic_cast<Petani*>(it->second)){
-                            p->cetakLadang();
-                        }else{
-                            throw RoleTidakSesuai();
-                        }
+                        it->second->cetakLadang();
                     }
 
                     else if(pilihan == "CETAK_PETERNAKAN"){
-                        if(Peternak* p = dynamic_cast<Peternak*>(it->second)){
-                            p->cetakPeternakan();
-                        }else{
-                            throw RoleTidakSesuai();
-                        }
+                        it->second->cetakPeternakan();
                     }
 
                     else if(pilihan == "TANAM"){
-                        if(Petani* p = dynamic_cast<Petani*>(it->second)){
-                            p->tanamTanaman();
-                        }else{
-                            throw RoleTidakSesuai();
-                        }
+                        it->second->tanamTanaman();
                     }
 
                     else if(pilihan == "TERNAK"){
-                        if(Peternak* p = dynamic_cast<Peternak*>(it->second)){
-                            p->ternak();
-                        }else{
-                            throw RoleTidakSesuai();
-                        }
+                        it->second->ternak();
                     }
 
                     else if(pilihan == "BANGUN"){
-                        if(Walikota* p = dynamic_cast<Walikota*>(it->second)){
-                            p->tambahBangunan();
-                        }else{
-                            throw RoleTidakSesuai();
-                        }
+                        it->second->tambahBangunan();
                     }
 
                     else if(pilihan == "MAKAN"){
@@ -485,11 +442,7 @@ void GameManager :: play(){
                     }
 
                     else if(pilihan == "KASIH_MAKAN"){
-                        if(Peternak* p = dynamic_cast<Peternak*>(it->second)){
-                            p->kasihMakan();
-                        }else{
-                            throw RoleTidakSesuai();
-                        }
+                        it->second->kasihMakan();
                     }
 
                     else if(pilihan == "BELI"){
@@ -501,15 +454,7 @@ void GameManager :: play(){
                     }
 
                     else if(pilihan == "PANEN"){
-                        if(Petani* p = dynamic_cast<Petani*>(it->second)){
-                            p->panenTanaman();
-                        }
-                        if(Peternak* p = dynamic_cast<Peternak*>(it->second)){
-                            p->panen();
-                        }
-                        else{
-                            throw RoleTidakSesuai();
-                        }
+                        it->second->panen();
                     }
 
                     else if(pilihan == "MUAT"){
@@ -524,8 +469,8 @@ void GameManager :: play(){
                     }
 
                     else if(pilihan == "TAMBAH_PEMAIN"){
-                        if(Walikota* p = dynamic_cast<Walikota*>(it->second)){
-                            User *pemain = p->tambahPemain(inventorySize, fieldSize, farmSize);
+                        if(it->second->isWalikota()){
+                            User *pemain = it->second->tambahPemain(inventorySize, fieldSize, farmSize);
                             if(Petani* s = dynamic_cast<Petani*>(pemain)){
                                 ListUser[s->getNama()] = s;
                             }

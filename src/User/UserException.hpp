@@ -65,6 +65,13 @@ class SlotKosong : public UserException {
         }
 };
 
+class RoleTidakSesuai : public UserException {
+    public :
+        string what() override{
+            return "Tidak dapat menjalankan command dengan role ini\n";
+        }
+};
+
 class LadangFull : public UserException {
     public:
         std::string what() override {
