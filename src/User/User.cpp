@@ -452,7 +452,25 @@ void Petani::tanamTanaman(){
 double Petani::pungutpajak(){
     KTKP = 13;
     int KKP = getNetoKekayaan()-KTKP;
-    int pajak = KKP * 0.5;
+    double percent;
+
+    if (KKP <= 6){
+        percent = 0.05;
+    }
+    if (KKP > 6 && KKP <= 25){
+        percent = 0.15;
+    }
+    if (KKP > 25 && KKP <= 50){
+        percent = 0.25;
+    }
+    if (KKP > 50 && KKP <= 500){
+        percent = 0.3;
+    }
+    else{
+        percent = 0.35;
+    } 
+    int pajak = KKP * percent;
+
     if (KKP <= 0){
         return 0.0;
     }
@@ -1141,7 +1159,24 @@ int Peternak::getNetoKekayaan(){
 double Peternak::pungutpajak(){
     KTKP = 11;
     int KKP = getNetoKekayaan()-KTKP;
-    int pajak = KKP * 0.5;
+    double percent;
+
+    if (KKP <= 6){
+        percent = 0.05;
+    }
+    if (KKP > 6 && KKP <= 25){
+        percent = 0.15;
+    }
+    if (KKP > 25 && KKP <= 50){
+        percent = 0.25;
+    }
+    if (KKP > 50 && KKP <= 500){
+        percent = 0.3;
+    }
+    else{
+        percent = 0.35;
+    } 
+    int pajak = KKP * percent;
     if (KKP <= 0){
         return 0.0;
     }
