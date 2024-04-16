@@ -124,8 +124,7 @@ void User::makan() {
         // Menambah berat badan jika item di slot adalah makanan
         InvItems* item = penyimpanan(i, j);
         if(item->isMakanan()){
-            Product* makanan = dynamic_cast<Product*>(item);
-            berat_badan+=makanan->getAddedWeight();
+            berat_badan+=item->getAddedWeight();
             cout << "Dengan lahapnya, kamu memakan hidangan itu." << endl;
             cout << "Alhasil, berat badan kamu naik menjadi " << berat_badan << endl;
             penyimpanan(i, j) = nullptr;
@@ -138,6 +137,8 @@ void User::makan() {
     } catch (HarapanKosong &e) {
         cout << e.what() << endl;
     } catch (BukanMakanan &e) {
+        cout << e.what() << endl;
+    }catch (InvItemsException& e){
         cout << e.what() << endl;
     }
 }
