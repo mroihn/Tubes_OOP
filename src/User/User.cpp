@@ -504,89 +504,95 @@ void Petani::setLadang(int i, int j, Tanaman* t){
     ladang(i,j) = t;
 }
 void Petani::tanamTanaman(){
-    if (ladang.isFull()){
-        throw LadangFull();
-    }
-    if(penyimpanan.isEmpty()){
-        throw PenyimpananKosong();
-    }
-    std::string slot;
-    std::string subslot;
-    Tanaman* temp;
-    while (true){
-        try{
-            cout << "Pilih Tanaman Dari Penyimpanan \n";
-            cetak_penyimpanan();
+    try{
+        if (ladang.isFull()){
+            throw LadangFull();
+        }
+        if(penyimpanan.isEmpty()){
+            throw PenyimpananKosong();
+        }
+        std::string slot;
+        std::string subslot;
+        Tanaman* temp;
+        while (true){
+            try{
+                cout << "Pilih Tanaman Dari Penyimpanan \n";
+                cetak_penyimpanan();
 
-            cout << "Slot: ";
-            cin >> slot;
-            subslot = slot.substr(1,3);
-            int y = slot[0] - 'A';
-            int x = stoi(subslot)-1;
+                cout << "Slot: ";
+                cin >> slot;
+                subslot = slot.substr(1,3);
+                int y = slot[0] - 'A';
+                int x = stoi(subslot)-1;
 
-            if (x>penyimpanan.getRows()-1 || y>penyimpanan.getCols()-1 || x<0 || y<0){
-                throw BarisKolomTidakSesuai();
+                if (x>penyimpanan.getRows()-1 || y>penyimpanan.getCols()-1 || x<0 || y<0){
+                    throw BarisKolomTidakSesuai();
+                }
+                else{
+                    if (penyimpanan(x,y)){
+                        if (dynamic_cast<Tanaman*>(penyimpanan(x,y))){
+                            temp = static_cast<Tanaman*>(penyimpanan(x,y));
+                            penyimpanan(x,y)=nullptr;
+                            penyimpanan.decNeff();
+                            break;
+                        }
+                        else{
+                            throw BukanTanaman();
+                        }
+                    }
+                    else{
+                        throw SlotKosong();
+                    }
+                }
+            }catch (UserException& e){
+                for (int i = 0; i < e.what().length(); ++i) {
+                print_red(e.what()[i]);
             }
-            else{
-                if (penyimpanan(x,y)){
-                    if (dynamic_cast<Tanaman*>(penyimpanan(x,y))){
-                        temp = static_cast<Tanaman*>(penyimpanan(x,y));
-                        penyimpanan(x,y)=nullptr;
-                        penyimpanan.decNeff();
+            cout << "\n";
+            }catch (InventoryException& e){
+                for (int i = 0; i < e.what().length(); ++i) {
+                    print_red(e.what()[i]);
+                }
+            cout << "\n";
+            }
+        }
+        while (true){
+            try{
+                cout << "\n\nPilih Pilih petak tanah yang akan ditanami \n";
+                cetakLadang();
+
+                cout << "Slot: ";
+                cin >> slot;
+                subslot = slot.substr(1,3);
+                int y = slot[0] - 'A';
+                int x = stoi(subslot)-1;
+                if (x>penyimpanan.getRows()-1 || y>penyimpanan.getCols()-1 || x<0 || y<0){
+                    throw BarisKolomTidakSesuai();
+                }
+                else{
+                    if (!ladang(x,y)){
+                        ladang.addItem(temp,x,y);
                         break;
                     }
                     else{
-                        throw BukanTanaman();
+                        throw SlotTerisi();
                     }
                 }
-                else{
-                    throw SlotKosong();
+            }catch (UserException& e){
+                for (int i = 0; i < e.what().length(); ++i) {
+                    print_red(e.what()[i]);
                 }
+                cout << "\n";
+            }catch (InventoryException& e){
+                for (int i = 0; i < e.what().length(); ++i) {
+                    print_red(e.what()[i]);
+                }
+                cout << "\n";
             }
-        }catch (UserException& e){
-            for (int i = 0; i < e.what().length(); ++i) {
-                print_red(e.what()[i]);
-            }
-            cout << "\n";
-        }catch (InventoryException& e){
-            for (int i = 0; i < e.what().length(); ++i) {
-                print_red(e.what()[i]);
-            }
-            cout << "\n";
         }
-    }
-    while (true){
-        try{
-            cout << "\n\nPilih Pilih petak tanah yang akan ditanami \n";
-            cetakLadang();
-
-            cout << "Slot: ";
-            cin >> slot;
-            subslot = slot.substr(1,3);
-            int y = slot[0] - 'A';
-            int x = stoi(subslot)-1;
-            if (x>penyimpanan.getRows()-1 || y>penyimpanan.getCols()-1 || x<0 || y<0){
-                throw BarisKolomTidakSesuai();
-            }
-            else{
-                if (!ladang(x,y)){
-                    ladang.addItem(temp,x,y);
-                    break;
-                }
-                else{
-                    throw SlotTerisi();
-                }
-            }
-        }catch (UserException& e){
-            for (int i = 0; i < e.what().length(); ++i) {
-                print_red(e.what()[i]);
-            }
-            cout << "\n";
-        }catch (InventoryException& e){
-            for (int i = 0; i < e.what().length(); ++i) {
-                print_red(e.what()[i]);
-            }
-            cout << "\n";
+    }catch (UserException& e){
+        for (int i = 0; i < e.what().length(); ++i) {
+        print_red(e.what()[i]);cout << "\n";
         }
     }
 }
@@ -951,25 +957,26 @@ Hewan* Peternak::getHewan(int i, int j){
     return nullptr;
 }
 void Peternak::ternak(){
-    if (peternakan.isFull()){
-        throw PeternakanFull();
-    }
-    if(penyimpanan.isEmpty()){
-        throw PenyimpananKosong();
-    }
-    std::string slot;
-    std::string subslot;
-    Hewan* temp;
-    while (true){
-        try{
-            cout << "Pilih Hewan Dari Penyimpanan \n";
-            cetak_penyimpanan();
+    try{
+        if (peternakan.isFull()){
+            throw PeternakanFull();
+        }
+        if(penyimpanan.isEmpty()){
+            throw PenyimpananKosong();
+        }
+        std::string slot;
+        std::string subslot;
+        Hewan* temp;
+        while (true){
+            try{
+                cout << "Pilih Hewan Dari Penyimpanan \n";
+                cetak_penyimpanan();
 
-            cout << "Slot: ";
-            cin >> slot;
-            subslot = slot.substr(1,3);
-            int y = slot[0] - 'A';
-            int x = stoi(subslot)-1;
+                cout << "Slot: ";
+                cin >> slot;
+                subslot = slot.substr(1,3);
+                int y = slot[0] - 'A';
+                int x = stoi(subslot)-1;
 
             if (x>penyimpanan.getRows()-1 || y>penyimpanan.getCols()-1 || x<0 || y<0){
                 throw BarisKolomTidakSesuai();
@@ -1006,34 +1013,41 @@ void Peternak::ternak(){
             cout << "\n\nPilih petak tanah yang akan menjadi lokasi ternak \n";
             cetakPeternakan();
 
-            cout << "Slot: ";
-            cin >> slot;
-            subslot = slot.substr(1,3);
-            int y = slot[0] - 'A';
-            int x = stoi(subslot)-1;
+                cout << "Slot: ";
+                cin >> slot;
+                subslot = slot.substr(1,3);
+                int y = slot[0] - 'A';
+                int x = stoi(subslot)-1;
 
-            if (x>peternakan.getRows()-1 || y>peternakan.getCols()-1 || x<0 || y<0){
-                throw BarisKolomTidakSesuai();
-            }
-            else{
-                if (!peternakan(x,y)){
-                    peternakan.addItem(temp,x,y);
-                    break;
+                if (x>peternakan.getRows()-1 || y>peternakan.getCols()-1 || x<0 || y<0){
+                    throw BarisKolomTidakSesuai();
                 }
                 else{
-                    throw SlotTerisi();
+                    if (!peternakan(x,y)){
+                        peternakan.addItem(temp,x,y);
+                        break;
+                    }
+                    else{
+                        throw SlotTerisi();
+                    }
                 }
+            }catch (UserException& e){
+                for (int i = 0; i < e.what().length(); ++i) {
+                    print_red(e.what()[i]);
+                }
+                cout << "\n";
+            }catch(InventoryException& e){
+                for (int i = 0; i < e.what().length(); ++i) {
+                    print_red(e.what()[i]);
+                }
+                cout << "\n";
             }
-        }catch (UserException& e){
-            for (int i = 0; i < e.what().length(); ++i) {
-                print_red(e.what()[i]);
-            }
-        }catch (InventoryException& e){
-            for (int i = 0; i < e.what().length(); ++i) {
-                print_red(e.what()[i]);
-            }
-            cout << "\n";
         }
+    }catch (UserException& e){
+        for (int i = 0; i < e.what().length(); ++i) {
+            print_red(e.what()[i]);
+        }
+        cout << "\n";
     }
 }
 void Peternak::panen(){
