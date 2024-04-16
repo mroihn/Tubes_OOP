@@ -405,6 +405,11 @@ void Petani::tanamTanaman(){
                 print_red(e.what()[i]);
             }
             cout << "\n";
+        }catch (InventoryException& e){
+            for (int i = 0; i < e.what().length(); ++i) {
+                print_red(e.what()[i]);
+            }
+            cout << "\n";
         }
     }
     while (true){
@@ -430,6 +435,11 @@ void Petani::tanamTanaman(){
                 }
             }
         }catch (UserException& e){
+            for (int i = 0; i < e.what().length(); ++i) {
+                print_red(e.what()[i]);
+            }
+            cout << "\n";
+        }catch (InventoryException& e){
             for (int i = 0; i < e.what().length(); ++i) {
                 print_red(e.what()[i]);
             }
