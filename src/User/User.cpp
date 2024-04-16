@@ -990,6 +990,11 @@ void Peternak::ternak(){
             for (int i = 0; i < e.what().length(); ++i) {
                 print_red(e.what()[i]);
             }
+        }catch (InventoryException& e){
+            for (int i = 0; i < e.what().length(); ++i) {
+                print_red(e.what()[i]);
+            }
+            cout << "\n";
         }
     }
     while (true){
@@ -1019,6 +1024,11 @@ void Peternak::ternak(){
             for (int i = 0; i < e.what().length(); ++i) {
                 print_red(e.what()[i]);
             }
+        }catch (InventoryException& e){
+            for (int i = 0; i < e.what().length(); ++i) {
+                print_red(e.what()[i]);
+            }
+            cout << "\n";
         }
     }
 }

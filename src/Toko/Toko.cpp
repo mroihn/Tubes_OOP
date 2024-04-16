@@ -117,16 +117,15 @@ void Toko :: beli(User* pembeli){
         cout << "Barang ingin dibeli : ";
         int pilihanBarang;
         cin >> pilihanBarang;
+        if(pilihanBarang > ListBarang.size() || pilihanBarang < 1){
+            throw PilihanBarangTidakAda();
+        }
         bool cek = false;
         int kuantitas;
         cout << "kuantitas : ";
         cin >> kuantitas;
         if(kuantitas> pembeli->sisaPenyimpanan()){
             throw SlotPembeliTidakCukup();
-        }
-
-        if(pilihanBarang > ListBarang.size() || pilihanBarang < 1){
-            throw PilihanBarangTidakAda();
         }
 
         string namaBarang = ListBarang[pilihanBarang - 1]->getNama();
@@ -173,7 +172,9 @@ void Toko :: beli(User* pembeli){
         cout << "Selamat Anda berhasil membeli " << kuantitas << " " << namaBarang << ". Uang Anda tersisa " << pembeli->getUang() << " gulden." << endl;
 
     }catch(TokoException& e){
-        cout << e.what() << '\n';
+        for (int i = 0; i < e.what().length(); ++i) {
+            print_red(e.what()[i]);
+        }
     }
 }
 
