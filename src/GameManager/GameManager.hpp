@@ -38,7 +38,7 @@ class GameManager{
         void simpan(string fileloc);
         void printLogo();
         void play();
-        bool isWin(User* pemain);
+        bool isWin(map<string,User*> ListUser);
         void cetakPemenang();
         void cetakCommand();
 };

@@ -361,11 +361,15 @@ void GameManager :: printLogo(){
     cout<<"\n";
 }
 
-bool GameManager :: isWin(User* pemain){
-    if(pemain->getBerat() >= max_berat && pemain->getUang() >= max_uang){
-        Pemenang = pemain;
-        return true;
-    }
+bool GameManager :: isWin(map<string,User*> ListUser){
+    map<std::string, User*>::iterator itr = ListUser.begin();
+     while(itr != ListUser.end()){
+        if(itr->second->getBerat() >= max_berat && itr->second->getUang() >= max_uang){
+            Pemenang = itr->second;
+            return true;
+        }
+        itr++;
+     }
     return false;
 }
 
@@ -398,144 +402,150 @@ void GameManager :: play(){
     cekMenang = false;
     map<std::string, User*>::iterator it = ListUser.begin();
     while (!cekMenang){
-        cout << "\nGiliran " << it->first << " untuk bermain!\n";
+        cout << "\nGiliran " << it->first<< " untuk bermain!\n";
 
         string pilihan;
         while(pilihan != "NEXT" && !cekMenang){
             try{
                 
-                cout << "\nUang : " << it->second->getUang() << " Berat : " << it->second->getBerat() << endl;
-                print_green('>');
-                cout << " ";
-                cin >> pilihan;
-
-                if(pilihan == "NEXT"){
-                    map<std::string, User*>::iterator itr = ListUser.begin();
-                    while(itr != ListUser.end()){
-                        if(Petani* p = dynamic_cast<Petani*>(itr->second)){
-                            p->tambahUmurTanaman();
-                        }
-                        itr++;
-                    }
-                }
-
-                else if(pilihan == "CETAK_PENYIMPANAN"){
-                    it->second->cetak_penyimpanan();
-                }
-
-                else if(pilihan == "PUNGUT_PAJAK"){
-                    if(Walikota* p = dynamic_cast<Walikota*>(it->second)){
-                        p->tagihPajak(ListUser);
-                    }else{
-                        throw RoleTidakSesuai();
-                    }
-                }
-
-                else if(pilihan == "CETAK_LADANG"){
-                    if(Petani* p = dynamic_cast<Petani*>(it->second)){
-                        p->cetakLadang();
-                    }else{
-                        throw RoleTidakSesuai();
-                    }
-                }
-
-                else if(pilihan == "CETAK_PETERNAKAN"){
-                    if(Peternak* p = dynamic_cast<Peternak*>(it->second)){
-                        p->cetakPeternakan();
-                    }else{
-                        throw RoleTidakSesuai();
-                    }
-                }
-
-                else if(pilihan == "TANAM"){
-                    if(Petani* p = dynamic_cast<Petani*>(it->second)){
-                        p->tanamTanaman();
-                    }else{
-                        throw RoleTidakSesuai();
-                    }
-                }
-
-                else if(pilihan == "TERNAK"){
-                    if(Peternak* p = dynamic_cast<Peternak*>(it->second)){
-                        p->ternak();
-                    }else{
-                        throw RoleTidakSesuai();
-                    }
-                }
-
-                else if(pilihan == "BANGUN"){
-                    if(Walikota* p = dynamic_cast<Walikota*>(it->second)){
-                        p->tambahBangunan();
-                    }else{
-                        throw RoleTidakSesuai();
-                    }
-                }
-
-                else if(pilihan == "MAKAN"){
-                    it->second->makan();
-                }
-
-                else if(pilihan == "KASIH_MAKAN"){
-                    if(Peternak* p = dynamic_cast<Peternak*>(it->second)){
-                        p->kasihMakan();
-                    }else{
-                        throw RoleTidakSesuai();
-                    }
-                }
-
-                else if(pilihan == "BELI"){
-                    toko.beli(it->second);
-                }
-
-                else if(pilihan == "JUAL"){
-                    toko.jual(it->second);
-                }
-
-                else if(pilihan == "PANEN"){
-                    if(Petani* p = dynamic_cast<Petani*>(it->second)){
-                        p->panenTanaman();
-                    }
-                    if(Peternak* p = dynamic_cast<Peternak*>(it->second)){
-                        p->panen();
-                    }
-                    else{
-                        throw RoleTidakSesuai();
-                    }
-                }
-
-                else if(pilihan == "MUAT"){
-                    
-                }
-
-                else if(pilihan == "SIMPAN"){
-                    cout << "Masukkan lokasi berkas state : ";
-                    string loc;
-                    cin >> loc;
-                    this->simpan(loc);
-                }
-
-                else if(pilihan == "TAMBAH_PEMAIN"){
-                    if(Walikota* p = dynamic_cast<Walikota*>(it->second)){
-                        User *pemain = p->tambahPemain(inventorySize, fieldSize, farmSize);
-                        if(Petani* s = dynamic_cast<Petani*>(pemain)){
-                            ListUser[s->getNama()] = s;
-                        }
-                        if(Peternak* t = dynamic_cast<Peternak*>(pemain)){
-                            ListUser[t->getNama()] = t;
-                        }
-
-                    }else{
-                        throw RoleTidakSesuai();
-                    }
-                }
-
-                else{
-                    throw MasukkanSalah();
-                }
-
-                if(isWin(it->second)){
+                if(isWin(ListUser)){
                     cekMenang = true;
                 }
+                
+                else{
+                    cout << "\nUang : " << it->second->getUang() << " Berat : " << it->second->getBerat() << endl;
+                    print_green('>');
+                    cout << " ";
+                    cin >> pilihan;
+
+                    if(pilihan == "NEXT"){
+                        map<std::string, User*>::iterator itr = ListUser.begin();
+                        while(itr != ListUser.end()){
+                            if(Petani* p = dynamic_cast<Petani*>(itr->second)){
+                                p->tambahUmurTanaman();
+                            }
+                            itr++;
+                        }
+                    }
+
+                    else if(pilihan == "CETAK_PENYIMPANAN"){
+                        it->second->cetak_penyimpanan();
+                    }
+
+                    else if(pilihan == "PUNGUT_PAJAK"){
+                        if(Walikota* p = dynamic_cast<Walikota*>(it->second)){
+                            p->tagihPajak(ListUser);
+                        }else{
+                            throw RoleTidakSesuai();
+                        }
+                    }
+
+                    else if(pilihan == "CETAK_LADANG"){
+                        if(Petani* p = dynamic_cast<Petani*>(it->second)){
+                            p->cetakLadang();
+                        }else{
+                            throw RoleTidakSesuai();
+                        }
+                    }
+
+                    else if(pilihan == "CETAK_PETERNAKAN"){
+                        if(Peternak* p = dynamic_cast<Peternak*>(it->second)){
+                            p->cetakPeternakan();
+                        }else{
+                            throw RoleTidakSesuai();
+                        }
+                    }
+
+                    else if(pilihan == "TANAM"){
+                        if(Petani* p = dynamic_cast<Petani*>(it->second)){
+                            p->tanamTanaman();
+                        }else{
+                            throw RoleTidakSesuai();
+                        }
+                    }
+
+                    else if(pilihan == "TERNAK"){
+                        if(Peternak* p = dynamic_cast<Peternak*>(it->second)){
+                            p->ternak();
+                        }else{
+                            throw RoleTidakSesuai();
+                        }
+                    }
+
+                    else if(pilihan == "BANGUN"){
+                        if(Walikota* p = dynamic_cast<Walikota*>(it->second)){
+                            p->tambahBangunan();
+                        }else{
+                            throw RoleTidakSesuai();
+                        }
+                    }
+
+                    else if(pilihan == "MAKAN"){
+                        it->second->makan();
+                    }
+
+                    else if(pilihan == "KASIH_MAKAN"){
+                        if(Peternak* p = dynamic_cast<Peternak*>(it->second)){
+                            p->kasihMakan();
+                        }else{
+                            throw RoleTidakSesuai();
+                        }
+                    }
+
+                    else if(pilihan == "BELI"){
+                        toko.beli(it->second);
+                    }
+
+                    else if(pilihan == "JUAL"){
+                        toko.jual(it->second);
+                    }
+
+                    else if(pilihan == "PANEN"){
+                        if(Petani* p = dynamic_cast<Petani*>(it->second)){
+                            p->panenTanaman();
+                        }
+                        if(Peternak* p = dynamic_cast<Peternak*>(it->second)){
+                            p->panen();
+                        }
+                        else{
+                            throw RoleTidakSesuai();
+                        }
+                    }
+
+                    else if(pilihan == "MUAT"){
+                        
+                    }
+
+                    else if(pilihan == "SIMPAN"){
+                        cout << "Masukkan lokasi berkas state : ";
+                        string loc;
+                        cin >> loc;
+                        this->simpan(loc);
+                    }
+
+                    else if(pilihan == "TAMBAH_PEMAIN"){
+                        if(Walikota* p = dynamic_cast<Walikota*>(it->second)){
+                            User *pemain = p->tambahPemain(inventorySize, fieldSize, farmSize);
+                            if(Petani* s = dynamic_cast<Petani*>(pemain)){
+                                ListUser[s->getNama()] = s;
+                            }
+                            if(Peternak* t = dynamic_cast<Peternak*>(pemain)){
+                                ListUser[t->getNama()] = t;
+                            }
+
+                        }else{
+                            throw RoleTidakSesuai();
+                        }
+                    }
+
+                    else{
+                        throw MasukkanSalah();
+                    }
+                }
+
+                // if(isWin(it->second)){
+                //     cekMenang = true;
+                // }
 
             }catch(GameManagerException& e){
                 cout << e.what() << endl;
