@@ -137,13 +137,13 @@ void User::makan() {
                         berat_badan += fruitItem->getAddedWeight();
                         cout << "Dengan lahapnya, kamu memakan hidangan itu." << endl;
                         cout << "Alhasil, berat badan kamu naik menjadi " << berat_badan << endl;
-                        delete penyimpanan(i, j);
+                        penyimpanan(i, j) = nullptr;
                         break;
                     } else if (meatItem != nullptr) {
                         berat_badan += meatItem->getAddedWeight();
                         cout << "Dengan lahapnya, kamu memakan hidangan itu." << endl;
                         cout << "Alhasil, berat badan kamu naik menjadi " << berat_badan << endl;
-                        delete penyimpanan(i, j);
+                        penyimpanan(i, j) = nullptr;
                         break;
                     } else if (materialItem != nullptr) {
                         throw BukanMakanan();
