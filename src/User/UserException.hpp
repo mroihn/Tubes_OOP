@@ -8,13 +8,6 @@ class UserException {
         virtual std::string what()=0; //pure virtual
 };
 
-class BarisKolomTidakSesuai : public UserException {
-    public :
-        std::string what() override{
-            return "Input baris dan kolom tidak sesuai dengan ukuran matriks penyimpanan\n";
-        }
-};
-
 class HewanSudahSiapPanen: public UserException {
     public :
         std::string what() override{
@@ -62,13 +55,6 @@ class BukanTanaman : public UserException {
     public:
         std::string what() override {
             return "Hanya Tanaman yang bisa ditanam!\n";
-        }
-};
-
-class SlotTerisi : public UserException {
-    public:
-        std::string what() override {
-            return "Slot Sudah Terisi. \nPilih slot lain\n";
         }
 };
 

@@ -7,13 +7,13 @@
 int main(){
     Inventory<InvItems*> inv(5,8);
 
-    Tanaman t(1,"TEK","TEAK_TREE", 15, 5);
+    Tanaman* t= new Fruit_Plant(1,"TEK","TEAK_TREE", 15, 5);
 
-    Hewan h(1,"COW","COW", 20, 6);
+    Hewan* h = new Carnivore(1,"COW","COW", 20, 6);
 
-    inv.addItem(&t, 0, 0);
+    inv+t;
 
-    inv.addItem(&h, 1, 1);
+    inv+h;
 
     // di koordinat 0,0 which is nyimpen tanaman t, kita tes bisakah akses fungsi parent yakni getKode()
     // ya, bisa

@@ -25,7 +25,6 @@ public:
     ~Inventory();
 
     void addItem(T item, int row, int col);
-    void addItem(T item);
 
     void deleteItem(T item);
 
@@ -47,6 +46,8 @@ public:
     bool isFull();
 
     T& operator()(int i, int j);
+
+    Inventory<T>& operator+(const T& item);
 };
 
 #endif

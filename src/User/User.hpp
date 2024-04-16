@@ -36,7 +36,6 @@ class User{
         void setPenyimpanan(int i, int j, InvItems* item);
 
         void setPenyimpanan( InvItems* item);
-        //virtual void cetakPeternakan();
 
         virtual double pungutpajak() = 0;
 
