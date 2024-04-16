@@ -375,8 +375,11 @@ bool GameManager :: isWin(map<string,User*> ListUser){
 
 void GameManager :: cetakPemenang(){
     string nama = Pemenang->getNama();
-    printf("\n%s%s%s ", BLUE, "SELAMAT!!!", NORMAL);
-    cout << nama << " memenangkan permainan\n\n";
+    string s = "SELAMAT!!! " + nama + " memenangkan permainan";
+    for (int i = 0; i < s.length(); ++i) {
+        print_green(s[i]);
+    }
+    cout << "\n\n";
 }
 
 void GameManager :: cetakCommand(){
@@ -413,7 +416,8 @@ void GameManager :: play(){
                 }
                 
                 else{
-                    cout << "\nUang : " << it->second->getUang() << " Berat : " << it->second->getBerat() << endl;
+                    cout << "\nUntuk menang diperlukan uang >= " << max_uang << " dan berat >= " << max_berat << endl;
+                    cout << "Uang : " << it->second->getUang() << " Berat : " << it->second->getBerat() << endl;
                     print_green('>');
                     cout << " ";
                     cin >> pilihan;
@@ -548,9 +552,13 @@ void GameManager :: play(){
                 // }
 
             }catch(GameManagerException& e){
-                cout << e.what() << endl;
+                for (int i = 0; i < e.what().length(); ++i) {
+                    print_red(e.what()[i]);
+                }
             }catch(UserException& e){
-                cout << e.what() << endl;
+                for (int i = 0; i < e.what().length(); ++i) {
+                    print_red(e.what()[i]);
+                }
             }
 
         }

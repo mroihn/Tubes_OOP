@@ -133,13 +133,21 @@ void User::makan() {
         }
         throw BukanMakanan();
     } catch (BarisKolomTidakSesuai &e) {
-        cout << e.what() << endl;
+        for (int i = 0; i < e.what().length(); ++i) {
+            print_red(e.what()[i]);
+        }
     } catch (HarapanKosong &e) {
-        cout << e.what() << endl;
+        for (int i = 0; i < e.what().length(); ++i) {
+            print_red(e.what()[i]);
+        }
     } catch (BukanMakanan &e) {
-        cout << e.what() << endl;
+        for (int i = 0; i < e.what().length(); ++i) {
+            print_red(e.what()[i]);
+        }
     }catch (InvItemsException& e){
-        cout << e.what() << endl;
+        for (int i = 0; i < e.what().length(); ++i) {
+            print_red(e.what()[i]);
+        }
     }
 }
 
@@ -393,7 +401,10 @@ void Petani::tanamTanaman(){
                 }
             }
         }catch (UserException& e){
-            cout << e.what() << '\n';
+            for (int i = 0; i < e.what().length(); ++i) {
+                print_red(e.what()[i]);
+            }
+            cout << "\n";
         }
     }
     while (true){
@@ -419,7 +430,10 @@ void Petani::tanamTanaman(){
                 }
             }
         }catch (UserException& e){
-            cout << e.what() << '\n';
+            for (int i = 0; i < e.what().length(); ++i) {
+                print_red(e.what()[i]);
+            }
+            cout << "\n";
         }
     }
 }
@@ -599,9 +613,13 @@ void Petani::panenTanaman(){
 
         
     }catch(UserException& e){
-        cout << e.what() << endl;
+        for (int i = 0; i < e.what().length(); ++i) {
+            print_red(e.what()[i]);
+        }
     }catch(InventoryException& e){
-        cout << e.what() << endl;
+        for (int i = 0; i < e.what().length(); ++i) {
+            print_red(e.what()[i]);
+        }
     }
 }
 void Petani::cetakLadang(){
@@ -820,7 +838,9 @@ void Peternak::ternak(){
                 }
             }
         }catch (UserException& e){
-            cout << e.what() << '\n';
+            for (int i = 0; i < e.what().length(); ++i) {
+                print_red(e.what()[i]);
+            }
         }
     }
     while (true){
@@ -847,7 +867,9 @@ void Peternak::ternak(){
                 }
             }
         }catch (UserException& e){
-            cout << e.what() << '\n';
+            for (int i = 0; i < e.what().length(); ++i) {
+                print_red(e.what()[i]);
+            }
         }
     }
 }
@@ -954,9 +976,13 @@ void Peternak::panen(){
 
         
     }catch(UserException& e){
-        cout << e.what() << endl;
+        for (int i = 0; i < e.what().length(); ++i) {
+            print_red(e.what()[i]);
+        }
     }catch(InventoryException& e){
-        cout << e.what() << endl;
+        for (int i = 0; i < e.what().length(); ++i) {
+            print_red(e.what()[i]);
+        }
     }
 }
 
@@ -1015,16 +1041,26 @@ void Peternak::kasihMakan()
                             break;
                         }
                     } catch (PeternakanKosong &e){
-                        cout << e.what() << endl;
+                        for (int i = 0; i < e.what().length(); ++i) {
+                            print_red(e.what()[i]);
+                        }
                         return;
                     } catch (BarisKolomTidakSesuai &e) {
-                        cout << e.what() << endl;
+                        for (int i = 0; i < e.what().length(); ++i) {
+                            print_red(e.what()[i]);
+                        }
                     } catch (BukanHewan &e) {
-                        cout << e.what() << endl;
+                        for (int i = 0; i < e.what().length(); ++i) {
+                            print_red(e.what()[i]);
+                        }
                     } catch (HewanSudahSiapPanen &e) {
-                        cout << e.what() << endl;
+                        for (int i = 0; i < e.what().length(); ++i) {
+                            print_red(e.what()[i]);
+                        }
                     } catch (PenyimpananKosong &e) {
-                        cout << e.what() << endl;
+                        for (int i = 0; i < e.what().length(); ++i) {
+                            print_red(e.what()[i]);
+                        }
                         return;
                     } catch (exception& e) {
                         cout << "Kesalahan di luar ketentuan: " << e.what() << endl;
@@ -1085,11 +1121,17 @@ void Peternak::kasihMakan()
                         }
                     }
                 } catch (BarisKolomTidakSesuai &e) {
-                    cout << e.what() << endl;
+                    for (int i = 0; i < e.what().length(); ++i) {
+                        print_red(e.what()[i]);
+                    }
                 } catch (HarapanKosong &e) {
-                    cout << e.what() << endl;
+                    for (int i = 0; i < e.what().length(); ++i) {
+                        print_red(e.what()[i]);
+                    }
                 } catch (MakananTidakCocokException &e) {
-                    cout << e.what() << endl;
+                    for (int i = 0; i < e.what().length(); ++i) {
+                        print_red(e.what()[i]);
+                    }
                 } catch (exception& e) {
                     cout << "Kesalahan di luar ketentuan: " << e.what() << endl;
                 }
@@ -1099,11 +1141,15 @@ void Peternak::kasihMakan()
 
     catch (PenyimpananKosong &e)
     {
-        cout << e.what() << endl;
+        for (int i = 0; i < e.what().length(); ++i) {
+            print_red(e.what()[i]);
+        }
     }
     catch (PeternakanKosong &e)
     {
-        cout << e.what() << endl;
+        for (int i = 0; i < e.what().length(); ++i) {
+            print_red(e.what()[i]);
+        }
     }
     catch (exception &e)
     {
